@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="460.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.politechnika.frontend.main_controller.MainController">
+  <children>
+    <Button id="PulsometerSearchButton" fx:id="pulsometerSearchButton" layoutX="513.0" layoutY="46.0" mnemonicParsing="false" text="Przeglądaj..." />
+    <Button id="KinectSearchButton" fx:id="kinectSearchButton" layoutX="513.0" layoutY="100.0" mnemonicParsing="false" text="Przeglądaj..." />
+    <Button id="GloveSearchButton" fx:id="gloveSearchButton" layoutX="513.0" layoutY="151.0" mnemonicParsing="false" text="Przeglądaj..." />
+    <TextField id="FilePathTextField" fx:id="pulsometerFilePathTextField" disable="true" editable="false" layoutX="177.0" layoutY="46.0" prefWidth="310.0" />
+    <TextField id="KinectFilePathTextField" fx:id="kinectFilePathTextField" disable="true" editable="false" layoutX="177.0" layoutY="100.0" opacity="1.0" prefWidth="310.0" />
+    <TextField id="GloveFilePathTextField" fx:id="gloveFilePathTextField" editable="false" layoutX="177.0" layoutY="150.0" prefWidth="310.0" />
+    <Label layoutX="30.0" layoutY="45.0" text="Dane z pulsometru" />
+    <Label layoutX="30.0" layoutY="99.0" text="Dane z Kinect" />
+    <Label layoutX="30.0" layoutY="152.0" text="Dane z rękawicy 5DT" />
+    <Separator layoutX="30.0" layoutY="188.0" prefWidth="566.0" />
+    <Button fx:id="destinationPathButton" layoutX="513.0" layoutY="219.0" mnemonicParsing="false" text="Przeglądaj..." />
+    <Label layoutX="30.0" layoutY="220.0" text="Folder docelowy" />
+    <TextField id="GloveFilePathTextField" fx:id="destinationFolderTextField" editable="false" layoutX="177.0" layoutY="218.0" prefWidth="310.0" />
+    <Label layoutX="30.0" layoutY="251.0" text="Okres czasu (milisekundy)" />
+    <TextField id="GloveFilePathTextField" fx:id="millisTextField" editable="true" layoutX="177.0" layoutY="251.0" prefWidth="73.0" promptText="" text="1000" />
+    <Button fx:id="generateReport" layoutX="389.0" layoutY="252.0" mnemonicParsing="false" text="Generuj raport" />
+  </children>
+</AnchorPane>
