@@ -3,7 +3,7 @@ package org.politechnika.commons;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public final class NumberUtils {
+public final class NumberCommons {
 
     public static int tryGetIntValueFromString(String string) {
         try {

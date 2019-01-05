@@ -20,7 +20,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 import static java.util.Collections.unmodifiableList;
 import static org.politechnika.commons.Constants.MILLIS_IN_MINUTE;
-import static org.politechnika.commons.NumberUtils.tryGetIntValueFromString;
+import static org.politechnika.commons.NumberCommons.tryGetIntValueFromString;
 
 @Slf4j
 public class MainController implements Initializable {
@@ -66,8 +66,11 @@ public class MainController implements Initializable {
         generateReport.setOnAction(event -> {
             stopUi();
             List<AbstractDataFile> files = unmodifiableList(newArrayList(filesMap.values()));
-            actionController.generate(files, parseInt(millisTextField.getText()));
-            resumeUi();
+            try {
+                actionController.generate(files, parseInt(millisTextField.getText()));
+            } finally {
+                resumeUi();
+            }
         });
 
         //TODO: rest of button loading files
@@ -87,10 +90,6 @@ public class MainController implements Initializable {
         kinectSearchButton.setDisable(false);
         destinationPathButton.setDisable(false);
         generateReport.setDisable(false);
-    }
-
-    private void showErrorWindow() {
-        //TODO: show message after generating error occurrs
     }
 
 }
