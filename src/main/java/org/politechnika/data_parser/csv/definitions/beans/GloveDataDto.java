@@ -2,8 +2,7 @@ package org.politechnika.data_parser.csv.definitions.beans;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 import org.politechnika.data_parser.csv.definitions.DataDto;
 import org.politechnika.data_parser.csv.definitions.beans.field_definition.DoubleWithCommaConverter;
 import org.politechnika.data_parser.csv.definitions.beans.field_definition.GloveTimestampToInstantConverter;
@@ -12,6 +11,9 @@ import java.time.Instant;
 
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class GloveDataDto implements DataDto {
 
     //Hand|SensorNumber|Scale|Raw|Low|Up|TimeStamp
@@ -22,7 +24,7 @@ public class GloveDataDto implements DataDto {
     private String hand;
 
     @CsvBindByName(column = "SensorNumber")
-    private short sensorNumber;
+    private int sensorNumber;
 
     @CsvCustomBindByName(column = "Scale", converter = DoubleWithCommaConverter.class)
     private double scale; //scale = (raw-low)/(up-low)
