@@ -4,8 +4,11 @@ import org.politechnika.analysis.utils.ChartData;
 import org.politechnika.data_parser.csv.definitions.DataDto;
 
 import java.util.List;
+import java.util.function.ToDoubleFunction;
 
 public interface StatisticsAnalyzer<T extends DataDto> {
+
+    double getAverage(List<T> dtos, ToDoubleFunction<T> valueExtractor);
 
     List<T> averageDataInOneSensor(List<T> dtos);
 

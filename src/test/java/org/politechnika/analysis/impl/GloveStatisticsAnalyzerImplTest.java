@@ -2,16 +2,30 @@ package org.politechnika.analysis.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.politechnika.StaticTestResources;
 import org.politechnika.analysis.utils.ChartData;
+import org.politechnika.data_parser.csv.definitions.GloveParsingStrategy;
 import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
+import org.politechnika.data_parser.csv.impl.BeanCsvParser;
+import org.politechnika.file.model.AbstractDataFile;
 
+import java.io.FileNotFoundException;
+import java.io.StringReader;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
+@RunWith(MockitoJUnitRunner.class)
 public class GloveStatisticsAnalyzerImplTest {
 
     private static final double DELTA = 0.001;
+
+    @Mock
+    private AbstractDataFile file;
 
     GloveStatisticsAnalyzerImpl gloveStatisticsAnalyzer = new GloveStatisticsAnalyzerImpl();
 
@@ -34,6 +48,18 @@ public class GloveStatisticsAnalyzerImplTest {
     @Test
     public void calculateAllVarianceForLeftHand() {
         Assert.assertEquals(getExcpectedAllVariance(), gloveStatisticsAnalyzer.calculateAverageDataFromFingers(getExcpectedVarianceEvery1sec()));
+    }
+
+    @Test
+    public void shouldParseGenerics() throws FileNotFoundException {
+        Mockito.doReturn(new StringReader(StaticTestResources.GLOVE_TEST_DATA)).when(file).getReader();
+
+        BeanCsvParser beanCsvParser = new BeanCsvParser();
+        List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+
+        List<GloveDataDto> gloveDataDtos = gloveStatisticsAnalyzer.averageDataInOneSensor(gloveDataFiles);
+
+        gloveDataDtos.forEach(System.out::println);
     }
 
     private List<GloveDataDto> someExampleData() {

@@ -2,13 +2,13 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="460.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.politechnika.frontend.main_controller.MainController">
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="460.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.politechnika.frontend.main_controller.MainController">
   <children>
     <Button id="PulsometerSearchButton" fx:id="pulsometerSearchButton" layoutX="515.0" layoutY="77.0" mnemonicParsing="false" text="Przeglądaj..." />
     <Button id="KinectSearchButton" fx:id="kinectSearchButton" layoutX="515.0" layoutY="131.0" mnemonicParsing="false" text="Przeglądaj..." />
     <Button id="GloveSearchButton" fx:id="gloveSearchButton" layoutX="515.0" layoutY="182.0" mnemonicParsing="false" text="Przeglądaj..." />
-    <TextField id="FilePathTextField" fx:id="pulsometerFilePathTextField" disable="true" editable="false" layoutX="179.0" layoutY="77.0" prefWidth="310.0" />
-    <TextField id="KinectFilePathTextField" fx:id="kinectFilePathTextField" disable="true" editable="false" layoutX="179.0" layoutY="131.0" prefWidth="310.0" />
+    <TextField id="FilePathTextField" fx:id="pulsometerFilePathTextField" editable="false" layoutX="179.0" layoutY="77.0" prefWidth="310.0" />
+    <TextField id="KinectFilePathTextField" fx:id="kinectFilePathTextField" editable="false" layoutX="179.0" layoutY="131.0" prefWidth="310.0" />
     <TextField id="GloveFilePathTextField" fx:id="gloveFilePathTextField" editable="false" layoutX="179.0" layoutY="181.0" prefWidth="310.0" />
     <Label layoutX="32.0" layoutY="76.0" text="Dane z pulsometru" />
     <Label layoutX="32.0" layoutY="130.0" text="Dane z Kinect" />
@@ -16,7 +16,7 @@
     <Separator layoutX="32.0" layoutY="219.0" prefWidth="566.0" />
     <Button fx:id="destinationPathButton" layoutX="515.0" layoutY="250.0" mnemonicParsing="false" text="Przeglądaj..." />
     <Label layoutX="32.0" layoutY="251.0" text="Folder docelowy" />
-    <TextField id="GloveFilePathTextField" fx:id="destinationFolderTextField" editable="false" layoutX="179.0" layoutY="249.0" prefWidth="310.0" />
+    <TextField id="GloveFilePathTextField" fx:id="destinationFolderTextField" editable="false" layoutX="179.0" layoutY="249.0" prefWidth="310.0" text="D:\\diagramy" />
     <Label layoutX="32.0" layoutY="282.0" text="Okres czasu (milisekundy)" />
     <TextField id="GloveFilePathTextField" fx:id="millisTextField" editable="true" layoutX="179.0" layoutY="282.0" prefWidth="73.0" promptText="" text="1000" />
     <Button fx:id="generateReport" layoutX="391.0" layoutY="283.0" mnemonicParsing="false" text="Generuj raport" />

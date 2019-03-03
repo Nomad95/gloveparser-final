@@ -20,6 +20,11 @@ import static java.util.Objects.requireNonNull;
 public class GloveStatisticsAnalyzerImpl implements StatisticsAnalyzer<GloveDataDto> {
 
     @Override
+    public double getAverage(List<GloveDataDto> dtos, ToDoubleFunction<GloveDataDto> valueExtractor) {
+        return dtos.stream().mapToDouble(valueExtractor).average().orElse(0);
+    }
+
+    @Override
     public List<GloveDataDto> averageDataInOneSensor(List<GloveDataDto> dtos) {
         Map<GloveGrouper, List<GloveDataDto>> data = dtos.stream()
                 .collect(Collectors.groupingBy(dto ->
@@ -63,7 +68,8 @@ public class GloveStatisticsAnalyzerImpl implements StatisticsAnalyzer<GloveData
                 calculateAverageAndInsertData(index, chartData, v, 6, 7);
                 calculateAverageAndInsertData(index, chartData, v, 9, 10);
                 calculateAverageAndInsertData(index, chartData, v, 12, 13);
-                chartData.setTimeElem(index.getAndIncrement(), getTime(firstMove, k.getEpochSeconds()));
+                chartData.setTimeElem(index.get(), index.get());
+                index.incrementAndGet();
         });
         return chartData;
     }
