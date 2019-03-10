@@ -16,6 +16,7 @@ import static java.util.Objects.isNull;
  * Throws NullPointerException if cache is not initialized
  *
  * Remember to evict cache to save memory
+ * NOT THREAD SAFE
  */
 @Slf4j
 public class LoadingDataCache {

@@ -10,15 +10,16 @@ import org.politechnika.data_parser.csv.definitions.beans.field_definition.Glove
 import java.time.Instant;
 
 @Getter
+@Builder
+@NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class GloveDataDto implements DataDto {
 
+    //THREAD SAFE!!!
     //Hand|SensorNumber|Scale|Raw|Low|Up|TimeStamp
     //left|0|0,4166667|2847|2832|2868|2018-06-10-11-48-34-7705
-    //zmienna długość okresu//TODO: mzoe dodac checkboxy we froncie zeby wybierac ktorte wykresy ma dawac? xD
+    //TODO: zmienna długość okresu!!!
 
     @CsvBindByName(column = "Hand")
     private String hand;

@@ -7,7 +7,7 @@ import static org.politechnika.commons.Separators.TAB;
 
 @RequiredArgsConstructor
 @Getter
-public class FingerData {
+public class FingerStatistics {
 
     private final String description;
 
@@ -35,5 +35,17 @@ public class FingerData {
             case RING: ring = value; return;
             case LITTLE: little = value; return;
         }
+    }
+
+    public double getValueFor(Finger finger) {
+        switch (finger) {
+            case THUMB: return thumb;
+            case INDEX: return index;
+            case MIDDLE: return middle;
+            case RING:  return ring;
+            case LITTLE: return little;
+        }
+
+        throw new IllegalArgumentException("Could not find value for finger " + finger);
     }
 }

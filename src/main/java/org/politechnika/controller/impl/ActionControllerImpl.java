@@ -25,9 +25,10 @@ public class ActionControllerImpl implements ActionController {
     private void generateSingleReports(List<AbstractDataFile> files) {
         for (AbstractDataFile file : files) {
             Optional<ReportGenerator> maybeReportGenerator = reportGenerators.stream()
-                    .filter(generator -> generator.supports(file.getFileType())).findFirst();
+                    .filter(generator -> generator.supports(file.getFileType()))
+                    .findFirst();
             maybeReportGenerator.ifPresent(reportGenerator -> reportGenerator.generate(file));
-            //TODO: do we wanna stop all processing after one error?
+            //TODO: do we wanna stop all processing after one error or not?
         }
     }
 
