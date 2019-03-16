@@ -20,11 +20,11 @@
     <Label layoutX="32.0" layoutY="282.0" text="Okres czasu (milisekundy)" />
     <TextField id="GloveFilePathTextField" fx:id="millisTextField" editable="true" layoutX="179.0" layoutY="282.0" prefWidth="73.0" promptText="" text="1000" />
     <Button fx:id="generateReport" layoutX="391.0" layoutY="283.0" mnemonicParsing="false" text="Generuj raport" />
-    <MenuBar layoutX="3.0" layoutY="2.0">
+    <MenuBar fx:id="menuBar" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="620.0">
       <menus>
-        <Menu mnemonicParsing="false" text="Opcje">
+        <Menu fx:id="optionsMenu" mnemonicParsing="false" text="Opcje">
           <items>
-            <MenuItem mnemonicParsing="false" text="Ustawienia" />
+            <MenuItem fx:id="optionsMenuItem" mnemonicParsing="false" text="Ustawienia" />
           </items>
         </Menu>
       </menus>

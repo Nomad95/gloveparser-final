@@ -1,10 +1,15 @@
 package org.politechnika.frontend.main_controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
 import org.politechnika.controller.ActionController;
@@ -13,6 +18,7 @@ import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.file.model.concrete_file.GloveDataFile;
 import org.politechnika.report.impl.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -36,6 +42,7 @@ public class MainController implements Initializable {
     @FXML private TextField kinectFilePathTextField;
     @FXML private TextField destinationFolderTextField;
     @FXML private TextField millisTextField;
+    @FXML private MenuItem optionsMenuItem;
 
     private Map<String, AbstractDataFile> filesMap = new HashMap<>(3);
     private ActionController actionController = new ActionControllerImpl(
@@ -74,6 +81,20 @@ public class MainController implements Initializable {
         });
 
         //TODO: rest of button loading files
+
+        optionsMenuItem.setOnAction(event -> {
+            try {
+                URL resource = getClass().getResource("/fxml/optionsWindow.fxml");
+                Parent optionsWindow = FXMLLoader.load(resource);
+                Stage stage = new Stage();
+                stage.setTitle("Opcje");
+                stage.setScene(new Scene(optionsWindow, 450, 450));
+                stage.show();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void stopUi() {

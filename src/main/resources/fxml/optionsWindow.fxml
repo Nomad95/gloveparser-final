@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="185.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.politechnika.frontend.main_controller.OptionsController">
+  <children>
+    <Button id="GloveSearchButton" fx:id="engineSearchButton" layoutX="515.0" layoutY="45.0" mnemonicParsing="false" text="Przeglądaj..." />
+    <TextField id="GloveFilePathTextField" fx:id="matlabEnginePath" editable="false" layoutX="187.0" layoutY="44.0" prefWidth="310.0" />
+    <Label layoutX="14.0" layoutY="46.0" text="Ścieżka do MATLAB engine.jar" />
+    <Button fx:id="engineLoadButton" layoutX="458.0" layoutY="93.0" mnemonicParsing="false" prefWidth="140.0" text="Załaduj silnik MATLAB" />
+    <Label fx:id="engineStatusLabel" layoutX="397.0" layoutY="95.0" text="" />
+  </children>
+</AnchorPane>

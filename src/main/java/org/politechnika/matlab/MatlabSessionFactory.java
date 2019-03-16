@@ -29,13 +29,16 @@ public class MatlabSessionFactory {
     }
 
     public static void changeConnectorProvider(MatlabConnector connector) {
+        log.info("Changing matlab connector");
         if (isActive) {
             throw new IllegalStateException("Cannot change service provider while session is opened");
         }
         matlabConnector = connector;
+        log.info("Matlab connector was changed");
     }
 
     public static void closeMatlabSession() {
+        log.info("Closing existing matlab session");
         if (isActive) {
             try {
                 session.close();
@@ -43,6 +46,7 @@ public class MatlabSessionFactory {
                 log.error("Could not close the session");
             }
         }
+        log.info("Matlab session was closed");
     }
 
 }

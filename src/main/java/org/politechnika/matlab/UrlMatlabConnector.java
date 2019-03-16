@@ -24,20 +24,20 @@ public class UrlMatlabConnector implements MatlabConnector {
     @Override
     public MatlabEngine startSession() throws EngineException {
         try {
-            log.debug("Starting MatLab instance...");
+            log.info("Starting MatLab instance...");
             URL url = new File(requireNonNull(filePath)).toURI().toURL();
             URLClassLoader child = new URLClassLoader(new URL[]{url}, this.getClass().getClassLoader());
             Class<?> classToLoad = Class.forName("com.mathworks.engine.MatlabEngine", true, child);
             Method startMatlabMethod = classToLoad.getMethod("startMatlab");
             MatlabEngine session = (MatlabEngine) startMatlabMethod.invoke(null);
-            log.debug("done");
+            log.info("done");
             return session;
         } catch (MalformedURLException e) {
             log.error("Could not load engine.jar file", e);
         } catch (ClassNotFoundException e) {
             log.error("Could not find com.mathworks.engine.MatlabEngine in engine.jar file", e);
         } catch (NoSuchMethodException e) {
-            log.error("There is no method like 'startMatlab()'", e);
+            log.error("There is no method like 'startMatlab()' in engine.jar", e);
         } catch (IllegalAccessException | InvocationTargetException e) {
             log.error("Could not access startMatlab() method reflectively");
         } catch (Exception e) {
