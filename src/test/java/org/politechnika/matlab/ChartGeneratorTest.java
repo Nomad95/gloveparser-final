@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.politechnika.matlab.builders.MultiPlot;
 import org.politechnika.matlab.builders.Plot;
+import org.politechnika.matlab.builders.Scatter;
 import org.politechnika.matlab.builders.SubPlot;
 
 public class ChartGeneratorTest {
@@ -63,6 +64,31 @@ public class ChartGeneratorTest {
                         .withYAxisName("Y2")
                         .build())
                 .build("D:\\\\"));
+
+    }
+
+    @Test
+    @Ignore
+    public void shouldSaveScatter() {
+        ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
+
+        double[] double11 = {0.123d, 0.23612d, 123.22d, 98.44d};
+        double[] double12 = {44.123d, 1.53612d, 12.22d, 0.44d};
+
+        double[] double21 = {22.123d, 55.23612d, 77.22d, 15.44d};
+        double[] double22 = {4.123d, 96.53612d, 22.22d, 11.44d};
+
+        chartGenerator.drawChart(new Scatter
+                .Builder()
+                .withFileName("Skejter")
+                .addScatterDataSet(double11, double12, "*")
+                .addScatterDataSet(double21, double22, "*")
+                .withGrid()
+        .withTitle("Scatter 1")
+        .withXAxisName("Srednia")
+        .withYAxisName("Wariancja")
+        .withLegend("{'dupy', 'cycki'}")
+        .build("D:\\\\"));
 
     }
 

@@ -16,7 +16,7 @@ public class StandardMatlabConnector implements MatlabConnector {
             log.debug("done");
             return session;
         }  catch (InterruptedException e) {
-            log.error("Connecting to MatLab was interrupted by another thread");
+            log.error("Connecting to MatLab was interrupted by another thread", e);
         }
 
         throw new EngineException("Unable to start MatLab");
