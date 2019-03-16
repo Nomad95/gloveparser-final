@@ -11,12 +11,12 @@ public class StandardMatlabConnector implements MatlabConnector {
     @Override
     public MatlabEngine startSession() throws EngineException {
         try {
-            log.debug("Starting MatLab instance...");
+            log.info("Starting MatLab instance...");
             MatlabEngine session = MatlabEngine.startMatlab();
-            log.debug("done");
+            log.info("done");
             return session;
         }  catch (InterruptedException e) {
-            log.error("Connecting to MatLab was interrupted by another thread");
+            log.error("Connecting to MatLab was interrupted by another thread", e);
         }
 
         throw new EngineException("Unable to start MatLab");
