@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="185.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.politechnika.frontend.main_controller.OptionsController">
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.politechnika.frontend.main_controller.OptionsController">
   <children>
     <Button id="GloveSearchButton" fx:id="engineSearchButton" layoutX="515.0" layoutY="45.0" mnemonicParsing="false" text="Przeglądaj..." />
     <TextField id="GloveFilePathTextField" fx:id="matlabEnginePath" editable="false" layoutX="187.0" layoutY="44.0" prefWidth="310.0" />

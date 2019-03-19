@@ -1,33 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="460.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.politechnika.frontend.main_controller.MainController">
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Pane?>
+<Pane id="AnchorPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.politechnika.frontend.main_controller.MainController">
   <children>
-    <Button id="PulsometerSearchButton" fx:id="pulsometerSearchButton" layoutX="515.0" layoutY="77.0" mnemonicParsing="false" text="Przeglądaj..." />
-    <Button id="KinectSearchButton" fx:id="kinectSearchButton" layoutX="515.0" layoutY="131.0" mnemonicParsing="false" text="Przeglądaj..." />
-    <Button id="GloveSearchButton" fx:id="gloveSearchButton" layoutX="515.0" layoutY="182.0" mnemonicParsing="false" text="Przeglądaj..." />
-    <TextField id="FilePathTextField" fx:id="pulsometerFilePathTextField" editable="false" layoutX="179.0" layoutY="77.0" prefWidth="310.0" />
-    <TextField id="KinectFilePathTextField" fx:id="kinectFilePathTextField" editable="false" layoutX="179.0" layoutY="131.0" prefWidth="310.0" />
-    <TextField id="GloveFilePathTextField" fx:id="gloveFilePathTextField" editable="false" layoutX="179.0" layoutY="181.0" prefWidth="310.0" />
-    <Label layoutX="32.0" layoutY="76.0" text="Dane z pulsometru" />
-    <Label layoutX="32.0" layoutY="130.0" text="Dane z Kinect" />
-    <Label layoutX="32.0" layoutY="183.0" text="Dane z rękawicy 5DT" />
-    <Separator layoutX="32.0" layoutY="219.0" prefWidth="566.0" />
-    <Button fx:id="destinationPathButton" layoutX="515.0" layoutY="250.0" mnemonicParsing="false" text="Przeglądaj..." />
-    <Label layoutX="32.0" layoutY="251.0" text="Folder docelowy" />
-    <TextField id="GloveFilePathTextField" fx:id="destinationFolderTextField" editable="false" layoutX="179.0" layoutY="249.0" prefWidth="310.0" text="D:\\diagramy" />
-    <Label layoutX="32.0" layoutY="282.0" text="Okres czasu (milisekundy)" />
-    <TextField id="GloveFilePathTextField" fx:id="millisTextField" editable="true" layoutX="179.0" layoutY="282.0" prefWidth="73.0" promptText="" text="1000" />
-    <Button fx:id="generateReport" layoutX="391.0" layoutY="283.0" mnemonicParsing="false" text="Generuj raport" />
-    <MenuBar fx:id="menuBar" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="620.0">
-      <menus>
-        <Menu fx:id="optionsMenu" mnemonicParsing="false" text="Opcje">
-          <items>
-            <MenuItem fx:id="optionsMenuItem" mnemonicParsing="false" text="Ustawienia" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
+      <BorderPane prefHeight="460.0" prefWidth="620.0">
+         <top>
+          <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="620.0" BorderPane.alignment="CENTER">
+            <menus>
+              <Menu fx:id="optionsMenu" mnemonicParsing="false" text="Opcje">
+                <items>
+                  <MenuItem fx:id="optionsMenuItem" mnemonicParsing="false" text="Ustawienia" />
+                </items>
+              </Menu>
+            </menus>
+          </MenuBar>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane alignment="TOP_CENTER" hgap="15.0" prefHeight="202.0" prefWidth="620.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="159.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="397.0" minWidth="16.0" prefWidth="332.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="0.0" prefWidth="128.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
+                      <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
+                      <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
+                    </rowConstraints>
+                     <children>
+                      <Button id="PulsometerSearchButton" fx:id="pulsometerSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" />
+                      <Button id="KinectSearchButton" fx:id="kinectSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                      <Button id="GloveSearchButton" fx:id="gloveSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                      <TextField id="FilePathTextField" fx:id="pulsometerFilePathTextField" editable="false" prefWidth="310.0" GridPane.columnIndex="1" />
+                      <TextField id="KinectFilePathTextField" fx:id="kinectFilePathTextField" editable="false" prefHeight="0.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                      <TextField id="GloveFilePathTextField" fx:id="gloveFilePathTextField" editable="false" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                      <Label text="Dane z pulsometru" GridPane.halignment="RIGHT" />
+                      <Label text="Dane z Kinect" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                      <Label text="Dane z rękawicy 5DT" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </GridPane>
+                <Separator prefWidth="566.0" />
+                  <GridPane hgap="20.0" vgap="10.0" VBox.vgrow="SOMETIMES">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="159.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="326.0" minWidth="10.0" prefWidth="314.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="102.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                      <Button fx:id="destinationPathButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" />
+                      <TextField id="GloveFilePathTextField" fx:id="destinationFolderTextField" editable="false" prefWidth="310.0" text="D:\\diagramy" GridPane.columnIndex="1" />
+                      <TextField id="GloveFilePathTextField" fx:id="millisTextField" editable="true" prefHeight="25.0" prefWidth="0.0" promptText="" text="1000" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+                      <Label text="Folder docelowy" GridPane.halignment="RIGHT" />
+                      <Label prefHeight="17.0" prefWidth="140.0" text="Okres czasu (milisekundy)" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <StackPane alignment="BOTTOM_RIGHT" prefHeight="55.0" prefWidth="620.0">
+                     <children>
+                      <Button fx:id="generateReport" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Generuj raport" textAlignment="CENTER" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" right="20.0" />
+                     </padding>
+                  </StackPane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
   </children>
-</AnchorPane>
+</Pane>

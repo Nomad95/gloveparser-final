@@ -88,7 +88,7 @@ public class MainController implements Initializable {
                 Parent optionsWindow = FXMLLoader.load(resource);
                 Stage stage = new Stage();
                 stage.setTitle("Opcje");
-                stage.setScene(new Scene(optionsWindow, 450, 450));
+                stage.setScene(new Scene(optionsWindow));
                 stage.show();
             }
             catch (IOException e) {

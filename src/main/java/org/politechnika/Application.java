@@ -16,10 +16,9 @@ public class Application extends javafx.application.Application {
         URL resource = getClass().getResource("/fxml/mainWindow.fxml");
         Parent root = FXMLLoader.load(resource);
 
-        Scene scene = new Scene(root, 480, 480);
+        Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
         primaryStage.setTitle("Parser danych");
         primaryStage.show();
     }
