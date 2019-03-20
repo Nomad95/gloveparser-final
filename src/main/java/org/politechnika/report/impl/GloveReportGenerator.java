@@ -16,7 +16,7 @@ public class GloveReportGenerator implements ReportGenerator {
                 .fromFile(dataFile)
                 .parseData(new ParseToBeans())
                 .partitionRawData(new PartitionDataByHand())
-                .doOnOneHand(new CalculateStatistics()
+                .doOnOneHand(new CalculateGloveStatistics()
                         .andThen(new CreateWholeAverageChart())
                         .andThen(new CreateWholeVarianceChart())
                         .andThen(new CreateWholeStandardDeviationChart())
