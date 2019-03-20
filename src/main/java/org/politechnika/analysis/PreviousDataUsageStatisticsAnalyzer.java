@@ -8,7 +8,7 @@ import java.util.function.ToDoubleFunction;
 
 public interface PreviousDataUsageStatisticsAnalyzer<T extends DataDto> {
 
-    double getVariance(List<T> dtos, double mean, ToDoubleFunction<GloveDataDto> valueExtractor);
+    double getVariance(List<T> dtos, double mean, ToDoubleFunction<T> valueExtractor);
 
-    double getStandardDeviation(List<T> dtos, double mean, ToDoubleFunction<GloveDataDto> valueExtractor);
+    double getStandardDeviation(List<T> dtos, double mean, ToDoubleFunction<T> valueExtractor);
 }

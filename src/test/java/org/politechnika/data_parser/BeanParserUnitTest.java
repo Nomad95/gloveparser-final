@@ -7,7 +7,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.politechnika.StaticTestResources;
 import org.politechnika.data_parser.csv.definitions.GloveParsingStrategy;
+import org.politechnika.data_parser.csv.definitions.PulsometerParsingStrategy;
 import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
+import org.politechnika.data_parser.csv.definitions.beans.PulsometerDataDto;
 import org.politechnika.data_parser.csv.impl.BeanCsvParser;
 import org.politechnika.file.model.AbstractDataFile;
 
@@ -27,5 +29,13 @@ public class BeanParserUnitTest {
 
         BeanCsvParser beanCsvParser = new BeanCsvParser();
         List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+    }
+
+    @Test
+    public void shouldParsePulsometerData() throws FileNotFoundException {
+        Mockito.doReturn(new StringReader(StaticTestResources.PULSOMETER_TEST_DATA)).when(file).getReader();
+
+        BeanCsvParser beanCsvParser = new BeanCsvParser();
+        List<PulsometerDataDto> pulsometerDataFiles = beanCsvParser.parseToBean(file, new PulsometerParsingStrategy());
     }
 }

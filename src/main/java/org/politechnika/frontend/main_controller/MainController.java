@@ -16,6 +16,7 @@ import org.politechnika.controller.ActionController;
 import org.politechnika.controller.impl.ActionControllerImpl;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.file.model.concrete_file.GloveDataFile;
+import org.politechnika.file.model.concrete_file.PulsometerDataFile;
 import org.politechnika.report.impl.*;
 
 import java.io.IOException;
@@ -59,6 +60,15 @@ public class MainController implements Initializable {
             Optional.ofNullable(fileChooser.showOpenDialog(null)).ifPresent(file -> {
                 filesMap.put(Constants.GLOVE, new GloveDataFile(file.getPath()));
                 gloveFilePathTextField.setText(file.getPath());
+            });
+        });
+
+        pulsometerSearchButton.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+//            fileChooser.getExtensionFilters().addAll(csvFilter);
+            Optional.ofNullable(fileChooser.showOpenDialog(null)).ifPresent(file -> {
+                filesMap.put(Constants.PULSOMETER, new PulsometerDataFile(file.getPath()));
+                pulsometerFilePathTextField.setText(file.getPath());
             });
         });
 
