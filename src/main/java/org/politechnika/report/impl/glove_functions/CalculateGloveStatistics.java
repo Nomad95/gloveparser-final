@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class CalculateStatistics implements Function<Map<Finger, List<GloveDataDto>>, HandStatistics> {
+public class CalculateGloveStatistics implements Function<Map<Finger, List<GloveDataDto>>, HandStatistics> {
 
     private String handName = "";
     private final GloveStatisticsAnalyzerImpl statisticsAnalyzer;
 
-    public CalculateStatistics() {
+    public CalculateGloveStatistics() {
         this.statisticsAnalyzer = new GloveStatisticsAnalyzerImpl();
     }
 
