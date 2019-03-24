@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
@@ -38,6 +40,7 @@ import java.util.ResourceBundle;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 import static java.util.Collections.unmodifiableList;
+import static lombok.AccessLevel.PRIVATE;
 import static org.politechnika.commons.Constants.MILLIS_IN_MINUTE;
 import static org.politechnika.commons.NumberCommons.tryGetIntValueFromString;
 
@@ -61,6 +64,14 @@ public class MainController implements Initializable {
     private ActionController actionController = new ActionControllerImpl(
             newArrayList(new PulsometerReportGenerator(), new KinectReportGenerator(), new GloveReportGenerator()),
             newArrayList(new InferenceReportGenerator(), new CorrelationReportGenerator(), new OverallReportGenerator()));
+
+    @Getter
+    @Setter(value = PRIVATE)
+    private static int timeIntervalMillis = 1000;
+
+    @Getter
+    @Setter(value = PRIVATE)
+    private static String destinationFolder;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,11 +102,31 @@ public class MainController implements Initializable {
         });
 
         millisTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                millisTextField.setText("1");
+                return;
+            }
             if (!newValue.matches("\\d*")) {
                 newValue = newValue.replaceAll("[^\\d]", "");
                 int intValue = tryGetIntValueFromString(newValue);
                 millisTextField.setText(intValue > MILLIS_IN_MINUTE ? "60000" : newValue);
+            } else {
+                int intValue = tryGetIntValueFromString(newValue);
+                millisTextField.setText(intValue > MILLIS_IN_MINUTE ? "60000" : newValue);
             }
+            setTimeIntervalMillis(tryGetIntValueFromString(millisTextField.getText()));
+        });
+
+        generateReport.setDisable(true);
+        destinationFolderTextField.setText("");
+        destinationPathButton.setOnAction(event -> {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            Optional.ofNullable(directoryChooser.showDialog(null))
+                    .ifPresent(file -> {
+                        setDestinationFolder(file.getAbsolutePath());
+                        destinationFolderTextField.setText(getDestinationFolder());
+                        generateReport.setDisable(false);
+                    });
         });
 
         generateReport.setOnAction(event -> {

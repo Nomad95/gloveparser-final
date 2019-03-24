@@ -7,7 +7,6 @@ import org.politechnika.report.impl.glove_functions.*;
 
 public class GloveReportGenerator implements ReportGenerator {
 
-    private static final int TEMP_INTERVAL = 1000;
 
     @Override
     @SuppressWarnings("Duplicates")
