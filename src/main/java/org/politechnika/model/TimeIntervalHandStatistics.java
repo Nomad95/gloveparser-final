@@ -1,8 +1,11 @@
 package org.politechnika.model;
 
 import com.google.common.collect.Lists;
+import org.politechnika.commons.Constants;
+import org.politechnika.frontend.main_controller.MainController;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.joining;
 import static org.politechnika.commons.Separators.TAB;
@@ -18,6 +21,32 @@ public class TimeIntervalHandStatistics {
 
     public void addStatstics(HandStatistics handStatistics) {
         statistics.add(handStatistics);
+    }
+
+    public double[] getTimeDimension() {
+        return IntStream.range(0, statistics.size())
+                .mapToDouble(value ->  ((double) value * (MainController.getTimeIntervalMillis() / Constants.MILLIS_IN_MINUTE)))
+                .toArray();
+    }
+
+    public double[] getAverageValueDimensionForFinger(Finger finger) {
+        return statistics.stream().mapToDouble(stats -> stats.getAverageForFinger(finger)).toArray();
+    }
+
+    public double[] getKurtosisValueDimensionForFinger(Finger finger) {
+        return statistics.stream().mapToDouble(stats -> stats.getKurtosisForFinger(finger)).toArray();
+    }
+
+    public double[] getSkewnessValueDimensionForFinger(Finger finger) {
+        return statistics.stream().mapToDouble(stats -> stats.getSkewnessForFinger(finger)).toArray();
+    }
+
+    public double[] getStandardDeviationValueDimensionForFinger(Finger finger) {
+        return statistics.stream().mapToDouble(stats -> stats.getStandardDeviationForFinger(finger)).toArray();
+    }
+
+    public double[] getVarianceValueDimensionForFinger(Finger finger) {
+        return statistics.stream().mapToDouble(stats -> stats.getVarianceForFinger(finger)).toArray();
     }
 
     public void printToConsole() {
