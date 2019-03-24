@@ -8,7 +8,6 @@ public class CreateWholeAverageChart implements Function<HandStatistics, HandSta
 
     @Override
     public HandStatistics apply(HandStatistics handStatistics) {
-        //TODO: draw chart
         return handStatistics;
     }
 }

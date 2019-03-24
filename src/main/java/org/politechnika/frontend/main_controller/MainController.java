@@ -24,13 +24,17 @@ import org.politechnika.report.impl.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 import static java.util.Collections.unmodifiableList;
 import static lombok.AccessLevel.PRIVATE;
-import static org.politechnika.commons.Constants.MILLIS_IN_MINUTE;
+import static org.politechnika.commons.Constants.FOLDER_DATE_FORMATTER;
+import static org.politechnika.commons.Constants.MAX_MILLIS;
 import static org.politechnika.commons.NumberCommons.tryGetIntValueFromString;
 
 @Slf4j
@@ -62,6 +66,10 @@ public class MainController implements Initializable {
     @Setter(value = PRIVATE)
     private static String destinationFolder;
 
+    @Getter
+    @Setter(value = PRIVATE)
+    private static String destinationSubFolder;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         final FileChooser.ExtensionFilter csvFilter = new FileChooser.ExtensionFilter(  "*.csv", "*.csv");
@@ -92,10 +100,10 @@ public class MainController implements Initializable {
             if (!newValue.matches("\\d*")) {
                 newValue = newValue.replaceAll("[^\\d]", "");
                 int intValue = tryGetIntValueFromString(newValue);
-                millisTextField.setText(intValue > MILLIS_IN_MINUTE ? "60000" : newValue);
+                millisTextField.setText(intValue > MAX_MILLIS ? "60000" : newValue);
             } else {
                 int intValue = tryGetIntValueFromString(newValue);
-                millisTextField.setText(intValue > MILLIS_IN_MINUTE ? "60000" : newValue);
+                millisTextField.setText(intValue > MAX_MILLIS ? "60000" : newValue);
             }
             setTimeIntervalMillis(tryGetIntValueFromString(millisTextField.getText()));
         });
@@ -116,6 +124,10 @@ public class MainController implements Initializable {
             stopUi();
             List<AbstractDataFile> files = unmodifiableList(newArrayList(filesMap.values()));
             try {
+                destinationSubFolder = destinationFolder
+                        + ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
+                        .toLocalDateTime()
+                        .format(DateTimeFormatter.ofPattern(FOLDER_DATE_FORMATTER));
                 actionController.generate(files, parseInt(millisTextField.getText()));
             } finally {
                 resumeUi();

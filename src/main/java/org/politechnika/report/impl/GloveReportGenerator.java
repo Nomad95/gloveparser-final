@@ -16,18 +16,13 @@ public class GloveReportGenerator implements ReportGenerator {
                 .parseData(new ParseToBeans())
                 .partitionRawData(new PartitionDataByHand())
                 .doOnOneHand(new CalculateGloveStatistics()
-                        .andThen(new CreateWholeAverageChart())
-                        .andThen(new CreateWholeVarianceChart())
-                        .andThen(new CreateWholeStandardDeviationChart())
-                        .andThen(new CreateWholeSkewnessChart())
-                        .andThen(new CreateWholeKurtosisChart())
                         .andThen(new PrintStatistics()))
                 .doOnOneHandWithTimeInterval(new CalculateTimeIntervalStatistics()
                         .andThen(new CreateTimeSegmentedAverageChart())
                         .andThen(new CreateTimeSegmentedVarianceChart())
                         .andThen(new CreateTimeSegmentedStandardDeviationChart())
-                        .andThen(new CreateTimeSegmentedSkewnessChart())
-                        .andThen(new CreateTimeSegmentedKurtosisChart())
+                        .andThen(new CreateTimeSegmentedSkewnessChart())//todo: zamienić NaN ?
+                        .andThen(new CreateTimeSegmentedKurtosisChart())//TODO: jeszcze jeden wykres
                         .andThen(new PrintTimeSegmentedStatistics()))
                 .build();
 
