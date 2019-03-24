@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.groupingBy;
+import static org.politechnika.frontend.main_controller.MainController.getTimeIntervalMillis;
 import static org.politechnika.report.functions.GloveFunctions.sensorToFinger;
 
 @Slf4j
@@ -20,7 +21,6 @@ import static org.politechnika.report.functions.GloveFunctions.sensorToFinger;
 public class GenerateGloveReport {
 
     private AbstractDataFile fromFile;
-    private static final int TEMP_INTERVAL = 1000;
 
     private Function<AbstractDataFile, List<GloveDataDto>> parseData;
     private Function<List<GloveDataDto>, Map<String, List<GloveDataDto>>> partitionRawData;
@@ -43,12 +43,12 @@ public class GenerateGloveReport {
 
         log.debug("Left hand time intervals");
         Map<Long, List<GloveDataDto>> leftHandDataPartitionedByTimeInterval = rawDataPartitionedByHand.get("left").stream()
-                .collect(groupingBy(datum -> datum.getTimestamp().toEpochMilli() / TEMP_INTERVAL));
+                .collect(groupingBy(datum -> datum.getTimestamp().toEpochMilli() / getTimeIntervalMillis()));
         doOnOneHandWithTimeInterval.apply(leftHandDataPartitionedByTimeInterval);
 
         log.debug("Right hand time intervals");
         Map<Long, List<GloveDataDto>> rightHandDataPartitionedByTimeInterval = rawDataPartitionedByHand.get("right").stream()
-                .collect(groupingBy(datum -> datum.getTimestamp().toEpochMilli() / TEMP_INTERVAL));
+                .collect(groupingBy(datum -> datum.getTimestamp().toEpochMilli() / getTimeIntervalMillis()));
         doOnOneHandWithTimeInterval.apply(rightHandDataPartitionedByTimeInterval);
         //TODO add to correlation report
         //TODO add to inference report

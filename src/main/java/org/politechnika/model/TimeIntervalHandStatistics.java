@@ -1,6 +1,8 @@
 package org.politechnika.model;
 
 import com.google.common.collect.Lists;
+import lombok.Getter;
+import lombok.Setter;
 import org.politechnika.commons.Constants;
 import org.politechnika.frontend.main_controller.MainController;
 
@@ -12,6 +14,10 @@ import static org.politechnika.commons.Separators.TAB;
 import static org.politechnika.model.Finger.*;
 
 public class TimeIntervalHandStatistics {
+
+    @Getter
+    @Setter
+    private String handName = "Hand";
 
     private List<HandStatistics> statistics;
 
