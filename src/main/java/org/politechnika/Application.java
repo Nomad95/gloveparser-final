@@ -19,6 +19,7 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Parser danych");
         primaryStage.show();
     }
