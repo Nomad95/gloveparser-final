@@ -6,22 +6,34 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.controlsfx.glyphfont.FontAwesome;
+import org.controlsfx.glyphfont.Glyph;
 import org.politechnika.commons.Constants;
 import org.politechnika.controller.ActionController;
 import org.politechnika.controller.impl.ActionControllerImpl;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.file.model.concrete_file.GloveDataFile;
 import org.politechnika.file.model.concrete_file.PulsometerDataFile;
-import org.politechnika.report.impl.*;
+import org.politechnika.report.impl.CorrelationReportGenerator;
+import org.politechnika.report.impl.GloveReportGenerator;
+import org.politechnika.report.impl.InferenceReportGenerator;
+import org.politechnika.report.impl.KinectReportGenerator;
+import org.politechnika.report.impl.OverallReportGenerator;
+import org.politechnika.report.impl.PulsometerReportGenerator;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
@@ -43,7 +55,7 @@ public class MainController implements Initializable {
     @FXML private TextField kinectFilePathTextField;
     @FXML private TextField destinationFolderTextField;
     @FXML private TextField millisTextField;
-    @FXML private MenuItem optionsMenuItem;
+    @FXML private Button optionsButton;
 
     private Map<String, AbstractDataFile> filesMap = new HashMap<>(3);
     private ActionController actionController = new ActionControllerImpl(
@@ -53,7 +65,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         final FileChooser.ExtensionFilter csvFilter = new FileChooser.ExtensionFilter(  "*.csv", "*.csv");
-        final FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter(  "Text Files", "*.txt");
+        final FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter(  "*.txt", "*.txt");
         gloveSearchButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(csvFilter);
@@ -65,11 +77,17 @@ public class MainController implements Initializable {
 
         pulsometerSearchButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
-//            fileChooser.getExtensionFilters().addAll(csvFilter);
+            fileChooser.getExtensionFilters().addAll(csvFilter, txtFilter);
             Optional.ofNullable(fileChooser.showOpenDialog(null)).ifPresent(file -> {
                 filesMap.put(Constants.PULSOMETER, new PulsometerDataFile(file.getPath()));
                 pulsometerFilePathTextField.setText(file.getPath());
             });
+        });
+
+        destinationFolderTextField.setOnAction(event -> {
+            DirectoryChooser dirChooser = new DirectoryChooser();
+            File directory = dirChooser.showDialog(null);
+            //todo do sth with destination dir
         });
 
         millisTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -92,13 +110,17 @@ public class MainController implements Initializable {
 
         //TODO: rest of button loading files
 
-        optionsMenuItem.setOnAction(event -> {
+        Glyph fontAwesome = new Glyph("FontAwesome", FontAwesome.Glyph.GEARS);
+        fontAwesome.setFontSize(20);
+        optionsButton.setGraphic(fontAwesome);
+        optionsButton.setOnAction(event -> {
             try {
                 URL resource = getClass().getResource("/fxml/optionsWindow.fxml");
                 Parent optionsWindow = FXMLLoader.load(resource);
                 Stage stage = new Stage();
+                stage.setResizable(false);
                 stage.setTitle("Opcje");
-                stage.setScene(new Scene(optionsWindow, 450, 450));
+                stage.setScene(new Scene(optionsWindow));
                 stage.show();
             }
             catch (IOException e) {
