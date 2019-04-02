@@ -57,6 +57,26 @@ public class HandStatistics {
         return String.valueOf(kurtosisGloveData.getValueFor(finger));
     }
 
+    public double getAverageForFinger(Finger finger) {
+        return averageGloveData.getValueFor(finger);
+    }
+
+    public double getStandardDeviationForFinger(Finger finger) {
+        return standardDeviationGloveData.getValueFor(finger);
+    }
+
+    public double getVarianceForFinger(Finger finger) {
+        return varianceGloveData.getValueFor(finger);
+    }
+
+    public double getSkewnessForFinger(Finger finger) {
+        return skewnessCoefficientGloveData.getValueFor(finger);
+    }
+
+    public double getKurtosisForFinger(Finger finger) {
+        return kurtosisGloveData.getValueFor(finger);
+    }
+
     public void printToConsole() {
         System.out.println(hand);
         System.out.println("----------------------"

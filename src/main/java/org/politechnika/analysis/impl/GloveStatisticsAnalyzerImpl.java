@@ -52,11 +52,13 @@ public class GloveStatisticsAnalyzerImpl implements SimpleStatisticsAnalyzer<Glo
 
     @Override
     public double getSkewness(List<GloveDataDto> dtos, ToDoubleFunction<GloveDataDto> valueExtractor) {
-        return new Skewness().evaluate(dtos.stream().mapToDouble(valueExtractor).toArray());
+        double val = new Skewness().evaluate(dtos.stream().mapToDouble(valueExtractor).toArray());
+        return Double.isNaN(val) ? 0 : val;
     }
 
     @Override
     public double getKurtosis(List<GloveDataDto> dtos, ToDoubleFunction<GloveDataDto> valueExtractor) {
-        return new Kurtosis().evaluate(dtos.stream().mapToDouble(valueExtractor).toArray());
+        double val = new Kurtosis().evaluate(dtos.stream().mapToDouble(valueExtractor).toArray());
+        return Double.isNaN(val) ? 0 : val;
     }
 }

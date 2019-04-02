@@ -3,9 +3,11 @@ package org.politechnika.controller.impl;
 import lombok.RequiredArgsConstructor;
 import org.politechnika.controller.ActionController;
 import org.politechnika.file.model.AbstractDataFile;
+import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.report.CollectiveReportGenerator;
 import org.politechnika.report.ReportGenerator;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,9 @@ public class ActionControllerImpl implements ActionController {
         generateCollectiveReports();
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void generateSingleReports(List<AbstractDataFile> files) {
+        new File(MainController.getDestinationSubFolder()).mkdirs();//TODO: warn if there are files in this dir?
         for (AbstractDataFile file : files) {
             Optional<ReportGenerator> maybeReportGenerator = reportGenerators.stream()
                     .filter(generator -> generator.supports(file.getFileType()))
