@@ -10,12 +10,16 @@
         </layout>
     </appender>
 
-    <logger name="huffmanV">
+    <logger name="org.politechnika">
         <level value="DEBUG"/>
     </logger>
 
+    <logger name="com.opencsv.bean">
+        <level value="ERROR"/>
+    </logger>
+
     <root>
-        <priority value ="DEBUG" />
+        <level value ="DEBUG" />
         <appender-ref ref="console" />
     </root>
 

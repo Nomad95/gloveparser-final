@@ -11,11 +11,12 @@ import java.util.function.Function;
 
 public class CalculateGloveStatistics implements Function<Map<Finger, List<GloveDataDto>>, HandStatistics> {
 
-    private String handName = "";
+    private String handName;
     private final GloveStatisticsAnalyzerImpl statisticsAnalyzer;
 
-    public CalculateGloveStatistics() {
+    public CalculateGloveStatistics(String handName) {
         this.statisticsAnalyzer = new GloveStatisticsAnalyzerImpl();
+        this.handName = handName;
     }
 
     @Override

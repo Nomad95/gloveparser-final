@@ -21,10 +21,10 @@ public class CreateTimeSegmentedSkewnessChart implements Function<TimeIntervalHa
                                 handStatistics.getSkewnessValueDimensionForFinger(Finger.RING),
                                 handStatistics.getSkewnessValueDimensionForFinger(Finger.LITTLE)
                         }, handStatistics.getTimeDimension())
-                        .withFileName("left_hand_skewness")
+                        .withFileName(handStatistics.getHandName() + "_hand_skewness")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Współczynnik skośności dla lewej ręki")
+                        .withTitle("Współczynnik skośności")
                         .withXAxisName("Czas [s]")
                         .withYAxisName("Wsp. Skośności")
                         .build(MainController.getDestinationSubFolder()));

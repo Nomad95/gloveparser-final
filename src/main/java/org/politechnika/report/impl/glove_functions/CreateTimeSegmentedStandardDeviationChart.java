@@ -21,10 +21,10 @@ public class CreateTimeSegmentedStandardDeviationChart implements Function<TimeI
                                 handStatistics.getStandardDeviationValueDimensionForFinger(Finger.RING),
                                 handStatistics.getStandardDeviationValueDimensionForFinger(Finger.LITTLE)
                         }, handStatistics.getTimeDimension())
-                        .withFileName("left_hand_std_deviation")
+                        .withFileName(handStatistics.getHandName() + "_hand_std_deviation")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Odchylenie standardowe dla lewej ręki")
+                        .withTitle("Odchylenie standardowe")
                         .withXAxisName("Czas [s]")
                         .withYAxisName("Odchylenie standardowe")
                         .build(MainController.getDestinationSubFolder()));

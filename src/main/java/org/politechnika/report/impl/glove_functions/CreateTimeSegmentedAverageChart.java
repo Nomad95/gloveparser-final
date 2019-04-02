@@ -21,10 +21,10 @@ public class CreateTimeSegmentedAverageChart implements Function<TimeIntervalHan
                                 handStatistics.getAverageValueDimensionForFinger(Finger.RING),
                                 handStatistics.getAverageValueDimensionForFinger(Finger.LITTLE)
                         }, handStatistics.getTimeDimension())
-                .withFileName("left_hand_average")
+                .withFileName(handStatistics.getHandName() + "_hand_average")
                 .withGrid()
                 .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                .withTitle("Średnie wartości dla lewej ręki")
+                .withTitle("Średnie wartości")
                 .withXAxisName("Czas [s]")
                 .withYAxisName("Średnia")
                 .build(MainController.getDestinationSubFolder()));

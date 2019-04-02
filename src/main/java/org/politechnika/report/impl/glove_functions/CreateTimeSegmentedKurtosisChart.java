@@ -21,10 +21,10 @@ public class CreateTimeSegmentedKurtosisChart implements Function<TimeIntervalHa
                                 handStatistics.getKurtosisValueDimensionForFinger(Finger.RING),
                                 handStatistics.getKurtosisValueDimensionForFinger(Finger.LITTLE)
                         }, handStatistics.getTimeDimension())
-                        .withFileName("left_hand_kurtosis")
+                        .withFileName(handStatistics.getHandName() + "_hand_kurtosis")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Kurtoza dla lewej ręki")
+                        .withTitle("Kurtoza")
                         .withXAxisName("Czas [s]")
                         .withYAxisName("Kurtoza")
                         .build(MainController.getDestinationSubFolder()));

@@ -16,10 +16,8 @@ import java.time.Instant;
 @AllArgsConstructor
 public class GloveDataDto implements DataDto {
 
-    //THREAD SAFE!!!
     //Hand|SensorNumber|Scale|Raw|Low|Up|TimeStamp
     //left|0|0,4166667|2847|2832|2868|2018-06-10-11-48-34-7705
-    //TODO: zmienna długość okresu!!!
 
     @CsvBindByName(column = "Hand")
     private String hand;

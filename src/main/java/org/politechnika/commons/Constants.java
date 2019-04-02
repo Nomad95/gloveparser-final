@@ -7,6 +7,9 @@ public final class Constants {
     public static final String OVERALL = "OVERALL";
     public static final String CORRELATION = "CORRELATION";
     public static final String INFERENCE = "INFERENCE";
+    public static final String LEFT_HAND = "left";
+    public static final String RIGHT_HAND = "right";
+
     public static final int MAX_MILLIS = 60000;
     public static final int MILLIS_IN_MINUTE = 1000;
 

@@ -21,10 +21,10 @@ public class CreateTimeSegmentedVarianceChart implements Function<TimeIntervalHa
                                 handStatistics.getVarianceValueDimensionForFinger(Finger.RING),
                                 handStatistics.getVarianceValueDimensionForFinger(Finger.LITTLE)
                         }, handStatistics.getTimeDimension())
-                        .withFileName("left_hand_variance")
+                        .withFileName(handStatistics.getHandName() + "_hand_variance")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Wariancja dla lewej ręki")
+                        .withTitle("Wariancja")
                         .withXAxisName("Czas [s]")
                         .withYAxisName("Wariancja")
                         .build(MainController.getDestinationSubFolder()));

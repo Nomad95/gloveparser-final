@@ -5,50 +5,44 @@ import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.report.ReportGenerator;
 import org.politechnika.report.impl.glove_functions.*;
 
+import static org.politechnika.commons.Constants.LEFT_HAND;
+import static org.politechnika.commons.Constants.RIGHT_HAND;
+
 public class GloveReportGenerator implements ReportGenerator {
 
 
     @Override
-    @SuppressWarnings("Duplicates")
     public void generate(AbstractDataFile dataFile) {
         GenerateGloveReport generator = GenerateGloveReport.builder()
                 .fromFile(dataFile)
                 .parseData(new ParseToBeans())
                 .partitionRawData(new PartitionDataByHand())
-                .doOnOneHand(new CalculateGloveStatistics()
+                .doOnLeftHand(new CalculateGloveStatistics(LEFT_HAND)
+                        .compose(new CreateTimeSegmentedLeftHandRawDataChart())
                         .andThen(new PrintStatistics()))
-                .doOnOneHandWithTimeInterval(new CalculateTimeIntervalStatistics()
+                .doOnRightHand(new CalculateGloveStatistics(RIGHT_HAND)
+                        .compose(new CreateTimeSegmentedRightHandRawDataChart())
+                        .andThen(new PrintStatistics()))
+                .doOnLeftHandWithTimeInterval(new CalculateTimeIntervalStatistics(LEFT_HAND)
                         .andThen(new CreateTimeSegmentedAverageChart())
                         .andThen(new CreateTimeSegmentedVarianceChart())
                         .andThen(new CreateTimeSegmentedStandardDeviationChart())
-                        .andThen(new CreateTimeSegmentedSkewnessChart())//todo: zamienić NaN ?
-                        .andThen(new CreateTimeSegmentedKurtosisChart())//TODO: jeszcze jeden wykres
+                        .andThen(new CreateTimeSegmentedSkewnessChart())
+                        .andThen(new CreateTimeSegmentedKurtosisChart())
+                        .andThen(new CreateScatterChart())
+                        .andThen(new PrintTimeSegmentedStatistics()))
+                .doOnRightHandWithTimeInterval(new CalculateTimeIntervalStatistics(RIGHT_HAND)
+                        .andThen(new CreateTimeSegmentedAverageChart())
+                        .andThen(new CreateTimeSegmentedVarianceChart())
+                        .andThen(new CreateTimeSegmentedStandardDeviationChart())
+                        .andThen(new CreateTimeSegmentedSkewnessChart())
+                        .andThen(new CreateTimeSegmentedKurtosisChart())
+                        .andThen(new CreateScatterChart())
                         .andThen(new PrintTimeSegmentedStatistics()))
                 .build();
 
         generator.generate();
     }
-
-    /*
-      try {
-            List<GloveDataDto> gloveDataDtos = beanCsvParser.parseToBean(dataFile, new GloveParsingStrategy());
-            SimpleStatisticsAnalyzer<GloveDataDto> gloveStatisticsAnalyzer = new GloveStatisticsAnalyzerImpl();
-            List<GloveDataDto> gloveDataDtos1 = gloveStatisticsAnalyzer.averageDataInOneSensor(gloveDataDtos);
-            ChartData left = gloveStatisticsAnalyzer.averageOneFingerEvery1secFromHand(gloveDataDtos, "left");
-           ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
-
-            chartGenerator.drawChart(new Plot.Builder(new Object[]{left.getFinger1(), left.getFinger2(), left.getFinger3(), left.getFinger4(), }, left.getTime())
-                    .withFileName("average")
-                    .withGrid()
-                    .withLegend("{'var1','var2', 'var3', 'var4'}")
-                    .withTitle("Average data per finger")
-                    .withXAxisName("Time [s]")
-                    .withYAxisName("Average value [somethings]")
-                    .build("D:\\\\"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-     */
 
     @Override
     public boolean supports(String fileType) {
