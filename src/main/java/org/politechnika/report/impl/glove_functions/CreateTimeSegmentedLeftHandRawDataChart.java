@@ -1,5 +1,6 @@
 package org.politechnika.report.impl.glove_functions;
 
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
@@ -14,10 +15,12 @@ import java.util.stream.DoubleStream;
 import static org.apache.commons.lang3.ArrayUtils.add;
 import static org.politechnika.model.Finger.*;
 
+@Slf4j
 public class CreateTimeSegmentedLeftHandRawDataChart implements Function<Map<Finger, List<GloveDataDto>>, Map<Finger, List<GloveDataDto>>> {
 
     @Override
     public Map<Finger, List<GloveDataDto>> apply(Map<Finger, List<GloveDataDto>> rawLeftHandDataByFinger) {
+        log.debug("Creating raw data chart for left hand");
         double[] thumbFingerRawData = rawLeftHandDataByFinger.get(THUMB).stream().mapToDouble(GloveDataDto::getRaw).toArray();
         double[] indexFingerRawData = rawLeftHandDataByFinger.get(INDEX).stream().mapToDouble(GloveDataDto::getRaw).toArray();
         double[] middleFingerRawData = rawLeftHandDataByFinger.get(MIDDLE).stream().mapToDouble(GloveDataDto::getRaw).toArray();
@@ -70,6 +73,7 @@ public class CreateTimeSegmentedLeftHandRawDataChart implements Function<Map<Fin
                         .withYAxisName("Wartości pobrane z rękawicy")
                         .build(MainController.getDestinationSubFolder()));
 
+        log.debug("Chart generated");
         return rawLeftHandDataByFinger;
     }
 }

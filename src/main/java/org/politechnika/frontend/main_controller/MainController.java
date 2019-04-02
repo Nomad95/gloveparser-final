@@ -21,12 +21,7 @@ import org.politechnika.controller.impl.ActionControllerImpl;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.file.model.concrete_file.GloveDataFile;
 import org.politechnika.file.model.concrete_file.PulsometerDataFile;
-import org.politechnika.report.impl.CorrelationReportGenerator;
-import org.politechnika.report.impl.GloveReportGenerator;
-import org.politechnika.report.impl.InferenceReportGenerator;
-import org.politechnika.report.impl.KinectReportGenerator;
-import org.politechnika.report.impl.OverallReportGenerator;
-import org.politechnika.report.impl.PulsometerReportGenerator;
+import org.politechnika.report.impl.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,11 +30,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
@@ -151,8 +141,6 @@ public class MainController implements Initializable {
                 resumeUi();
             }
         });
-
-        //TODO: rest of button loading files
 
         Glyph fontAwesome = new Glyph("FontAwesome", FontAwesome.Glyph.GEARS);
         fontAwesome.setFontSize(20);

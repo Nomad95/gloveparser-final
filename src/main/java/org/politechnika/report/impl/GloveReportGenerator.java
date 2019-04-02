@@ -29,7 +29,7 @@ public class GloveReportGenerator implements ReportGenerator {
                         .andThen(new CreateTimeSegmentedStandardDeviationChart())
                         .andThen(new CreateTimeSegmentedSkewnessChart())
                         .andThen(new CreateTimeSegmentedKurtosisChart())
-                        .andThen(new CreateScatterChart())
+                        .andThen(new CreateAverageAndVarianceChart())
                         .andThen(new PrintTimeSegmentedStatistics()))
                 .doOnRightHandWithTimeInterval(new CalculateTimeIntervalStatistics(RIGHT_HAND)
                         .andThen(new CreateTimeSegmentedAverageChart())
@@ -37,7 +37,7 @@ public class GloveReportGenerator implements ReportGenerator {
                         .andThen(new CreateTimeSegmentedStandardDeviationChart())
                         .andThen(new CreateTimeSegmentedSkewnessChart())
                         .andThen(new CreateTimeSegmentedKurtosisChart())
-                        .andThen(new CreateScatterChart())
+                        .andThen(new CreateAverageAndVarianceChart())
                         .andThen(new PrintTimeSegmentedStatistics()))
                 .build();
 

@@ -1,5 +1,6 @@
 package org.politechnika.report.impl.glove_functions;
 
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.analysis.impl.GloveStatisticsAnalyzerImpl;
 import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
 import org.politechnika.model.Finger;
@@ -13,6 +14,7 @@ import java.util.function.Function;
 import static java.util.stream.Collectors.groupingBy;
 import static org.politechnika.report.functions.GloveFunctions.sensorToFinger;
 
+@Slf4j
 public class CalculateTimeIntervalStatistics implements Function<Map<Long, List<GloveDataDto>>, TimeIntervalHandStatistics> {
 
     private String handName;
@@ -25,9 +27,11 @@ public class CalculateTimeIntervalStatistics implements Function<Map<Long, List<
 
     @Override
     public TimeIntervalHandStatistics apply(Map<Long, List<GloveDataDto>> dataByFingersOfOneHand) {
+        log.debug(String.format("Creating time interval statistics for %s hand", handName));
         TimeIntervalHandStatistics statsByTimeInterval = new TimeIntervalHandStatistics();
         calculateStatsForEveryTimeInterval(dataByFingersOfOneHand, statsByTimeInterval);
         statsByTimeInterval.setHandName(handName);
+        log.debug("Calculation finished");
 
         return statsByTimeInterval;
     }

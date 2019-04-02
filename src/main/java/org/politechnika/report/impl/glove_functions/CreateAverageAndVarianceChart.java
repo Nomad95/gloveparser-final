@@ -1,5 +1,6 @@
 package org.politechnika.report.impl.glove_functions;
 
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
 import org.politechnika.matlab.builders.Scatter;
@@ -8,10 +9,12 @@ import org.politechnika.model.TimeIntervalHandStatistics;
 
 import java.util.function.Function;
 
-public class CreateScatterChart implements Function<TimeIntervalHandStatistics, TimeIntervalHandStatistics> {
+@Slf4j
+public class CreateAverageAndVarianceChart implements Function<TimeIntervalHandStatistics, TimeIntervalHandStatistics> {
 
     @Override
     public TimeIntervalHandStatistics apply(TimeIntervalHandStatistics handStatistics) {
+        log.debug("Creating Average and Variance scatter chart");
         new ChartGeneratorImpl().drawChart(
                 new Scatter
                         .Builder()
@@ -42,6 +45,7 @@ public class CreateScatterChart implements Function<TimeIntervalHandStatistics, 
                         .withYAxisName("Wariancja")
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
                         .build(MainController.getDestinationSubFolder()));
+        log.debug("Chart created");
 
         return handStatistics;
     }
