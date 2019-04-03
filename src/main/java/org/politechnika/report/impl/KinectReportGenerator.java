@@ -16,7 +16,12 @@ public class KinectReportGenerator implements ReportGenerator {
                 .doCalculationsWithTimeInterval(new CalculateTimeIntervalKinectStatistics()) //invoke charts
                 .doPointsCalculations(new CalculatePointDistanceStatistics()) //invoke charts
                 .doPointsCalculationsWithTimeInterval(new CalculateTimeIntervalPointDistanceStatistics()
-                        .andThen(new CreateTimeSegmentAverageHeadChart())) //invoke  charts
+                        .andThen(new CreateTimeSegmentAverageCoreChart())
+                        .andThen(new CreateTimeSegmentAverageLeftArmChart())
+                        .andThen(new CreateTimeSegmentAverageRightArmChart())
+                        .andThen(new CreateTimeSegmentAverageLeftLegChart())
+                        .andThen(new CreateTimeSegmentAverageRightLegChart())
+                ) //invoke  charts
                 .build();
 
         generator.generate();

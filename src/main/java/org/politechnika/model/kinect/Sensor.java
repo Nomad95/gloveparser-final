@@ -27,4 +27,8 @@ public enum Sensor {
     HAND_TIP_RIGHT,
     THUMB_LEFT,
     THUMB_RIGHT
+
+    //head, neck, spine x3,
+    //shoulder, elbow, hand, hand_tip, thumb
+    // hip, knee, foot, wrist
 }
