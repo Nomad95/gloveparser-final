@@ -17,6 +17,7 @@ import org.politechnika.controller.ActionController;
 import org.politechnika.controller.impl.ActionControllerImpl;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.file.model.concrete_file.GloveDataFile;
+import org.politechnika.file.model.concrete_file.KinectDataFile;
 import org.politechnika.file.model.concrete_file.PulsometerDataFile;
 import org.politechnika.report.impl.CorrelationReportGenerator;
 import org.politechnika.report.impl.GloveReportGenerator;
@@ -115,6 +116,15 @@ public class MainController implements Initializable {
             Optional.ofNullable(fileChooser.showOpenDialog(null)).ifPresent(file -> {
                 filesMap.put(Constants.PULSOMETER, new PulsometerDataFile(file.getPath()));
                 pulsometerFilePathTextField.setText(file.getPath());
+            });
+        });
+
+        kinectSearchButton.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(csvFilter);
+            Optional.ofNullable(fileChooser.showOpenDialog(null)).ifPresent(file -> {
+                filesMap.put(Constants.KINECT, new KinectDataFile(file.getPath()));
+                kinectFilePathTextField.setText(file.getPath());
             });
         });
 
