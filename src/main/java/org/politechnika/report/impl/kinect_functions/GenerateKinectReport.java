@@ -25,7 +25,7 @@ public class GenerateKinectReport {
     private Function<Map<Long, List<KinectDataDto>>, TimeIntervalKinectStatistics> doCalculationsWithTimeInterval;
 
     private Function<List<KinectDataDto>, PointDistanceStatistics> doPointsCalculations;
-    private Function<Map<Long, List<PointDistance>>, TimeIntervalPointDistanceStatistics> doPointsCalculationsWithTimeInterval;
+    private Function<Map<Long, List<KinectDataDto>>, TimeIntervalPointDistanceStatistics> doPointsCalculationsWithTimeInterval;
 
     public void generate() {
 
@@ -38,6 +38,7 @@ public class GenerateKinectReport {
         doCalculationsWithTimeInterval.apply(kinectDataPartitionedByTimeInterval);
 
         doPointsCalculations.apply(rawData);
+        doPointsCalculationsWithTimeInterval.apply(kinectDataPartitionedByTimeInterval);
 
         //TODO add to correlation report
         //TODO add to inference report
