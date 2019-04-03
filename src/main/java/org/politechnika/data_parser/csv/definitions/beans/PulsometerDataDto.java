@@ -12,6 +12,7 @@ import org.politechnika.data_parser.csv.definitions.beans.field_definition.Pulso
 import org.politechnika.data_parser.csv.definitions.beans.field_definition.PulsometerTimeConverter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -29,4 +30,6 @@ public class PulsometerDataDto implements DataDto {
 
     @CsvBindByPosition(position = 3)
     private Integer value;
+
+//    private LocalDateTime TODO na wszelki wypadek trzeba zrobic timestamp z daty i czasu, jakby ktos robil badania o północy
 }
