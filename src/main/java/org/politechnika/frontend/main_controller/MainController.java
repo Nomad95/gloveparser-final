@@ -10,9 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
 import org.politechnika.commons.Constants;
@@ -22,7 +19,13 @@ import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.file.model.concrete_file.GloveDataFile;
 import org.politechnika.file.model.concrete_file.KinectDataFile;
 import org.politechnika.file.model.concrete_file.PulsometerDataFile;
-import org.politechnika.report.impl.*;
+import org.politechnika.report.impl.CorrelationReportGenerator;
+import org.politechnika.report.impl.GloveReportGenerator;
+import org.politechnika.report.impl.InferenceReportGenerator;
+import org.politechnika.report.impl.KinectReportGenerator;
+import org.politechnika.report.impl.OverallReportGenerator;
+import org.politechnika.report.impl.PulsometerReportGenerator;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,19 +33,22 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 import static java.util.Collections.unmodifiableList;
-import static lombok.AccessLevel.PRIVATE;
 import static org.politechnika.commons.Constants.FOLDER_DATE_FORMATTER;
 import static org.politechnika.commons.Constants.MAX_MILLIS;
 import static org.politechnika.commons.NumberCommons.tryGetIntValueFromString;
 
-@Slf4j
 public class MainController implements Initializable {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(MainController.class);
     @FXML private Button gloveSearchButton;
     @FXML private Button pulsometerSearchButton;
     @FXML private Button kinectSearchButton;
@@ -61,17 +67,35 @@ public class MainController implements Initializable {
             newArrayList(new PulsometerReportGenerator(), new KinectReportGenerator(), new GloveReportGenerator()),
             newArrayList(new InferenceReportGenerator(), new CorrelationReportGenerator(), new OverallReportGenerator()));
 
-    @Getter
-    @Setter(value = PRIVATE)
     private static int timeIntervalMillis = 1000;
 
-    @Getter
-    @Setter(value = PRIVATE)
     private static String destinationFolder;
 
-    @Getter
-    @Setter(value = PRIVATE)
     private static String destinationSubFolder;
+
+    public static int getTimeIntervalMillis() {
+        return MainController.timeIntervalMillis;
+    }
+
+    public static String getDestinationFolder() {
+        return MainController.destinationFolder;
+    }
+
+    public static String getDestinationSubFolder() {
+        return MainController.destinationSubFolder;
+    }
+
+    private static void setTimeIntervalMillis(int timeIntervalMillis) {
+        MainController.timeIntervalMillis = timeIntervalMillis;
+    }
+
+    private static void setDestinationFolder(String destinationFolder) {
+        MainController.destinationFolder = destinationFolder;
+    }
+
+    private static void setDestinationSubFolder(String destinationSubFolder) {
+        MainController.destinationSubFolder = destinationSubFolder;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
