@@ -9,9 +9,9 @@ public final class NumberCommons {
         try {
             return Integer.parseInt(string);
         } catch (NumberFormatException e) {
-            log.error("Something went wrong, recovering with value of 0 ex: {}", e);
+            log.error("Something went wrong ;p, recovering with default value of 1000 {}", e);
         }
 
-        return 0;
+        return 1000;
     }
 }

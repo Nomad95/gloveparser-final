@@ -1,5 +1,9 @@
 package org.politechnika.report.impl.glove_functions;
 
+import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.matlab.ChartGeneratorImpl;
+import org.politechnika.matlab.builders.Plot;
+import org.politechnika.model.Finger;
 import org.politechnika.model.TimeIntervalHandStatistics;
 
 import java.util.function.Function;
@@ -8,7 +12,22 @@ public class CreateTimeSegmentedSkewnessChart implements Function<TimeIntervalHa
 
     @Override
     public TimeIntervalHandStatistics apply(TimeIntervalHandStatistics handStatistics) {
-        //TODO: draw chart
+        new ChartGeneratorImpl().drawChart(
+                new Plot.Builder(
+                        new Object[]{
+                                handStatistics.getSkewnessValueDimensionForFinger(Finger.THUMB),
+                                handStatistics.getSkewnessValueDimensionForFinger(Finger.INDEX),
+                                handStatistics.getSkewnessValueDimensionForFinger(Finger.MIDDLE),
+                                handStatistics.getSkewnessValueDimensionForFinger(Finger.RING),
+                                handStatistics.getSkewnessValueDimensionForFinger(Finger.LITTLE)
+                        }, handStatistics.getTimeDimension())
+                        .withFileName(handStatistics.getHandName() + "_hand_skewness")
+                        .withGrid()
+                        .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
+                        .withTitle("Współczynnik skośności")
+                        .withXAxisName("Czas [s]")
+                        .withYAxisName("Wsp. Skośności")
+                        .build(MainController.getDestinationSubFolder()));
         return handStatistics;
     }
 }
