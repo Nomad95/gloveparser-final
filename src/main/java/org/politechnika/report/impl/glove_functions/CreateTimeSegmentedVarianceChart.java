@@ -24,7 +24,7 @@ public class CreateTimeSegmentedVarianceChart implements Function<TimeIntervalHa
                         .withFileName(handStatistics.getHandName() + "_hand_variance")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Wariancja")
+                        .withTitle("Rękawica 5DT - Wariancja - ręka " + handStatistics.getPolishHandName())
                         .withXAxisName("Czas [s]")
                         .withYAxisName("Wariancja")
                         .build(MainController.getDestinationSubFolder()));

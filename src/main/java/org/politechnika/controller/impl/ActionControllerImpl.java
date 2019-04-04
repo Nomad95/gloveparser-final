@@ -1,6 +1,7 @@
 package org.politechnika.controller.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.controller.ActionController;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.frontend.main_controller.MainController;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 public class ActionControllerImpl implements ActionController {
 
@@ -26,6 +28,7 @@ public class ActionControllerImpl implements ActionController {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void generateSingleReports(List<AbstractDataFile> files) {
+        log.debug("Generating single reports...");
         new File(MainController.getDestinationSubFolder()).mkdirs();//TODO: warn if there are files in this dir?
         for (AbstractDataFile file : files) {
             Optional<ReportGenerator> maybeReportGenerator = reportGenerators.stream()
@@ -34,6 +37,7 @@ public class ActionControllerImpl implements ActionController {
             maybeReportGenerator.ifPresent(reportGenerator -> reportGenerator.generate(file));
             //TODO: do we wanna stop all processing after one error or not?
         }
+        log.debug("Single reports generated successfully");
     }
 
     private void generateCollectiveReports() {

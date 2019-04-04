@@ -1,8 +1,9 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.analysis.impl.KinectPointDistanceAnalyzerImpl;
 import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
-import org.politechnika.model.kinect.*;
+import org.politechnika.model.kinect.PointDistance;
+import org.politechnika.model.kinect.PointDistanceStatistics;
+import org.politechnika.model.kinect.TimeIntervalPointDistanceStatistics;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CalculateTimeIntervalPointDistanceStatistics implements Function<Ma
     }
 
     @Override
-    public TimeIntervalPointDistanceStatistics apply(Map<Long, List<KinectDataDto>> dataByFingersOfOneHand) {
+    public TimeIntervalPointDistanceStatistics apply(Map<Long, List<KinectDataDto>> dataByFingersOfOneHand) {// FIXME: 04.04.2019 nazwa
 
         TimeIntervalPointDistanceStatistics statsByTimeInterval = new TimeIntervalPointDistanceStatistics();
         calculateStatsForEveryTimeInterval(dataByFingersOfOneHand, statsByTimeInterval);

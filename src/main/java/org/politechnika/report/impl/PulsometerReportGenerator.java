@@ -1,5 +1,7 @@
 package org.politechnika.report.impl;
 
+import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.analysis.impl.PulsometerStatisticAnalyzerImpl;
 import org.politechnika.commons.Constants;
 import org.politechnika.data_parser.csv.definitions.PulsometerParsingStrategy;
@@ -14,108 +16,87 @@ import org.politechnika.report.ReportGenerator;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.DoubleStream;
+import java.util.TreeMap;
+import java.util.function.DoubleUnaryOperator;
+import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.groupingBy;
-import static org.politechnika.frontend.main_controller.MainController.getTimeIntervalMillis;
+import static java.util.stream.Collectors.toList;
 
+@Slf4j
 public class PulsometerReportGenerator implements ReportGenerator {
+
+    private static final Predicate<ValueAndTimeSeries> EMPTY_VALUES = entry -> entry.getValue() != 0.0;
+
     @Override
     public void generate(AbstractDataFile dataFile) {
+        log.debug("Generating pulsometer report");
 
         BeanCsvParser beanCsvParser = new BeanCsvParser();
         List<PulsometerDataDto> pulsometerDataDtos;
         try {
+            log.debug("Parsing pulsometer data...");
             pulsometerDataDtos = beanCsvParser.parseToBean(dataFile, new PulsometerParsingStrategy());
         } catch (FileNotFoundException e) {
             throw new IllegalStateException(e);
         }
 
+        log.debug("Calculating pulsometer statistics");
         PulsometerStatisticAnalyzerImpl analyzer = new PulsometerStatisticAnalyzerImpl();
-//        double average = analyzer.getAverage(pulsometerDataDtos, PulsometerDataDto::getValue);
-//        double kurtosis = analyzer.getKurtosis(pulsometerDataDtos, PulsometerDataDto::getValue);
-//        double skewness = analyzer.getSkewness(pulsometerDataDtos, PulsometerDataDto::getValue);
-//        double deviation = analyzer.getStandardDeviation(pulsometerDataDtos, PulsometerDataDto::getValue);
-//        double variance = analyzer.getVariance(pulsometerDataDtos, PulsometerDataDto::getValue);
+        double average = analyzer.getAverage(pulsometerDataDtos, PulsometerDataDto::getValue);//todo: te wartosci pozniej do raportu koncowego
+        double kurtosis = analyzer.getKurtosis(pulsometerDataDtos, PulsometerDataDto::getValue);
+        double skewness = analyzer.getSkewness(pulsometerDataDtos, PulsometerDataDto::getValue);
+        double deviation = analyzer.getStandardDeviation(pulsometerDataDtos, PulsometerDataDto::getValue);
+        double variance = analyzer.getVariance(pulsometerDataDtos, PulsometerDataDto::getValue);
 
         Map<Integer, List<PulsometerDataDto>> timeSegmentedStats =
                 pulsometerDataDtos.stream()
-                                  .collect(groupingBy(time -> {
-                                      return (time.getTime().toSecondOfDay() * 1000) / getTimeIntervalMillis();
-                                  }));
+                        .collect(groupingBy(time -> time.getTime().toSecondOfDay(), TreeMap::new, toList()));
 
-        Set<Integer> keys = timeSegmentedStats.keySet();
-        generateAvgChart(analyzer, timeSegmentedStats, keys);
-        generateKurtosisChart(analyzer, timeSegmentedStats, keys);
-        generateSkewnessChart(analyzer, timeSegmentedStats, keys);
-        generateStdDeviationChart(analyzer, timeSegmentedStats, keys);
-        generateVarianceChart(analyzer, timeSegmentedStats, keys);
+        generatePulsChart(analyzer, timeSegmentedStats);//todo: reszta wykresow jest bez sensu jeśli nie dzielimy pulsu po czasie
+        log.debug("Pulsometer report was generated");
     }
 
-
-    private void generateVarianceChart(PulsometerStatisticAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats, Set<Integer> keys) {
-        double[] timeSegVariance = keys.stream().mapToDouble(key -> analyzer.getVariance(timeSegmentedStats.get(key), PulsometerDataDto::getValue)).toArray();
-        double[] timeSeries = DoubleStream.iterate(0, n -> n + getTimeIntervalMillis()).limit(timeSegVariance.length).toArray();
-        new ChartGeneratorImpl().drawChart(new Plot.Builder(new Object[]{timeSegVariance}, timeSeries)
-                .withFileName("puls-chart-variance")
-                .withGrid()
-                .withTitle("Pulsometr - wariancja")
-                .withXAxisName("Czas")
-                .withYAxisName("Wartość")
-                .build(MainController.getDestinationSubFolder()));
+    //todo: wydzielić to do klas i metod czy dzieś
+    private void generatePulsChart(PulsometerStatisticAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats) {
+        log.debug("Generating pulsometer chart");
+        List<ValueAndTimeSeries> timeSegmentedData = timeSegmentedStats.entrySet().stream()
+                .map(entry -> new ValueAndTimeSeries(analyzer.getAverage(entry.getValue(), PulsometerDataDto::getValue), entry.getKey()))
+                .filter(EMPTY_VALUES)
+                .collect(toList());
+        if (!timeSegmentedData.isEmpty()) {
+            double firstSecondValue = timeSegmentedData.get(0).getTime();
+            double[] valueSeries = timeSegmentedData.stream()
+                    .mapToDouble(ValueAndTimeSeries::getValue)
+                    .toArray();
+            double[] timeSeries = timeSegmentedData.stream()
+                    .mapToDouble(ValueAndTimeSeries::getTime)
+                    .map(timeStartFromZero(firstSecondValue))
+                    .toArray();
+            new ChartGeneratorImpl().drawChart(
+                    new Plot.Builder(
+                            new Object[]{valueSeries}, timeSeries)
+                            .withFileName("puls-chart")
+                            .withGrid()
+                            .withTitle("Pulsometr - Dynamika pulsu")
+                            .withXAxisName("Czas [s]")
+                            .withYAxisName("Wartość")
+                            .build(MainController.getDestinationSubFolder()));
+        }
     }
 
-    private void generateStdDeviationChart(PulsometerStatisticAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats, Set<Integer> keys) {
-        double[] timeSegDeviation = keys.stream().mapToDouble(key -> analyzer.getStandardDeviation(timeSegmentedStats.get(key), PulsometerDataDto::getValue)).toArray();
-        double[] timeSeries = DoubleStream.iterate(0, n -> n + getTimeIntervalMillis()).limit(timeSegDeviation.length).toArray();
-        new ChartGeneratorImpl().drawChart(new Plot.Builder(new Object[]{timeSegDeviation}, timeSeries)
-                .withFileName("puls-chart-std-deviation")
-                .withGrid()
-                .withTitle("Pulsometr - dewiacja standardowa")
-                .withXAxisName("Czas")
-                .withYAxisName("Wartość")
-                .build(MainController.getDestinationSubFolder()));
-    }
-
-    private void generateSkewnessChart(PulsometerStatisticAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats, Set<Integer> keys) {
-        double[] timeSegSkewness = keys.stream().mapToDouble(key -> analyzer.getSkewness(timeSegmentedStats.get(key), PulsometerDataDto::getValue)).toArray();
-        double[] timeSeries = DoubleStream.iterate(0, n -> n + getTimeIntervalMillis()).limit(timeSegSkewness.length).toArray();
-        new ChartGeneratorImpl().drawChart(new Plot.Builder(new Object[]{timeSegSkewness}, timeSeries)
-                .withFileName("puls-chart-skewness")
-                .withGrid()
-                .withTitle("Pulsometr - skośność")
-                .withXAxisName("Czas")
-                .withYAxisName("Wartość")
-                .build(MainController.getDestinationSubFolder()));
-    }
-
-    private void generateKurtosisChart(PulsometerStatisticAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats, Set<Integer> keys) {
-        double[] timeSegKurtosis = keys.stream().mapToDouble(key -> analyzer.getKurtosis(timeSegmentedStats.get(key), PulsometerDataDto::getValue)).toArray();
-        double[] timeSeries = DoubleStream.iterate(0, n -> n + getTimeIntervalMillis()).limit(timeSegKurtosis.length).toArray();
-        new ChartGeneratorImpl().drawChart(new Plot.Builder(new Object[]{timeSegKurtosis}, timeSeries)
-                .withFileName("puls-chart-kurtosis")
-                .withGrid()
-                .withTitle("Pulsometr - kurtoza")
-                .withXAxisName("Czas")
-                .withYAxisName("Wartość")
-                .build(MainController.getDestinationSubFolder()));
-    }
-
-    private void generateAvgChart(PulsometerStatisticAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats, Set<Integer> keys) {
-        double[] timeSegAvg = keys.stream().mapToDouble(key -> analyzer.getAverage(timeSegmentedStats.get(key), PulsometerDataDto::getValue)).toArray();
-        double[] timeSeries = DoubleStream.iterate(0, n -> n + getTimeIntervalMillis()).limit(timeSegAvg.length).toArray();
-        new ChartGeneratorImpl().drawChart(new Plot.Builder(new Object[]{timeSegAvg}, timeSeries)
-                .withFileName("puls-chart-avg")
-                .withGrid()
-                .withTitle("Pulsometr")
-                .withXAxisName("Czas")
-                .withYAxisName("Wartość")
-                .build(MainController.getDestinationSubFolder()));
+    private DoubleUnaryOperator timeStartFromZero(double firstValue) {
+        return v -> v - firstValue;
     }
 
     @Override
     public boolean supports(String fileType) {
         return Constants.PULSOMETER.equals(fileType);
+    }
+
+    @Value
+    private static class ValueAndTimeSeries {
+        private double value;
+        private double time;
     }
 }

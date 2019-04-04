@@ -18,11 +18,14 @@ public class TimeIntervalHandStatistics {
     @Getter
     @Setter
     private String handName = "Hand";
-
     private List<HandStatistics> statistics;
 
     public TimeIntervalHandStatistics() {
         this.statistics = Lists.newArrayList();
+    }
+
+    public String getPolishHandName() {
+        return "right".equals(handName) ? "prawa" : "lewa";
     }
 
     public void addStatstics(HandStatistics handStatistics) {

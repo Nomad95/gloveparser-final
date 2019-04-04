@@ -24,7 +24,7 @@ public class CreateTimeSegmentedAverageChart implements Function<TimeIntervalHan
                 .withFileName(handStatistics.getHandName() + "_hand_average")
                 .withGrid()
                 .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                .withTitle("Średnie wartości")
+                .withTitle("Rękawica 5DT - Średnie wartości - ręka " + handStatistics.getPolishHandName())
                 .withXAxisName("Czas [s]")
                 .withYAxisName("Średnia")
                 .build(MainController.getDestinationSubFolder()));

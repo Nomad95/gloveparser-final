@@ -16,7 +16,7 @@ public class CreateTimeSegmentAverageHeadChart implements Function<TimeIntervalP
                 new Plot.Builder(
                         new Object[]{
                                 handStatistics.getAverageValue(Sensor.HEAD)
-                        }, handStatistics.getTimeDimension(Sensor.HEAD))
+                        }, handStatistics.getTimeDimension())
                         .withFileName("head_hand_average")
                         .withGrid()
                         .withLegend("{'Głowa'}")

@@ -1,10 +1,12 @@
 package org.politechnika.report.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.report.ReportGenerator;
 import org.politechnika.report.impl.kinect_functions.*;
 
+@Slf4j
 public class KinectReportGenerator implements ReportGenerator {
 
     @Override
@@ -24,7 +26,9 @@ public class KinectReportGenerator implements ReportGenerator {
                 ) //invoke  charts
                 .build();
 
+        log.debug("Generating Kinect report");
         generator.generate();
+        log.debug("Kinect report was generated");
         //TODO: load data -> process and aggregate -> save to cache if needed for further processing -> save result to file (LAZY!)-> generate and save charts
     }
 

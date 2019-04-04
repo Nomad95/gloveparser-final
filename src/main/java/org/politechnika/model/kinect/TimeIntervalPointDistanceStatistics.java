@@ -19,7 +19,7 @@ public class TimeIntervalPointDistanceStatistics {
         statistics.add(kinectStatistics);
     }
 
-    public double[] getTimeDimension(Sensor sensor) {
+    public double[] getTimeDimension() {
         return IntStream.range(0, statistics.size())
                 .mapToDouble(value ->  ((double) value * (MainController.getTimeIntervalMillis() / Constants.MILLIS_IN_MINUTE)))
                 .toArray();

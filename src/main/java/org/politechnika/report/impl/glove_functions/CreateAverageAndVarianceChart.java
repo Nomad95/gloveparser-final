@@ -40,7 +40,7 @@ public class CreateAverageAndVarianceChart implements Function<TimeIntervalHandS
                                 handStatistics.getAverageValueDimensionForFinger(Finger.LITTLE),
                                 "*")
                         .withGrid()
-                        .withTitle("Wykres rozrzutu")
+                        .withTitle("Rękawica 5DT - Wykres rozrzutu - ręka " + handStatistics.getPolishHandName())
                         .withXAxisName("Srednia")
                         .withYAxisName("Wariancja")
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")

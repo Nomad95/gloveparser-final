@@ -2,10 +2,13 @@ package org.politechnika.report.impl.kinect_functions;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
 import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
 import org.politechnika.file.model.AbstractDataFile;
-import org.politechnika.model.kinect.*;
+import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.model.kinect.KinectStatistics;
+import org.politechnika.model.kinect.PointDistanceStatistics;
+import org.politechnika.model.kinect.TimeIntervalKinectStatistics;
+import org.politechnika.model.kinect.TimeIntervalPointDistanceStatistics;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +21,6 @@ import static java.util.stream.Collectors.groupingBy;
 public class GenerateKinectReport {
 
     private AbstractDataFile fromFile;
-    private static final int TEMP_INTERVAL = 1000;
 
     private Function<AbstractDataFile, List<KinectDataDto>> parseData;
     private Function<List<KinectDataDto>, KinectStatistics> doCalculations;
@@ -34,7 +36,7 @@ public class GenerateKinectReport {
 
         log.debug("Kinect time intervals");
         Map<Long, List<KinectDataDto>> kinectDataPartitionedByTimeInterval = rawData.stream()
-                .collect(groupingBy(datum -> datum.getTimestamp().toEpochMilli() / TEMP_INTERVAL));
+                .collect(groupingBy(datum -> datum.getTimestamp().toEpochMilli() / MainController.getTimeIntervalMillis()));
         doCalculationsWithTimeInterval.apply(kinectDataPartitionedByTimeInterval);
 
         doPointsCalculations.apply(rawData);

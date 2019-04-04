@@ -1,5 +1,6 @@
 package org.politechnika.report.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.report.ReportGenerator;
@@ -8,6 +9,7 @@ import org.politechnika.report.impl.glove_functions.*;
 import static org.politechnika.commons.Constants.LEFT_HAND;
 import static org.politechnika.commons.Constants.RIGHT_HAND;
 
+@Slf4j
 public class GloveReportGenerator implements ReportGenerator {
 
 
@@ -18,30 +20,28 @@ public class GloveReportGenerator implements ReportGenerator {
                 .parseData(new ParseToBeans())
                 .partitionRawData(new PartitionDataByHand())
                 .doOnLeftHand(new CalculateGloveStatistics(LEFT_HAND)
-                        .compose(new CreateTimeSegmentedLeftHandRawDataChart())
-                        .andThen(new PrintStatistics()))
+                        .compose(new CreateTimeSegmentedLeftHandRawDataChart()))
                 .doOnRightHand(new CalculateGloveStatistics(RIGHT_HAND)
-                        .compose(new CreateTimeSegmentedRightHandRawDataChart())
-                        .andThen(new PrintStatistics()))
+                        .compose(new CreateTimeSegmentedRightHandRawDataChart()))
                 .doOnLeftHandWithTimeInterval(new CalculateTimeIntervalStatistics(LEFT_HAND)
                         .andThen(new CreateTimeSegmentedAverageChart())
                         .andThen(new CreateTimeSegmentedVarianceChart())
                         .andThen(new CreateTimeSegmentedStandardDeviationChart())
                         .andThen(new CreateTimeSegmentedSkewnessChart())
                         .andThen(new CreateTimeSegmentedKurtosisChart())
-                        .andThen(new CreateAverageAndVarianceChart())
-                        .andThen(new PrintTimeSegmentedStatistics()))
+                        .andThen(new CreateAverageAndVarianceChart()))
                 .doOnRightHandWithTimeInterval(new CalculateTimeIntervalStatistics(RIGHT_HAND)
                         .andThen(new CreateTimeSegmentedAverageChart())
                         .andThen(new CreateTimeSegmentedVarianceChart())
                         .andThen(new CreateTimeSegmentedStandardDeviationChart())
                         .andThen(new CreateTimeSegmentedSkewnessChart())
                         .andThen(new CreateTimeSegmentedKurtosisChart())
-                        .andThen(new CreateAverageAndVarianceChart())
-                        .andThen(new PrintTimeSegmentedStatistics()))
+                        .andThen(new CreateAverageAndVarianceChart()))
                 .build();
 
+        log.debug("Generating glove report");
         generator.generate();
+        log.debug("Glove report was generated");
     }
 
     @Override

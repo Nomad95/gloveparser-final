@@ -24,7 +24,7 @@ public class CreateTimeSegmentedStandardDeviationChart implements Function<TimeI
                         .withFileName(handStatistics.getHandName() + "_hand_std_deviation")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Odchylenie standardowe")
+                        .withTitle("Rękawica 5DT - Odchylenie standardowe - ręka " + handStatistics.getPolishHandName())
                         .withXAxisName("Czas [s]")
                         .withYAxisName("Odchylenie standardowe")
                         .build(MainController.getDestinationSubFolder()));

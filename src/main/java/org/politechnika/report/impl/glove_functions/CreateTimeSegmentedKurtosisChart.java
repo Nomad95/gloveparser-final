@@ -24,7 +24,7 @@ public class CreateTimeSegmentedKurtosisChart implements Function<TimeIntervalHa
                         .withFileName(handStatistics.getHandName() + "_hand_kurtosis")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Kurtoza")
+                        .withTitle("Rękawica 5DT - Kurtoza - ręka " + handStatistics.getPolishHandName())
                         .withXAxisName("Czas [s]")
                         .withYAxisName("Kurtoza")
                         .build(MainController.getDestinationSubFolder()));

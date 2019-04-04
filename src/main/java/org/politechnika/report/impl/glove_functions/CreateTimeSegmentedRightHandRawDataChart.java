@@ -52,23 +52,28 @@ public class CreateTimeSegmentedRightHandRawDataChart implements Function<Map<Fi
             }
         }
 
+
+        drawChart(new Object[]{
+                thumbFingerRawData,
+                indexFingerRawData,
+                middleFingerRawData,
+                ringFingerRawData,
+                littleFingerRawData
+        }, timeSeries);
+
+        return rawRightHandDataByFinger;
+    }
+
+    private void drawChart(Object[] dataSeries, double[] timeSeries) {
         new ChartGeneratorImpl().drawChart(
-                new Plot.Builder(
-                        new Object[]{
-                                thumbFingerRawData,
-                                indexFingerRawData,
-                                middleFingerRawData,
-                                ringFingerRawData,
-                                littleFingerRawData
-                        }, timeSeries)
+                new Plot.Builder(dataSeries,
+                        timeSeries)
                         .withFileName("right_hand_raw_data")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
                         .withTitle("Wartości pobrane z poszczególnych palców prawej ręki")
-                        .withXAxisName("Czas [s]")
+                        .withXAxisName("Numer wartości")
                         .withYAxisName("Wartości pobrane z rękawicy")
                         .build(MainController.getDestinationSubFolder()));
-
-        return rawRightHandDataByFinger;
     }
 }

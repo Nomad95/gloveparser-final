@@ -56,24 +56,30 @@ public class CreateTimeSegmentedLeftHandRawDataChart implements Function<Map<Fin
             }
         }
 
+        drawChart(new Object[]{
+                        thumbFingerRawData,
+                        indexFingerRawData,
+                        middleFingerRawData,
+                        ringFingerRawData,
+                        littleFingerRawData
+                },
+                timeSeries);
+
+        log.debug("Chart generated");
+        return rawLeftHandDataByFinger;
+    }
+
+    private void drawChart(Object[] dataSeries, double[] timeSeries) {
         new ChartGeneratorImpl().drawChart(
                 new Plot.Builder(
-                        new Object[]{
-                                thumbFingerRawData,
-                                indexFingerRawData,
-                                middleFingerRawData,
-                                ringFingerRawData,
-                                littleFingerRawData
-                        }, timeSeries)
+                        dataSeries,
+                        timeSeries)
                         .withFileName("left_hand_raw_data")
                         .withGrid()
                         .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
                         .withTitle("Wartości pobrane z poszczególnych palców lewej ręki")
-                        .withXAxisName("Czas [s]")
+                        .withXAxisName("Numer wartości")
                         .withYAxisName("Wartości pobrane z rękawicy")
                         .build(MainController.getDestinationSubFolder()));
-
-        log.debug("Chart generated");
-        return rawLeftHandDataByFinger;
     }
 }
