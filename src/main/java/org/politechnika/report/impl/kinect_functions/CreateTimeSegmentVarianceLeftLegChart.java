@@ -8,21 +8,24 @@ import org.politechnika.model.kinect.TimeIntervalPointDistanceStatistics;
 
 import java.util.function.Function;
 
-public class CreateTimeSegmentAverageHeadChart implements Function<TimeIntervalPointDistanceStatistics, TimeIntervalPointDistanceStatistics> {
+public class CreateTimeSegmentVarianceLeftLegChart implements Function<TimeIntervalPointDistanceStatistics, TimeIntervalPointDistanceStatistics> {
 
     @Override
     public TimeIntervalPointDistanceStatistics apply(TimeIntervalPointDistanceStatistics handStatistics) {
         new ChartGeneratorImpl().drawChart(
                 new Plot.Builder(
                         new Object[]{
-                                handStatistics.getAverageValue(Sensor.HEAD)
+                                handStatistics.getVarianceValue(Sensor.WRIST_LEFT),
+                                handStatistics.getVarianceValue(Sensor.HIP_LEFT),
+                                handStatistics.getVarianceValue(Sensor.KNEE_LEFT),
+                                handStatistics.getVarianceValue(Sensor.FOOT_LEFT)
                         }, handStatistics.getTimeDimension())
-                        .withFileName("head_hand_average")
+                        .withFileName("left_leg_sensors_variances")
                         .withGrid()
-                        .withLegend("{'Głowa'}")
-                        .withTitle("Średnie wartości")
+                        .withLegend("{'Talia', 'Biodro', 'Kolano', 'Stopa'}")
+                        .withTitle("Wartości wariancji lewej nogi")
                         .withXAxisName("Czas [s]")
-                        .withYAxisName("Średnia")
+                        .withYAxisName("Wariancja")
                         .build(MainController.getDestinationSubFolder()));
         return handStatistics;
     }

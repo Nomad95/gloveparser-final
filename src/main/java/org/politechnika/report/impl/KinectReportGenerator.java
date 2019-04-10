@@ -18,11 +18,26 @@ public class KinectReportGenerator implements ReportGenerator {
                 .doCalculationsWithTimeInterval(new CalculateTimeIntervalKinectStatistics()) //invoke charts
                 .doPointsCalculations(new CalculatePointDistanceStatistics()) //invoke charts
                 .doPointsCalculationsWithTimeInterval(new CalculateTimeIntervalPointDistanceStatistics()
-                        .andThen(new CreateTimeSegmentAverageCoreChart())
+                        .andThen(new CreateTimeSegmentAverageCoreChart()) //średnia
                         .andThen(new CreateTimeSegmentAverageLeftArmChart())
                         .andThen(new CreateTimeSegmentAverageRightArmChart())
                         .andThen(new CreateTimeSegmentAverageLeftLegChart())
                         .andThen(new CreateTimeSegmentAverageRightLegChart())
+                        .andThen(new CreateTimeSegmentVarianceCoreChart()) //wariancja
+                        .andThen(new CreateTimeSegmentVarianceLeftArmChart())
+                        .andThen(new CreateTimeSegmentVarianceLeftLegChart())
+                        .andThen(new CreateTimeSegmentVarianceRightArmChart())
+                        .andThen(new CreateTimeSegmentVarianceRightLegChart())
+                        .andThen(new CreateTimeSegmentStandardDeviationCoreChart()) //odchylenie standardowe
+                        .andThen(new CreateTimeSegmentStandardDeviationLeftArmChart())
+                        .andThen(new CreateTimeSegmentStandardDeviationLeftLegChart())
+                        .andThen(new CreateTimeSegmentStandardDeviationRightArmChart())
+                        .andThen(new CreateTimeSegmentStandardDeviationRightLegChart())
+                        .andThen(new CreateTimeSegmentSkewnessCoreChart()) //skośność
+                        .andThen(new CreateTimeSegmentSkewnessLeftArmChart())
+                        .andThen(new CreateTimeSegmentSkewnessLeftLegChart())
+                        .andThen(new CreateTimeSegmentSkewnessRightArmChart())
+                        .andThen(new CreateTimeSegmentSkewnessRightLegChart())
                 ) //invoke  charts
                 .build();
 
