@@ -1,4 +1,4 @@
-package org.politechnika.frontend.main_controller;
+package org.politechnika.frontend;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

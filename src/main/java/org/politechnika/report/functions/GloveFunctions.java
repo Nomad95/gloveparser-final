@@ -1,7 +1,7 @@
 package org.politechnika.report.functions;
 
 import org.politechnika.data_parser.model.GloveDataDto;
-import org.politechnika.model.Finger;
+import org.politechnika.model.glove.Finger;
 
 import java.util.function.Function;
 

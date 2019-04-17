@@ -1,4 +1,4 @@
-package org.politechnika.frontend.main_controller;
+package org.politechnika.frontend;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +15,10 @@ import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
 import org.politechnika.commons.Constants;
 import org.politechnika.controller.ActionControllerImpl;
-import org.politechnika.file.model.AbstractDataFile;
-import org.politechnika.file.model.concrete_file.GloveDataFile;
-import org.politechnika.file.model.concrete_file.KinectDataFile;
-import org.politechnika.file.model.concrete_file.PulsometerDataFile;
+import org.politechnika.file.AbstractDataFile;
+import org.politechnika.file.GloveDataFile;
+import org.politechnika.file.KinectDataFile;
+import org.politechnika.file.PulsometerDataFile;
 import org.politechnika.report.impl.*;
 
 import java.io.File;

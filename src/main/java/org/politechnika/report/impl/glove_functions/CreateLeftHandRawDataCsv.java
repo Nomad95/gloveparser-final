@@ -4,8 +4,8 @@ import org.politechnika.data_parser.BeanToCsvParser;
 import org.politechnika.data_parser.CsvParsingException;
 import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.data_parser.model.OneHandGloveRawData;
-import org.politechnika.frontend.main_controller.MainController;
-import org.politechnika.model.Finger;
+import org.politechnika.frontend.MainController;
+import org.politechnika.model.glove.Finger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static org.apache.commons.lang3.ArrayUtils.add;
-import static org.politechnika.model.Finger.*;
+import static org.politechnika.model.glove.Finger.*;
 
 
 public class CreateLeftHandRawDataCsv implements Function<Map<Finger, List<GloveDataDto>>, Map<Finger, List<GloveDataDto>>>  {

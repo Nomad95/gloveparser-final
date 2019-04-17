@@ -1,4 +1,4 @@
-package org.politechnika.model;
+package org.politechnika.model.glove;
 
 import java.security.InvalidParameterException;
 

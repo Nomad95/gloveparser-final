@@ -2,64 +2,62 @@ package org.politechnika.model.kinect;
 
 import lombok.RequiredArgsConstructor;
 
-import java.lang.reflect.Field;
-
 @RequiredArgsConstructor
-public class Kinect {
+class KinectStatisticsSummary {
 
     private final String description;
 
-    private BasicKinect spineBase = new BasicKinect();
+    private Kinect3DPoint spineBase = new Kinect3DPoint();
 
-    private BasicKinect spineMid = new BasicKinect();
+    private Kinect3DPoint spineMid = new Kinect3DPoint();
 
-    private BasicKinect neck = new BasicKinect();
+    private Kinect3DPoint neck = new Kinect3DPoint();
 
-    private BasicKinect head = new BasicKinect();
+    private Kinect3DPoint head = new Kinect3DPoint();
 
-    private BasicKinect shoulderLeft = new BasicKinect();
+    private Kinect3DPoint shoulderLeft = new Kinect3DPoint();
 
-    private BasicKinect elbowLeft = new BasicKinect();
+    private Kinect3DPoint elbowLeft = new Kinect3DPoint();
 
-    private BasicKinect wristLeft = new BasicKinect();
+    private Kinect3DPoint wristLeft = new Kinect3DPoint();
 
-    private BasicKinect handLeft = new BasicKinect();
+    private Kinect3DPoint handLeft = new Kinect3DPoint();
 
-    private BasicKinect shoulderRight = new BasicKinect();
+    private Kinect3DPoint shoulderRight = new Kinect3DPoint();
 
-    private BasicKinect elbowRight = new BasicKinect();
+    private Kinect3DPoint elbowRight = new Kinect3DPoint();
 
-    private BasicKinect wristRight = new BasicKinect();
+    private Kinect3DPoint wristRight = new Kinect3DPoint();
 
-    private BasicKinect handRight = new BasicKinect();
+    private Kinect3DPoint handRight = new Kinect3DPoint();
 
-    private BasicKinect hipLeft = new BasicKinect();
+    private Kinect3DPoint hipLeft = new Kinect3DPoint();
 
-    private BasicKinect kneeLeft = new BasicKinect();
+    private Kinect3DPoint kneeLeft = new Kinect3DPoint();
 
-    private BasicKinect ankleLeft = new BasicKinect();
+    private Kinect3DPoint ankleLeft = new Kinect3DPoint();
 
-    private BasicKinect footLeft = new BasicKinect();
+    private Kinect3DPoint footLeft = new Kinect3DPoint();
 
-    private BasicKinect hipRight = new BasicKinect();
+    private Kinect3DPoint hipRight = new Kinect3DPoint();
 
-    private BasicKinect kneeRight = new BasicKinect();
+    private Kinect3DPoint kneeRight = new Kinect3DPoint();
 
-    private BasicKinect ankleRight = new BasicKinect();
+    private Kinect3DPoint ankleRight = new Kinect3DPoint();
 
-    private BasicKinect footRight = new BasicKinect();
+    private Kinect3DPoint footRight = new Kinect3DPoint();
 
-    private BasicKinect spineShoulder = new BasicKinect();
+    private Kinect3DPoint spineShoulder = new Kinect3DPoint();
 
-    private BasicKinect handTipLeft = new BasicKinect();
+    private Kinect3DPoint handTipLeft = new Kinect3DPoint();
 
-    private BasicKinect thumbLeft = new BasicKinect();
+    private Kinect3DPoint thumbLeft = new Kinect3DPoint();
 
-    private BasicKinect handTipRight = new BasicKinect();
+    private Kinect3DPoint handTipRight = new Kinect3DPoint();
 
-    private BasicKinect thumbRight = new BasicKinect();
+    private Kinect3DPoint thumbRight = new Kinect3DPoint();
 
-    public void setValueFor(Sensor sensor, Dimension dimension, double value) {
+    void setValueFor(Sensor sensor, Dimension dimension, double value) {
         switch (sensor) {
             case SPINE_BASE: setValueOnDimension(spineBase, dimension, value); return;
             case SPINE_MID: setValueOnDimension(spineMid, dimension, value); return;
@@ -120,7 +118,7 @@ public class Kinect {
         throw new IllegalArgumentException("Could not find value for sensor " + sensor);
     }
 
-    private double getValueFromDimension(BasicKinect field, Dimension dimension) {
+    private double getValueFromDimension(Kinect3DPoint field, Dimension dimension) {
         switch (dimension) {
             case X: return field.getX();
             case Y: return field.getY();
@@ -129,7 +127,7 @@ public class Kinect {
         throw new IllegalArgumentException("Could not find value for dimension " + dimension);
     }
 
-    private void setValueOnDimension(BasicKinect field, Dimension dimension, double value) {
+    private void setValueOnDimension(Kinect3DPoint field, Dimension dimension, double value) {
         switch (dimension) {
             case X: field.setX(value); return;
             case Y: field.setY(value); return;

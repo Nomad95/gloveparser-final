@@ -1,7 +1,6 @@
-package org.politechnika.file.model.concrete_file;
+package org.politechnika.file;
 
 import org.politechnika.commons.Constants;
-import org.politechnika.file.model.AbstractDataFile;
 
 public class GloveDataFile extends AbstractDataFile {
 

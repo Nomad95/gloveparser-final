@@ -1,6 +1,6 @@
 package org.politechnika.report;
 
-import org.politechnika.file.model.AbstractDataFile;
+import org.politechnika.file.AbstractDataFile;
 
 public interface ReportGenerator {
 

@@ -2,7 +2,7 @@ package org.politechnika.report.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
-import org.politechnika.file.model.AbstractDataFile;
+import org.politechnika.file.AbstractDataFile;
 import org.politechnika.report.ReportGenerator;
 import org.politechnika.report.impl.kinect_functions.*;
 

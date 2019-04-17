@@ -3,7 +3,7 @@ package org.politechnika.report.impl.kinect_functions;
 import org.politechnika.data_parser.BeanToCsvParser;
 import org.politechnika.data_parser.CsvParsingException;
 import org.politechnika.data_parser.model.KinectDataDto;
-import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.frontend.MainController;
 import org.politechnika.model.kinect.PointDistance;
 
 import java.util.LinkedList;

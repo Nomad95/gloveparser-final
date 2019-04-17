@@ -3,9 +3,9 @@ package org.politechnika.report.impl.glove_functions;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
 import org.politechnika.data_parser.model.GloveDataDto;
-import org.politechnika.model.Finger;
-import org.politechnika.model.HandStatistics;
-import org.politechnika.model.TimeIntervalHandStatistics;
+import org.politechnika.model.glove.Finger;
+import org.politechnika.model.glove.HandStatistics;
+import org.politechnika.model.glove.TimeIntervalHandStatistics;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package org.politechnika.file.model;
+package org.politechnika.file;
 
 import lombok.AllArgsConstructor;
 
@@ -15,5 +15,5 @@ public abstract class AbstractDataFile {
         return new FileReader(filePath);
     }
 
-    abstract public String getFileType();
+    public abstract String getFileType();
 }

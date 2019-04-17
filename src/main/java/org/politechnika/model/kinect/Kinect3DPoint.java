@@ -3,7 +3,7 @@ package org.politechnika.model.kinect;
 import lombok.Data;
 
 @Data
-public class BasicKinect {
+class Kinect3DPoint {
 
     private double x;
 

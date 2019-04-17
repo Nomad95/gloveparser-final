@@ -1,6 +1,6 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.frontend.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
 import org.politechnika.matlab.builders.Plot;
 import org.politechnika.model.kinect.Sensor;

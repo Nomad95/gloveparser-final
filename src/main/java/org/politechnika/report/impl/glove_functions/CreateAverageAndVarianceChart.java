@@ -1,11 +1,11 @@
 package org.politechnika.report.impl.glove_functions;
 
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.frontend.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
 import org.politechnika.matlab.builders.Scatter;
-import org.politechnika.model.Finger;
-import org.politechnika.model.TimeIntervalHandStatistics;
+import org.politechnika.model.glove.Finger;
+import org.politechnika.model.glove.TimeIntervalHandStatistics;
 
 import java.util.function.Function;
 

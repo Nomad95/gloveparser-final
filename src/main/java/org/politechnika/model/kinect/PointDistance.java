@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.politechnika.data_parser.model.DataDto;
 
-@RequiredArgsConstructor
 @Data
+@RequiredArgsConstructor
 public class PointDistance implements DataDto {
 
     private final String description;
@@ -116,7 +116,7 @@ public class PointDistance implements DataDto {
         }
     }
 
-    public double getValueFor(Sensor sensor) {
+     double getValueFor(Sensor sensor) {
         switch (sensor) {
             case SPINE_BASE: return spineBase;
             case SPINE_MID: return spineMid;

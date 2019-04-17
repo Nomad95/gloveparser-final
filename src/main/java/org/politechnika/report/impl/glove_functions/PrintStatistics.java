@@ -1,6 +1,6 @@
 package org.politechnika.report.impl.glove_functions;
 
-import org.politechnika.model.HandStatistics;
+import org.politechnika.model.glove.HandStatistics;
 
 import java.util.function.Function;
 

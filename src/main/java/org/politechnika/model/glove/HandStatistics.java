@@ -1,4 +1,4 @@
-package org.politechnika.model;
+package org.politechnika.model.glove;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -37,43 +37,43 @@ public class HandStatistics {
         kurtosisGloveData.setValueFor(finger, kurtosis);
     }
 
-    public String getAverageForFingerView(Finger finger) {
+    String getAverageForFingerView(Finger finger) {
         return String.valueOf(averageGloveData.getValueFor(finger));
     }
 
-    public String getStandardDeviationForFingerView(Finger finger) {
+    String getStandardDeviationForFingerView(Finger finger) {
         return String.valueOf(standardDeviationGloveData.getValueFor(finger));
     }
 
-    public String getVarianceForFingerView(Finger finger) {
+    String getVarianceForFingerView(Finger finger) {
         return String.valueOf(varianceGloveData.getValueFor(finger));
     }
 
-    public String getSkewnessForFingerView(Finger finger) {
+    String getSkewnessForFingerView(Finger finger) {
         return String.valueOf(skewnessCoefficientGloveData.getValueFor(finger));
     }
 
-    public String getKurtosisForFingerView(Finger finger) {
+    String getKurtosisForFingerView(Finger finger) {
         return String.valueOf(kurtosisGloveData.getValueFor(finger));
     }
 
-    public double getAverageForFinger(Finger finger) {
+    double getAverageForFinger(Finger finger) {
         return averageGloveData.getValueFor(finger);
     }
 
-    public double getStandardDeviationForFinger(Finger finger) {
+    double getStandardDeviationForFinger(Finger finger) {
         return standardDeviationGloveData.getValueFor(finger);
     }
 
-    public double getVarianceForFinger(Finger finger) {
+    double getVarianceForFinger(Finger finger) {
         return varianceGloveData.getValueFor(finger);
     }
 
-    public double getSkewnessForFinger(Finger finger) {
+    double getSkewnessForFinger(Finger finger) {
         return skewnessCoefficientGloveData.getValueFor(finger);
     }
 
-    public double getKurtosisForFinger(Finger finger) {
+    double getKurtosisForFinger(Finger finger) {
         return kurtosisGloveData.getValueFor(finger);
     }
 

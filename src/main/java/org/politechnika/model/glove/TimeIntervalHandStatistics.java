@@ -1,17 +1,17 @@
-package org.politechnika.model;
+package org.politechnika.model.glove;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 import org.politechnika.commons.Constants;
-import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.frontend.MainController;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.joining;
 import static org.politechnika.commons.Separators.TAB;
-import static org.politechnika.model.Finger.*;
+import static org.politechnika.model.glove.Finger.*;
 
 public class TimeIntervalHandStatistics {
 
@@ -34,7 +34,7 @@ public class TimeIntervalHandStatistics {
 
     public double[] getTimeDimension() {
         return IntStream.range(0, statistics.size())
-                .mapToDouble(value ->  ((double) value * (MainController.getTimeIntervalMillis() / Constants.MILLIS_IN_MINUTE)))
+                .mapToDouble(value ->  ((double) value * (MainController.getTimeIntervalMillis() / (double) Constants.MILLIS_IN_MINUTE)))
                 .toArray();
     }
 

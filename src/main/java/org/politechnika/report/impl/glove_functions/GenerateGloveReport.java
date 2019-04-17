@@ -3,10 +3,10 @@ package org.politechnika.report.impl.glove_functions;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.data_parser.model.GloveDataDto;
-import org.politechnika.file.model.AbstractDataFile;
-import org.politechnika.model.Finger;
-import org.politechnika.model.HandStatistics;
-import org.politechnika.model.TimeIntervalHandStatistics;
+import org.politechnika.file.AbstractDataFile;
+import org.politechnika.model.glove.Finger;
+import org.politechnika.model.glove.HandStatistics;
+import org.politechnika.model.glove.TimeIntervalHandStatistics;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.function.Function;
 import static java.util.stream.Collectors.groupingBy;
 import static org.politechnika.commons.Constants.LEFT_HAND;
 import static org.politechnika.commons.Constants.RIGHT_HAND;
-import static org.politechnika.frontend.main_controller.MainController.getTimeIntervalMillis;
+import static org.politechnika.frontend.MainController.getTimeIntervalMillis;
 import static org.politechnika.report.functions.GloveFunctions.sensorToFinger;
 
 @Slf4j

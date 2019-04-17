@@ -10,7 +10,7 @@ import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.data_parser.model.PulsometerDataDto;
 import org.politechnika.data_parser.strategy.GloveParsingStrategy;
 import org.politechnika.data_parser.strategy.PulsometerParsingStrategy;
-import org.politechnika.file.model.AbstractDataFile;
+import org.politechnika.file.AbstractDataFile;
 
 import java.io.FileNotFoundException;
 import java.io.StringReader;

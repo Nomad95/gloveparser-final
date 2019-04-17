@@ -28,23 +28,23 @@ public class PointDistanceStatistics {
         kurtosisKinectData.setValueFor(sensor, kurtosis);
     }
 
-    public double getAverageForSensorView(Sensor sensor) {
+    double getAverageForSensorView(Sensor sensor) {
         return averageKinectData.getValueFor(sensor);
     }
 
-    public double getStandardDeviationForSensorView(Sensor sensor) {
+    double getStandardDeviationForSensorView(Sensor sensor) {
         return standardDeviationKinectData.getValueFor(sensor);
     }
 
-    public double getVarianceForSensorView(Sensor sensor) {
+    double getVarianceForSensorView(Sensor sensor) {
         return varianceKinectData.getValueFor(sensor);
     }
 
-    public double getSkewnessForSensorView(Sensor sensor) {
+    double getSkewnessForSensorView(Sensor sensor) {
         return skewnessCoefficientKinectData.getValueFor(sensor);
     }
 
-    public double getKurtosisForSensorView(Sensor sensor) {
+    double getKurtosisForSensorView(Sensor sensor) {
         return kurtosisKinectData.getValueFor(sensor);
     }
 }

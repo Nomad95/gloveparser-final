@@ -3,7 +3,7 @@ package org.politechnika.report.impl.kinect_functions;
 import org.politechnika.data_parser.CsvToBeanParser;
 import org.politechnika.data_parser.model.KinectDataDto;
 import org.politechnika.data_parser.strategy.KinectParsingStrategy;
-import org.politechnika.file.model.AbstractDataFile;
+import org.politechnika.file.AbstractDataFile;
 
 import java.io.FileNotFoundException;
 import java.util.List;

@@ -2,8 +2,8 @@ package org.politechnika.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.file.model.AbstractDataFile;
-import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.file.AbstractDataFile;
+import org.politechnika.frontend.MainController;
 import org.politechnika.report.CollectiveReportGenerator;
 import org.politechnika.report.ReportGenerator;
 

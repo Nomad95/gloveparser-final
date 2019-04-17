@@ -1,4 +1,4 @@
-package org.politechnika.model;
+package org.politechnika.model.glove;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class FingerStatistics {
                 little;
     }
 
-    public void setValueFor(Finger finger, double value) {
+    void setValueFor(Finger finger, double value) {
         switch (finger) {
             case THUMB: thumb = value; return;
             case INDEX: index = value; return;
@@ -35,9 +35,11 @@ public class FingerStatistics {
             case RING: ring = value; return;
             case LITTLE: little = value; return;
         }
+
+        throw new IllegalArgumentException("Tried to set value to an not mapped finger - " + finger);
     }
 
-    public double getValueFor(Finger finger) {
+    double getValueFor(Finger finger) {
         switch (finger) {
             case THUMB: return thumb;
             case INDEX: return index;
