@@ -1,8 +1,8 @@
 package org.politechnika.report.impl.glove_functions;
 
-import org.politechnika.data_parser.csv.definitions.GloveParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
-import org.politechnika.data_parser.csv.impl.BeanCsvParser;
+import org.politechnika.data_parser.CsvToBeanParser;
+import org.politechnika.data_parser.model.GloveDataDto;
+import org.politechnika.data_parser.strategy.GloveParsingStrategy;
 import org.politechnika.file.model.AbstractDataFile;
 
 import java.io.FileNotFoundException;
@@ -13,10 +13,10 @@ public class ParseToBeans implements Function<AbstractDataFile, List<GloveDataDt
 
     @Override
     public List<GloveDataDto> apply(AbstractDataFile abstractDataFile) {
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
 
         try {
-            return beanCsvParser.parseToBean(abstractDataFile, new GloveParsingStrategy());
+            return csvToBeanParser.parseToBean(abstractDataFile, new GloveParsingStrategy());
         } catch (FileNotFoundException e) {
             //TODO: do something -> print error to user
             throw new IllegalStateException(e);

@@ -1,8 +1,9 @@
 package org.politechnika.report.impl.glove_functions;
 
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
-import org.politechnika.data_parser.csv.definitions.beans.OneHandGloveRawData;
-import org.politechnika.data_parser.csv.impl.CsvBeanParser;
+import org.politechnika.data_parser.BeanToCsvParser;
+import org.politechnika.data_parser.CsvParsingException;
+import org.politechnika.data_parser.model.GloveDataDto;
+import org.politechnika.data_parser.model.OneHandGloveRawData;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.model.Finger;
 
@@ -13,6 +14,7 @@ import java.util.function.Function;
 
 import static org.apache.commons.lang3.ArrayUtils.add;
 import static org.politechnika.model.Finger.*;
+
 
 public class CreateLeftHandRawDataCsv implements Function<Map<Finger, List<GloveDataDto>>, Map<Finger, List<GloveDataDto>>>  {
 
@@ -62,9 +64,13 @@ public class CreateLeftHandRawDataCsv implements Function<Map<Finger, List<Glove
             ));
         }
 
-        //TODO: bardziej wizualizacja -
-        String s = new CsvBeanParser().parseToCsv(res, MainController.getDestinationSubFolder() + "/rekawica_lewa.csv");
-        //save
+        //TODO: try save!
+        try {
+            new BeanToCsvParser().parseToCsv(res, MainController.getDestinationSubFolder() + "/rekawica_lewa.csv");
+        } catch (CsvParsingException e) {
+
+            e.printStackTrace();//todo: errory! wiadomosc!
+        }
 
         return rawLeftHandDataByFinger;
     }

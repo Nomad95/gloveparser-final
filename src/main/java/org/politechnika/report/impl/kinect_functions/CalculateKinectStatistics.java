@@ -1,6 +1,6 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
+import org.politechnika.data_parser.model.KinectDataDto;
 import org.politechnika.model.kinect.KinectStatistics;
 
 import java.util.List;

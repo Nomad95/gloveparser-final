@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.data_parser.csv.definitions.DataDto;
+import org.politechnika.data_parser.model.DataDto;
 
 import java.util.Collections;
 import java.util.List;

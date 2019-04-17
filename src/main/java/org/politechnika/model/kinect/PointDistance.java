@@ -3,7 +3,7 @@ package org.politechnika.model.kinect;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.politechnika.data_parser.csv.definitions.DataDto;
+import org.politechnika.data_parser.model.DataDto;
 
 @RequiredArgsConstructor
 @Data

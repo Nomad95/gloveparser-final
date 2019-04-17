@@ -1,9 +1,9 @@
-package org.politechnika.data_parser.csv.definitions;
+package org.politechnika.data_parser.strategy;
 
-import org.politechnika.data_parser.csv.ParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
+import org.politechnika.data_parser.model.KinectDataDto;
 
 import static org.politechnika.commons.Separators.PIPE;
+import static org.politechnika.commons.Separators.SEMICOLON;
 
 public class KinectParsingStrategy implements ParsingStrategy<KinectDataDto> {
 
@@ -13,7 +13,12 @@ public class KinectParsingStrategy implements ParsingStrategy<KinectDataDto> {
     }
 
     @Override
-    public char getSeparator() {
+    public char getReadSeparator() {
         return PIPE;
+    }
+
+    @Override
+    public char getWriteSeparator() {
+        return SEMICOLON;
     }
 }

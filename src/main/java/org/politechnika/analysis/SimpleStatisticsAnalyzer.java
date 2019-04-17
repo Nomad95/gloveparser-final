@@ -1,6 +1,6 @@
 package org.politechnika.analysis;
 
-import org.politechnika.data_parser.csv.definitions.DataDto;
+import org.politechnika.data_parser.model.DataDto;
 
 import java.util.List;
 import java.util.function.ToDoubleFunction;

@@ -1,8 +1,8 @@
-package org.politechnika.data_parser.csv.definitions;
+package org.politechnika.data_parser.strategy;
 
-import org.politechnika.data_parser.csv.ParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.beans.PulsometerDataDto;
+import org.politechnika.data_parser.model.PulsometerDataDto;
 
+import static org.politechnika.commons.Separators.SEMICOLON;
 import static org.politechnika.commons.Separators.SPACE;
 
 public class PulsometerParsingStrategy implements ParsingStrategy<PulsometerDataDto> {
@@ -13,7 +13,12 @@ public class PulsometerParsingStrategy implements ParsingStrategy<PulsometerData
     }
 
     @Override
-    public char getSeparator() {
+    public char getReadSeparator() {
         return SPACE;
+    }
+
+    @Override
+    public char getWriteSeparator() {
+        return SEMICOLON;
     }
 }

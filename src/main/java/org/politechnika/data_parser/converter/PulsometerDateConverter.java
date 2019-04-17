@@ -1,4 +1,4 @@
-package org.politechnika.data_parser.csv.definitions.beans.field_definition;
+package org.politechnika.data_parser.converter;
 
 import com.opencsv.bean.AbstractBeanField;
 import com.opencsv.exceptions.CsvConstraintViolationException;

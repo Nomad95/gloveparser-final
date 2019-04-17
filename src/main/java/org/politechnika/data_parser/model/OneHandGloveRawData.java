@@ -1,8 +1,7 @@
-package org.politechnika.data_parser.csv.definitions.beans;
+package org.politechnika.data_parser.model;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.Value;
-import org.politechnika.data_parser.csv.definitions.DataDto;
 
 @Value
 public class OneHandGloveRawData implements DataDto {

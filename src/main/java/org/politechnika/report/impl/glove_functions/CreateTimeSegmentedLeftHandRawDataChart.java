@@ -1,7 +1,7 @@
 package org.politechnika.report.impl.glove_functions;
 
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
+import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
 import org.politechnika.matlab.builders.Plot;

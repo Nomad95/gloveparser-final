@@ -1,5 +1,6 @@
-package org.politechnika.data_parser.csv;
+package org.politechnika.data_parser;
 
+import org.politechnika.data_parser.strategy.ParsingStrategy;
 import org.politechnika.file.model.AbstractDataFile;
 
 import java.io.FileNotFoundException;

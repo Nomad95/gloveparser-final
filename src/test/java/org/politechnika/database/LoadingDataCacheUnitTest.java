@@ -5,8 +5,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.politechnika.data_parser.csv.definitions.DataDto;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
+import org.politechnika.data_parser.model.DataDto;
+import org.politechnika.data_parser.model.GloveDataDto;
 
 import java.util.List;
 

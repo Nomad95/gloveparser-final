@@ -2,7 +2,7 @@ package org.politechnika.report.impl.glove_functions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
+import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.model.Finger;
 import org.politechnika.model.HandStatistics;
 import org.politechnika.model.TimeIntervalHandStatistics;

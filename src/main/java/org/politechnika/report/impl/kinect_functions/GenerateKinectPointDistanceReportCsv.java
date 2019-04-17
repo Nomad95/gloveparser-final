@@ -1,7 +1,8 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
-import org.politechnika.data_parser.csv.impl.CsvBeanParser;
+import org.politechnika.data_parser.BeanToCsvParser;
+import org.politechnika.data_parser.CsvParsingException;
+import org.politechnika.data_parser.model.KinectDataDto;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.model.kinect.PointDistance;
 
@@ -20,8 +21,12 @@ public class GenerateKinectPointDistanceReportCsv implements Function<List<Kinec
             points.add(calculatePoint(kinectDataDtos.get(i), kinectDataDtos.get(i-1), i));
         }
 
-        String s = new CsvBeanParser().parseToCsv(points, MainController.getDestinationSubFolder() + "/kinect_odcinki_odleglosci.csv");
-
+        //fixme
+        try {
+            new BeanToCsvParser().parseToCsv(points, MainController.getDestinationSubFolder() + "/kinect_odcinki_odleglosci.csv");
+        } catch (CsvParsingException e) {
+            e.printStackTrace();
+        }
 
         return kinectDataDtos;
     }

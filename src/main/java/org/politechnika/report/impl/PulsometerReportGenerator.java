@@ -4,9 +4,9 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
 import org.politechnika.commons.Constants;
-import org.politechnika.data_parser.csv.definitions.PulsometerParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.beans.PulsometerDataDto;
-import org.politechnika.data_parser.csv.impl.BeanCsvParser;
+import org.politechnika.data_parser.CsvToBeanParser;
+import org.politechnika.data_parser.model.PulsometerDataDto;
+import org.politechnika.data_parser.strategy.PulsometerParsingStrategy;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
@@ -32,11 +32,11 @@ public class PulsometerReportGenerator implements ReportGenerator {
     public void generate(AbstractDataFile dataFile) {
         log.debug("Generating pulsometer report");
 
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
         List<PulsometerDataDto> pulsometerDataDtos;
         try {
             log.debug("Parsing pulsometer data...");
-            pulsometerDataDtos = beanCsvParser.parseToBean(dataFile, new PulsometerParsingStrategy());
+            pulsometerDataDtos = csvToBeanParser.parseToBean(dataFile, new PulsometerParsingStrategy());
         } catch (FileNotFoundException e) {
             throw new IllegalStateException(e);
         }

@@ -1,4 +1,4 @@
-package org.politechnika.data_parser.csv.definitions.beans;
+package org.politechnika.data_parser.model;
 
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
@@ -7,9 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.politechnika.commons.Optimized;
-import org.politechnika.data_parser.csv.definitions.DataDto;
-import org.politechnika.data_parser.csv.definitions.beans.field_definition.PulsometerDateConverter;
-import org.politechnika.data_parser.csv.definitions.beans.field_definition.PulsometerTimeConverter;
+import org.politechnika.data_parser.converter.PulsometerDateConverter;
+import org.politechnika.data_parser.converter.PulsometerTimeConverter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

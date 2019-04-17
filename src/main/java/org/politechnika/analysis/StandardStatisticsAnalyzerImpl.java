@@ -4,7 +4,7 @@ import org.apache.commons.math3.stat.descriptive.moment.Kurtosis;
 import org.apache.commons.math3.stat.descriptive.moment.Skewness;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.commons.math3.stat.descriptive.moment.Variance;
-import org.politechnika.data_parser.csv.definitions.DataDto;
+import org.politechnika.data_parser.model.DataDto;
 
 import java.util.List;
 import java.util.function.ToDoubleFunction;

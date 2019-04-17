@@ -1,9 +1,8 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.data_parser.csv.definitions.GloveParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.KinectParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
-import org.politechnika.data_parser.csv.impl.BeanCsvParser;
+import org.politechnika.data_parser.CsvToBeanParser;
+import org.politechnika.data_parser.model.KinectDataDto;
+import org.politechnika.data_parser.strategy.KinectParsingStrategy;
 import org.politechnika.file.model.AbstractDataFile;
 
 import java.io.FileNotFoundException;
@@ -14,10 +13,10 @@ public class ParseToBeans implements Function<AbstractDataFile, List<KinectDataD
 
     @Override
     public List<KinectDataDto> apply(AbstractDataFile abstractDataFile) {
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
 
         try {
-            return beanCsvParser.parseToBean(abstractDataFile, new KinectParsingStrategy());
+            return csvToBeanParser.parseToBean(abstractDataFile, new KinectParsingStrategy());
         } catch (FileNotFoundException e) {
             //TODO: do something -> print error to user
             throw new IllegalStateException(e);

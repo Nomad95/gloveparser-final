@@ -8,9 +8,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.politechnika.StaticTestResources;
 import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
-import org.politechnika.data_parser.csv.definitions.GloveParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
-import org.politechnika.data_parser.csv.impl.BeanCsvParser;
+import org.politechnika.data_parser.CsvToBeanParser;
+import org.politechnika.data_parser.model.GloveDataDto;
+import org.politechnika.data_parser.strategy.GloveParsingStrategy;
 import org.politechnika.file.model.AbstractDataFile;
 
 import java.io.FileNotFoundException;
@@ -28,8 +28,8 @@ public class StandardStatisticsAnalyzerImplTest {
     @Test
     public void shouldGetAverageFromList() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.GLOVE_TEST_DATA)).when(file).getReader();
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
-        List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
+        List<GloveDataDto> gloveDataFiles = csvToBeanParser.parseToBean(file, new GloveParsingStrategy());
 
         double resultAverage = gloveStatisticsAnalyzer.getAverage(gloveDataFiles, GloveDataDto::getRaw);
 
@@ -39,8 +39,8 @@ public class StandardStatisticsAnalyzerImplTest {
     @Test
     public void shouldGetVarianceFromList() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.GLOVE_TEST_DATA)).when(file).getReader();
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
-        List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
+        List<GloveDataDto> gloveDataFiles = csvToBeanParser.parseToBean(file, new GloveParsingStrategy());
 
         double resultVariance = gloveStatisticsAnalyzer.getVariance(gloveDataFiles, GloveDataDto::getRaw);
 
@@ -50,8 +50,8 @@ public class StandardStatisticsAnalyzerImplTest {
     @Test
     public void shouldGetStandardDeviationFromList() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.GLOVE_TEST_DATA)).when(file).getReader();
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
-        List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
+        List<GloveDataDto> gloveDataFiles = csvToBeanParser.parseToBean(file, new GloveParsingStrategy());
 
         double resultStandardDeviation = gloveStatisticsAnalyzer.getStandardDeviation(gloveDataFiles, GloveDataDto::getRaw);
 
@@ -61,8 +61,8 @@ public class StandardStatisticsAnalyzerImplTest {
     @Test
     public void shouldSkewnessFromList() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.GLOVE_TEST_DATA)).when(file).getReader();
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
-        List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
+        List<GloveDataDto> gloveDataFiles = csvToBeanParser.parseToBean(file, new GloveParsingStrategy());
 
         double resultSkewness = gloveStatisticsAnalyzer.getSkewness(gloveDataFiles, GloveDataDto::getRaw);
 
@@ -73,8 +73,8 @@ public class StandardStatisticsAnalyzerImplTest {
     @Test
     public void shouldKurtosisFromList() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.GLOVE_TEST_DATA)).when(file).getReader();
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
-        List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
+        List<GloveDataDto> gloveDataFiles = csvToBeanParser.parseToBean(file, new GloveParsingStrategy());
 
         double resultKurtosis = gloveStatisticsAnalyzer.getKurtosis(gloveDataFiles, GloveDataDto::getRaw);
 

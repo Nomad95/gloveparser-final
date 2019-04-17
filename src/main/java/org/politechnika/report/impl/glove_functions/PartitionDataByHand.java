@@ -1,6 +1,6 @@
 package org.politechnika.report.impl.glove_functions;
 
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
+import org.politechnika.data_parser.model.GloveDataDto;
 
 import java.util.List;
 import java.util.Map;

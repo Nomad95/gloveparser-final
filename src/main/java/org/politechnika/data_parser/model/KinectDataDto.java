@@ -1,10 +1,9 @@
-package org.politechnika.data_parser.csv.definitions.beans;
+package org.politechnika.data_parser.model;
 
 import com.opencsv.bean.CsvCustomBindByName;
 import lombok.*;
-import org.politechnika.data_parser.csv.definitions.DataDto;
-import org.politechnika.data_parser.csv.definitions.beans.field_definition.DoubleWithCommaConverter;
-import org.politechnika.data_parser.csv.definitions.beans.field_definition.GloveTimestampToInstantConverter;
+import org.politechnika.data_parser.converter.DoubleWithCommaConverter;
+import org.politechnika.data_parser.converter.GloveTimestampToInstantConverter;
 
 import java.time.Instant;
 

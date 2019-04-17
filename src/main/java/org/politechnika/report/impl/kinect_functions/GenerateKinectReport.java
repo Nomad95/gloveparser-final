@@ -2,7 +2,7 @@ package org.politechnika.report.impl.kinect_functions;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
+import org.politechnika.data_parser.model.KinectDataDto;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.model.kinect.KinectStatistics;
