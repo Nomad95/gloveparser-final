@@ -20,9 +20,11 @@ public class GloveReportGenerator implements ReportGenerator {
                 .parseData(new ParseToBeans())
                 .partitionRawData(new PartitionDataByHand())
                 .doOnLeftHand(new CalculateGloveStatistics(LEFT_HAND)
-                        .compose(new CreateTimeSegmentedLeftHandRawDataChart()))
+                        .compose(new CreateTimeSegmentedLeftHandRawDataChart())
+                        .compose(new CreateLeftHandRawDataCsv()))
                 .doOnRightHand(new CalculateGloveStatistics(RIGHT_HAND)
-                        .compose(new CreateTimeSegmentedRightHandRawDataChart()))
+                        .compose(new CreateTimeSegmentedRightHandRawDataChart())
+                        .compose(new CreateRightHandRawDataCsv())) //TODO: zmienic w jedno
                 .doOnLeftHandWithTimeInterval(new CalculateTimeIntervalStatistics(LEFT_HAND)
                         .andThen(new CreateTimeSegmentedAverageChart())
                         .andThen(new CreateTimeSegmentedVarianceChart())

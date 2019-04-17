@@ -1,5 +1,6 @@
 package org.politechnika.model.kinect;
 
+import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.politechnika.data_parser.csv.definitions.DataDto;
@@ -10,54 +11,79 @@ public class PointDistance implements DataDto {
 
     private final String description;
 
+    @CsvBindByName(column = "odcinek_ledzwiowy_kregoslupa")
     private double spineBase;
 
+    @CsvBindByName(column = "odcinek_srodkowy_kregoslupa")
     private double spineMid;
 
+    @CsvBindByName(column = "szyja")
     private double neck;
 
+    @CsvBindByName(column = "glowa")
     private double head;
 
+    @CsvBindByName(column = "ramie_lewe")
     private double shoulderLeft;
 
+    @CsvBindByName(column = "lewy_lokiec")
     private double elbowLeft;
 
+    @CsvBindByName(column = "lewy_nadgarstek")
     private double wristLeft;
 
+    @CsvBindByName(column = "lewa_reka")
     private double handLeft;
 
+    @CsvBindByName(column = "ramie_prawe")
     private double shoulderRight;
 
+    @CsvBindByName(column = "prawy_lokiec")
     private double elbowRight;
 
+    @CsvBindByName(column = "prawy_nadgarstek")
     private double wristRight;
 
+    @CsvBindByName(column = "prawa_reka")
     private double handRight;
 
+    @CsvBindByName(column = "lewe_biodro")
     private double hipLeft;
 
+    @CsvBindByName(column = "lewe_kolano")
     private double kneeLeft;
 
+    @CsvBindByName(column = "lewa_kostka")
     private double ankleLeft;
 
+    @CsvBindByName(column = "lewa_stopa")
     private double footLeft;
 
+    @CsvBindByName(column = "prawe_biodro")
     private double hipRight;
 
+    @CsvBindByName(column = "prawe_kolano")
     private double kneeRight;
 
+    @CsvBindByName(column = "prawa_kostka")
     private double ankleRight;
 
+    @CsvBindByName(column = "prawa_stopa")
     private double footRight;
 
+    @CsvBindByName(column = "odcinek_szyjny_kregoslupa")
     private double spineShoulder;
 
+    @CsvBindByName(column = "palec_wskazujacy_lewy")
     private double handTipLeft;
 
+    @CsvBindByName(column = "kciuk_lewy")
     private double thumbLeft;
 
+    @CsvBindByName(column = "palec_wskazujacy_prawy")
     private double handTipRight;
 
+    @CsvBindByName(column = "kciuk_prawy")
     private double thumbRight;
 
     public void setValueFor(Sensor sensor, double value) {
