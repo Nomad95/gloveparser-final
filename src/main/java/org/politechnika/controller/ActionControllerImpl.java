@@ -1,8 +1,7 @@
-package org.politechnika.controller.impl;
+package org.politechnika.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.controller.ActionController;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.frontend.main_controller.MainController;
 import org.politechnika.report.CollectiveReportGenerator;
@@ -14,13 +13,12 @@ import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ActionControllerImpl implements ActionController {
+public class ActionControllerImpl {
 
     private final List<ReportGenerator> reportGenerators;
     private final List<CollectiveReportGenerator> collectiveReportGenerators;
 
-    @Override
-    public void generate(List<AbstractDataFile> files, int timeIntervalInMillis) {
+    public void generate(List<AbstractDataFile> files) {
         generateSingleReports(files);
         //TODO: generate charts here or inside report generators?
         generateCollectiveReports();

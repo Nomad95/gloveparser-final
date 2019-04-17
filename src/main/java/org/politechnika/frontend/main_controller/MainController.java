@@ -10,22 +10,16 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
 import org.politechnika.commons.Constants;
-import org.politechnika.controller.ActionController;
-import org.politechnika.controller.impl.ActionControllerImpl;
+import org.politechnika.controller.ActionControllerImpl;
 import org.politechnika.file.model.AbstractDataFile;
 import org.politechnika.file.model.concrete_file.GloveDataFile;
 import org.politechnika.file.model.concrete_file.KinectDataFile;
 import org.politechnika.file.model.concrete_file.PulsometerDataFile;
-import org.politechnika.report.impl.CorrelationReportGenerator;
-import org.politechnika.report.impl.GloveReportGenerator;
-import org.politechnika.report.impl.InferenceReportGenerator;
-import org.politechnika.report.impl.KinectReportGenerator;
-import org.politechnika.report.impl.OverallReportGenerator;
-import org.politechnika.report.impl.PulsometerReportGenerator;
-import org.slf4j.Logger;
+import org.politechnika.report.impl.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,22 +27,17 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static java.lang.Integer.parseInt;
 import static java.util.Collections.unmodifiableList;
 import static org.politechnika.commons.Constants.FOLDER_DATE_FORMATTER;
 import static org.politechnika.commons.Constants.MAX_MILLIS;
 import static org.politechnika.commons.NumberCommons.tryGetIntValueFromString;
 
+@Slf4j
 public class MainController implements Initializable {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(MainController.class);
     @FXML private Button gloveSearchButton;
     @FXML private Button pulsometerSearchButton;
     @FXML private Button kinectSearchButton;
@@ -63,7 +52,7 @@ public class MainController implements Initializable {
     @FXML private Button optionsButton;
 
     private Map<String, AbstractDataFile> filesMap = new HashMap<>(3);
-    private ActionController actionController = new ActionControllerImpl(
+    private ActionControllerImpl actionController = new ActionControllerImpl(
             newArrayList(new PulsometerReportGenerator(), new KinectReportGenerator(), new GloveReportGenerator()),
             newArrayList(new InferenceReportGenerator(), new CorrelationReportGenerator(), new OverallReportGenerator()));
 
@@ -170,7 +159,7 @@ public class MainController implements Initializable {
                         + ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
                         .toLocalDateTime()
                         .format(DateTimeFormatter.ofPattern(FOLDER_DATE_FORMATTER));
-                actionController.generate(files, parseInt(millisTextField.getText()));
+                actionController.generate(files);
             } finally {
                 resumeUi();
             }

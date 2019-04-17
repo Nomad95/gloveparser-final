@@ -1,6 +1,6 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
+import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
 import org.politechnika.model.kinect.PointDistance;
 import org.politechnika.model.kinect.PointDistanceStatistics;
 

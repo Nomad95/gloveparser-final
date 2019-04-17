@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.politechnika.StaticTestResources;
+import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
 import org.politechnika.data_parser.csv.definitions.GloveParsingStrategy;
 import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
 import org.politechnika.data_parser.csv.impl.BeanCsvParser;

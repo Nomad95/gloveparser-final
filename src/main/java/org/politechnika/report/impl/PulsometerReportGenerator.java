@@ -2,7 +2,7 @@ package org.politechnika.report.impl;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
+import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
 import org.politechnika.commons.Constants;
 import org.politechnika.data_parser.csv.definitions.PulsometerParsingStrategy;
 import org.politechnika.data_parser.csv.definitions.beans.PulsometerDataDto;

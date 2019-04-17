@@ -1,11 +1,9 @@
-package org.politechnika.analysis.impl;
+package org.politechnika.analysis;
 
 import org.apache.commons.math3.stat.descriptive.moment.Kurtosis;
 import org.apache.commons.math3.stat.descriptive.moment.Skewness;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.commons.math3.stat.descriptive.moment.Variance;
-import org.politechnika.analysis.PreviousDataUsageStatisticsAnalyzer;
-import org.politechnika.analysis.SimpleStatisticsAnalyzer;
 import org.politechnika.data_parser.csv.definitions.DataDto;
 
 import java.util.List;

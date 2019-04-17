@@ -1,6 +1,6 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
+import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
 import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
 import org.politechnika.model.kinect.KinectStatistics;
 import org.politechnika.model.kinect.TimeIntervalKinectStatistics;
