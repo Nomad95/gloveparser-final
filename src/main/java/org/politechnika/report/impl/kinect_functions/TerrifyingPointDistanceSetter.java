@@ -1,21 +1,19 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.analysis.impl.KinectPointDistanceAnalyzerImpl;
+import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
 import org.politechnika.model.kinect.PointDistance;
 import org.politechnika.model.kinect.PointDistanceStatistics;
 
 import java.util.List;
 
 import static org.politechnika.model.kinect.Sensor.*;
-import static org.politechnika.model.kinect.Sensor.THUMB_LEFT;
-import static org.politechnika.model.kinect.Sensor.THUMB_RIGHT;
 
-public class TerrifyingPointDistanceSetter {
+class TerrifyingPointDistanceSetter {
 
-    private final KinectPointDistanceAnalyzerImpl statisticAnalyzer;
+    private final StandardStatisticsAnalyzerImpl statisticAnalyzer;
 
-    public TerrifyingPointDistanceSetter() {
-        this.statisticAnalyzer = new KinectPointDistanceAnalyzerImpl();
+    TerrifyingPointDistanceSetter() {
+        this.statisticAnalyzer = new StandardStatisticsAnalyzerImpl();
     }
 
     void setAllAverages(PointDistanceStatistics kinectStatistics, List<PointDistance> data) {

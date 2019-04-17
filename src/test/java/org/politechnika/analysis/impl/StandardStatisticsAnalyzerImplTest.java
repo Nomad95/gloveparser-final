@@ -17,12 +17,12 @@ import java.io.StringReader;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GloveStatisticsAnalyzerImplTest {
+public class StandardStatisticsAnalyzerImplTest {
 
     @Mock
     private AbstractDataFile file;
 
-    private GloveStatisticsAnalyzerImpl gloveStatisticsAnalyzer = new GloveStatisticsAnalyzerImpl();
+    private StandardStatisticsAnalyzerImpl gloveStatisticsAnalyzer = new StandardStatisticsAnalyzerImpl();
 
     @Test
     public void shouldGetAverageFromList() throws FileNotFoundException {

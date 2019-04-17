@@ -1,24 +1,20 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.analysis.impl.KinectStatisticAnalyzerImpl;
+import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
 import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
 import org.politechnika.model.kinect.KinectStatistics;
 
 import java.util.List;
 
-import static org.politechnika.model.kinect.Dimension.X;
-import static org.politechnika.model.kinect.Dimension.Y;
-import static org.politechnika.model.kinect.Dimension.Z;
+import static org.politechnika.model.kinect.Dimension.*;
 import static org.politechnika.model.kinect.Sensor.*;
-import static org.politechnika.model.kinect.Sensor.THUMB_LEFT;
-import static org.politechnika.model.kinect.Sensor.THUMB_RIGHT;
 
-public class TerrifyingKinectSetter {
+class TerrifyingKinectSetter {
 
-    private final KinectStatisticAnalyzerImpl statisticAnalyzer;
+    private final StandardStatisticsAnalyzerImpl statisticAnalyzer;
 
-    public TerrifyingKinectSetter() {
-        this.statisticAnalyzer = new KinectStatisticAnalyzerImpl();
+    TerrifyingKinectSetter() {
+        this.statisticAnalyzer = new StandardStatisticsAnalyzerImpl();
     }
 
     void setAllAverages(KinectStatistics kinectStatistics, List<KinectDataDto> data) {

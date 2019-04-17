@@ -2,7 +2,7 @@ package org.politechnika.report.impl;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.analysis.impl.PulsometerStatisticAnalyzerImpl;
+import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
 import org.politechnika.commons.Constants;
 import org.politechnika.data_parser.csv.definitions.PulsometerParsingStrategy;
 import org.politechnika.data_parser.csv.definitions.beans.PulsometerDataDto;
@@ -42,7 +42,7 @@ public class PulsometerReportGenerator implements ReportGenerator {
         }
 
         log.debug("Calculating pulsometer statistics");
-        PulsometerStatisticAnalyzerImpl analyzer = new PulsometerStatisticAnalyzerImpl();
+        StandardStatisticsAnalyzerImpl analyzer = new StandardStatisticsAnalyzerImpl();
         double average = analyzer.getAverage(pulsometerDataDtos, PulsometerDataDto::getValue);//todo: te wartosci pozniej do raportu koncowego
         double kurtosis = analyzer.getKurtosis(pulsometerDataDtos, PulsometerDataDto::getValue);
         double skewness = analyzer.getSkewness(pulsometerDataDtos, PulsometerDataDto::getValue);
@@ -58,7 +58,7 @@ public class PulsometerReportGenerator implements ReportGenerator {
     }
 
     //todo: wydzielić to do klas i metod czy dzieś
-    private void generatePulsChart(PulsometerStatisticAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats) {
+    private void generatePulsChart(StandardStatisticsAnalyzerImpl analyzer, Map<Integer, List<PulsometerDataDto>> timeSegmentedStats) {
         log.debug("Generating pulsometer chart");
         List<ValueAndTimeSeries> timeSegmentedData = timeSegmentedStats.entrySet().stream()
                 .map(entry -> new ValueAndTimeSeries(analyzer.getAverage(entry.getValue(), PulsometerDataDto::getValue), entry.getKey()))

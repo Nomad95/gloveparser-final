@@ -1,7 +1,7 @@
 package org.politechnika.report.impl.glove_functions;
 
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.analysis.impl.GloveStatisticsAnalyzerImpl;
+import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
 import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
 import org.politechnika.model.Finger;
 import org.politechnika.model.HandStatistics;
@@ -16,10 +16,10 @@ import static java.lang.String.format;
 public class CalculateGloveStatistics implements Function<Map<Finger, List<GloveDataDto>>, HandStatistics> {
 
     private String handName;
-    private final GloveStatisticsAnalyzerImpl statisticsAnalyzer;
+    private final StandardStatisticsAnalyzerImpl statisticsAnalyzer;
 
     public CalculateGloveStatistics(String handName) {
-        this.statisticsAnalyzer = new GloveStatisticsAnalyzerImpl();
+        this.statisticsAnalyzer = new StandardStatisticsAnalyzerImpl();
         this.handName = handName;
     }
 

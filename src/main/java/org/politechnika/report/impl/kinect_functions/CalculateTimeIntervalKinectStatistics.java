@@ -1,6 +1,6 @@
 package org.politechnika.report.impl.kinect_functions;
 
-import org.politechnika.analysis.impl.KinectStatisticAnalyzerImpl;
+import org.politechnika.analysis.impl.StandardStatisticsAnalyzerImpl;
 import org.politechnika.data_parser.csv.definitions.beans.KinectDataDto;
 import org.politechnika.model.kinect.KinectStatistics;
 import org.politechnika.model.kinect.TimeIntervalKinectStatistics;
@@ -11,11 +11,11 @@ import java.util.function.Function;
 
 public class CalculateTimeIntervalKinectStatistics implements Function<Map<Long, List<KinectDataDto>>, TimeIntervalKinectStatistics> {
 
-    private final KinectStatisticAnalyzerImpl kinectStatisticAnalyzer;
+    private final StandardStatisticsAnalyzerImpl kinectStatisticAnalyzer;
     TerrifyingKinectSetter terrifyingKinectSetter;
 
     public CalculateTimeIntervalKinectStatistics() {
-        this.kinectStatisticAnalyzer = new KinectStatisticAnalyzerImpl();
+        this.kinectStatisticAnalyzer = new StandardStatisticsAnalyzerImpl();
         this.terrifyingKinectSetter = new TerrifyingKinectSetter();
     }
 
