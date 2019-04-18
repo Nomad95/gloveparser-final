@@ -17,6 +17,7 @@ class TerrifyingKinectSetter {
         this.statisticAnalyzer = new StandardStatisticsAnalyzerImpl();
     }
 
+    //how terrifying!
     void setAllAverages(KinectStatistics kinectStatistics, List<KinectDataDto> data) {
         kinectStatistics.setAverageFor(SPINE_BASE, X, statisticAnalyzer.getAverage(data, KinectDataDto::getSpineBase_x));
         kinectStatistics.setAverageFor(SPINE_BASE, Y, statisticAnalyzer.getAverage(data, KinectDataDto::getSpineBase_y));

@@ -10,12 +10,12 @@ import org.politechnika.processing.DoubleArrayTimeSeries;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import static org.politechnika.model.glove.Finger.*;
 import static org.politechnika.processing.DoubleArrayTimeSeries.AligningMode.LAST_VALUE;
 
-public class CreateTimeSegmentedRightHandRawDataChart implements Function<Map<Finger, List<GloveDataDto>>, Map<Finger, List<GloveDataDto>>> {
+public class CreateTimeSegmentedRightHandRawDataChart implements UnaryOperator<Map<Finger, List<GloveDataDto>>> {
 
     @Override
     public Map<Finger, List<GloveDataDto>> apply(Map<Finger, List<GloveDataDto>> rawRightHandDataByFinger) {

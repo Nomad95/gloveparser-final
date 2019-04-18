@@ -6,9 +6,9 @@ import org.politechnika.matlab.builders.Plot;
 import org.politechnika.model.kinect.Sensor;
 import org.politechnika.model.kinect.TimeIntervalPointDistanceStatistics;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
-public class CreateTimeSegmentStandardDeviationRightLegChart implements Function<TimeIntervalPointDistanceStatistics, TimeIntervalPointDistanceStatistics> {
+public class CreateTimeSegmentStandardDeviationRightLegChart implements UnaryOperator<TimeIntervalPointDistanceStatistics> {
 
     @Override
     public TimeIntervalPointDistanceStatistics apply(TimeIntervalPointDistanceStatistics handStatistics) {

@@ -15,14 +15,13 @@ public class CalculateKinectStatistics implements Function<List<KinectDataDto>, 
     }
 
     @Override
-    @SuppressWarnings("Duplicates")
-    public KinectStatistics apply(List<KinectDataDto> data) {
+    public KinectStatistics apply(List<KinectDataDto> kinectData) {
         KinectStatistics kinectStatistics = new KinectStatistics();
-        setter.setAllAverages(kinectStatistics, data);
-        setter.setAllVariances(kinectStatistics, data);
-        setter.setAllStandardDeviations(kinectStatistics, data);
-        setter.setSkewnessCoefficients(kinectStatistics, data);
-        setter.setAllKurtosis(kinectStatistics, data);
+        setter.setAllAverages(kinectStatistics, kinectData);
+        setter.setAllVariances(kinectStatistics, kinectData);
+        setter.setAllStandardDeviations(kinectStatistics, kinectData);
+        setter.setSkewnessCoefficients(kinectStatistics, kinectData);
+        setter.setAllKurtosis(kinectStatistics, kinectData);
 
         return kinectStatistics;
     }

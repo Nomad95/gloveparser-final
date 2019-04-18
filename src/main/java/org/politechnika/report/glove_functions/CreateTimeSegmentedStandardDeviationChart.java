@@ -6,9 +6,9 @@ import org.politechnika.matlab.builders.Plot;
 import org.politechnika.model.glove.Finger;
 import org.politechnika.model.glove.TimeIntervalHandStatistics;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
-public class CreateTimeSegmentedStandardDeviationChart implements Function<TimeIntervalHandStatistics, TimeIntervalHandStatistics> {
+public class CreateTimeSegmentedStandardDeviationChart implements UnaryOperator<TimeIntervalHandStatistics> {
 
     @Override
     public TimeIntervalHandStatistics apply(TimeIntervalHandStatistics handStatistics) {
