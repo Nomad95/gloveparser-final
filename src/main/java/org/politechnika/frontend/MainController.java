@@ -19,7 +19,7 @@ import org.politechnika.file.AbstractDataFile;
 import org.politechnika.file.GloveDataFile;
 import org.politechnika.file.KinectDataFile;
 import org.politechnika.file.PulsometerDataFile;
-import org.politechnika.report.impl.*;
+import org.politechnika.report.*;
 
 import java.io.File;
 import java.io.IOException;

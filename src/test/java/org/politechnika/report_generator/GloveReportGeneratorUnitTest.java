@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.politechnika.StaticTestResources;
 import org.politechnika.file.AbstractDataFile;
-import org.politechnika.report.impl.GloveReportGenerator;
+import org.politechnika.report.GloveReportGenerator;
 
 import java.io.FileNotFoundException;
 import java.io.StringReader;
