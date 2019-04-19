@@ -8,7 +8,6 @@ import org.politechnika.data_parser.model.DataDto;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.util.Objects.isNull;
 
@@ -32,7 +31,6 @@ public class LoadingDataCache {
     private static void init() {
         dataCache = CacheBuilder.newBuilder()
             .maximumSize(10000)
-            .expireAfterWrite(10, TimeUnit.MINUTES)
             .build(new CacheLoader<Class<?>, List<? extends DataDto>>() {
                 @Override
                 public List<? extends DataDto> load(Class<?> aClass) throws Exception {
