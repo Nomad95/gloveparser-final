@@ -54,6 +54,7 @@ public class MainController implements Initializable {
     @FXML private Button optionsButton;
 
     @FXML private Label matlabStatusLabel;
+    @FXML private Label progresLabel;
 
     private Map<String, AbstractDataFile> filesMap = new HashMap<>(3);
     private ActionControllerImpl actionController = new ActionControllerImpl(
@@ -191,6 +192,10 @@ public class MainController implements Initializable {
                     });
         });
 
+        generateReport.setOnMousePressed(e -> {
+            progresLabel.setText("Twra generowanie raportów, proszę czekać");
+        });
+
         generateReport.setOnAction(event -> {
             stopUi();
             List<AbstractDataFile> files = unmodifiableList(newArrayList(filesMap.values()));
@@ -202,6 +207,7 @@ public class MainController implements Initializable {
                 actionController.generate(files);
             } finally {
                 resumeUi();
+                progresLabel.setText("Raporty zostały wygenerowane");
             }
         });
     }
