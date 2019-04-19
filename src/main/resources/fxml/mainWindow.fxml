@@ -65,7 +65,7 @@
                 </Button>
                 <Button fx:id="generateReport" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Generuj raport" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                   <effect>
-                    <DropShadow blurType="GAUSSIAN" color="#ecff44" height="31.00625" radius="15.4665625" width="32.86" />
+                    <DropShadow blurType="GAUSSIAN" color="#ecff44" height="31.933125" radius="15.69828125" width="32.86" />
                   </effect>
                   <GridPane.margin>
                     <Insets right="20.0" />
@@ -87,7 +87,7 @@
                     <Insets />
                   </GridPane.margin>
                 </Label>
-                <Label fx:id="progresLabel" prefWidth="310.0" text="..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
+                <Label fx:id="progresLabel" prefWidth="-1.0" text="..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
                   <font>
                     <Font size="10.0" />
                   </font>
