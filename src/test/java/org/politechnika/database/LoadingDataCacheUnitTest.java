@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.politechnika.cache.LoadingDataCache;
 import org.politechnika.data_parser.model.DataDto;
 import org.politechnika.data_parser.model.GloveDataDto;
 

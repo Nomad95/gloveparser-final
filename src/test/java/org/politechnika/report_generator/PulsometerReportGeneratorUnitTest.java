@@ -2,6 +2,7 @@ package org.politechnika.report_generator;
 
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -28,6 +29,7 @@ public class PulsometerReportGeneratorUnitTest {
     }
 
     @Test
+    @Ignore
     public void shouldGenerateReport() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.PULSOMETER_TEST_DATA)).when(file).getReader();
 

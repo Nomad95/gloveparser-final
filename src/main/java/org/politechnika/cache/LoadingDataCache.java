@@ -1,4 +1,4 @@
-package org.politechnika.database;
+package org.politechnika.cache;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
