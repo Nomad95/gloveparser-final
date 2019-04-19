@@ -4,72 +4,101 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
-<Pane id="AnchorPane" fx:id="mainPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.politechnika.frontend.MainController">
+<Pane id="AnchorPane" fx:id="mainPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="620.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.politechnika.frontend.MainController">
   <children>
-      <BorderPane prefHeight="460.0" prefWidth="620.0">
-         <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
-               <children>
-                  <GridPane alignment="TOP_CENTER" hgap="15.0" prefHeight="202.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="159.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="397.0" minWidth="16.0" prefWidth="332.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="0.0" prefWidth="128.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
-                      <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
-                      <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
-                    </rowConstraints>
-                     <children>
-                      <Button id="PulsometerSearchButton" fx:id="pulsometerSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" />
-                      <Button id="KinectSearchButton" fx:id="kinectSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                      <Button id="GloveSearchButton" fx:id="gloveSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                      <TextField id="FilePathTextField" fx:id="pulsometerFilePathTextField" editable="false" prefWidth="310.0" GridPane.columnIndex="1" />
-                      <TextField id="KinectFilePathTextField" fx:id="kinectFilePathTextField" editable="false" prefHeight="0.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                      <TextField id="GloveFilePathTextField" fx:id="gloveFilePathTextField" editable="false" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                      <Label text="Dane z pulsometru" GridPane.halignment="RIGHT" />
-                      <Label text="Dane z Kinect" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                      <Label text="Dane z rękawicy 5DT" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="30.0" />
-                     </VBox.margin>
-                  </GridPane>
-                <Separator prefWidth="566.0" />
-                  <GridPane hgap="15.0" vgap="10.0" VBox.vgrow="SOMETIMES">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="228.0" />
-                      <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="243.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="119.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                      <Button fx:id="destinationPathButton" mnemonicParsing="false" prefHeight="25.0" text="Przeglądaj..." GridPane.columnIndex="2" />
-                      <TextField id="GloveFilePathTextField" fx:id="destinationFolderTextField" editable="false" prefHeight="25.0" prefWidth="283.0" text="D:\\diagramy" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                      <TextField id="GloveFilePathTextField" fx:id="millisTextField" editable="true" prefHeight="25.0" prefWidth="58.0" promptText="" text="1000" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
-                      <Label text="Folder docelowy" GridPane.halignment="RIGHT" />
-                      <Label prefHeight="17.0" prefWidth="140.0" text="Okres czasu (milisekundy)" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-                  <StackPane alignment="BOTTOM_RIGHT" prefHeight="55.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
-                     <children>
-                      <Button fx:id="generateReport" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Generuj raport" textAlignment="CENTER">
-                           <effect>
-                              <DropShadow blurType="GAUSSIAN" color="#ecff44" height="18.03" radius="12.2225" width="32.86" />
-                           </effect></Button>
-                      <Button fx:id="optionsButton" mnemonicParsing="false" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
-                     </children>
-                     <padding>
-                        <Insets bottom="20.0" left="35.0" right="35.0" />
-                     </padding>
-                  </StackPane>
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
+    <BorderPane prefHeight="460.0" prefWidth="620.0">
+      <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+          <children>
+            <GridPane alignment="TOP_CENTER" hgap="15.0" prefHeight="202.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
+              <children>
+                <Button id="PulsometerSearchButton" fx:id="pulsometerSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" />
+                <Button id="KinectSearchButton" fx:id="kinectSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Button id="GloveSearchButton" fx:id="gloveSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <TextField id="FilePathTextField" fx:id="pulsometerFilePathTextField" editable="false" prefWidth="310.0" GridPane.columnIndex="1" />
+                <TextField id="KinectFilePathTextField" fx:id="kinectFilePathTextField" editable="false" prefHeight="0.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <TextField id="GloveFilePathTextField" fx:id="gloveFilePathTextField" editable="false" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Dane z pulsometru" GridPane.halignment="RIGHT" />
+                <Label text="Dane z Kinect" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                <Label text="Dane z rękawicy 5DT" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="159.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="397.0" minWidth="16.0" prefWidth="332.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="0.0" prefWidth="128.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
+              </rowConstraints>
+              <VBox.margin>
+                <Insets top="30.0" />
+              </VBox.margin>
+            </GridPane>
+            <Separator prefWidth="566.0" />
+            <GridPane hgap="15.0" vgap="10.0" VBox.vgrow="SOMETIMES">
+              <children>
+                <Button fx:id="destinationPathButton" mnemonicParsing="false" prefHeight="25.0" text="Przeglądaj..." GridPane.columnIndex="2" />
+                <TextField id="GloveFilePathTextField" fx:id="destinationFolderTextField" editable="false" prefHeight="25.0" prefWidth="283.0" text="D:\\diagramy" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                <TextField id="GloveFilePathTextField" fx:id="millisTextField" editable="true" prefHeight="25.0" prefWidth="58.0" promptText="" text="1000" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+                <Label text="Folder docelowy" GridPane.halignment="RIGHT" />
+                <Label prefHeight="17.0" prefWidth="140.0" text="Okres czasu (milisekundy)" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="228.0" />
+                <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="243.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="119.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <GridPane prefHeight="16.0" prefWidth="620.0">
+              <children>
+                <Button fx:id="optionsButton" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                  <GridPane.margin>
+                    <Insets left="20.0" />
+                  </GridPane.margin>
+                </Button>
+                <Button fx:id="generateReport" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Generuj raport" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                  <effect>
+                    <DropShadow blurType="GAUSSIAN" color="#ecff44" height="29.1525" radius="15.003125" width="32.86" />
+                  </effect>
+                  <GridPane.margin>
+                    <Insets right="20.0" />
+                  </GridPane.margin>
+                </Button>
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="15.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <GridPane disable="false" prefHeight="16.0" prefWidth="620.0" VBox.vgrow="NEVER">
+              <children>
+                <Label fx:id="matlabStatusLabel" text="Usługa matlab jest nieaktywna" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
+                  <GridPane.margin>
+                    <Insets />
+                  </GridPane.margin>
+                </Label>
+                <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </VBox>
+      </center>
+    </BorderPane>
   </children>
 </Pane>

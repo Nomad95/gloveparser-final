@@ -13,7 +13,7 @@ public class MatlabSessionFactory {
     private static MatlabConnector matlabConnector;
     private static boolean isActive;
 
-    public static MatlabEngine getMatlabSession() throws EngineException {
+    static MatlabEngine getMatlabSession() throws EngineException {
         if (isNull(matlabConnector))
             matlabConnector = new StandardMatlabConnector();
         if (isNull(session)) {
