@@ -51,6 +51,9 @@ public class LoadingStringCache {
     }
 
     public enum EntryType {
-        GLOVE_STATS
+        LEFT_HAND_STATS,
+        RIGHT_HAND_STATS,
+        PULS_STATS,
+        KINECT_STATS
     }
 }

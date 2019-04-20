@@ -2,7 +2,9 @@ package org.politechnika.model.glove;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.politechnika.commons.StringCommons;
 
+import static org.politechnika.commons.Separators.NEWLINE;
 import static org.politechnika.commons.Separators.TAB;
 
 @RequiredArgsConstructor
@@ -86,5 +88,29 @@ public class HandStatistics {
         System.out.println(varianceGloveData.toString());
         System.out.println(skewnessCoefficientGloveData.toString());
         System.out.println(kurtosisGloveData.toString());
+    }
+
+    public String toReportString() {
+        StringBuilder averagesSb = new StringBuilder();
+        StringBuilder stdDevSb = new StringBuilder();
+        StringBuilder varianceSb = new StringBuilder();
+        StringBuilder skewnessSb = new StringBuilder();
+        StringBuilder kurtosisSb = new StringBuilder();
+
+        for (Finger finger : Finger.values()) {
+            averagesSb.append(TAB).append(getAverageForFingerView(finger));
+            stdDevSb.append(TAB).append(getStandardDeviationForFingerView(finger));
+            varianceSb.append(TAB).append(getVarianceForFingerView(finger));
+            skewnessSb.append(TAB).append(getSkewnessForFingerView(finger));
+            kurtosisSb.append(TAB).append(getKurtosisForFingerView(finger));
+        }
+
+        return new StringBuilder(StringCommons.getPolishHandName(hand).toUpperCase())
+                .append(" RĘKA").append(NEWLINE)
+                .append("Srednia arytmetyczna: ").append(TAB).append(averagesSb.toString()).append(NEWLINE)
+                .append("Odchylenie standardowe: ").append(TAB).append(stdDevSb.toString()).append(NEWLINE)
+                .append("Wariancja: ").append(TAB).append(varianceSb.toString()).append(NEWLINE)
+                .append("Wsp. Skośności: ").append(TAB).append(skewnessSb.toString()).append(NEWLINE)
+                .append("Kurtoza: ").append(TAB).append(kurtosisSb.toString()).append(NEWLINE).append(NEWLINE).toString();
     }
 }

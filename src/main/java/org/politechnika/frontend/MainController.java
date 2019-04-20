@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
+import org.politechnika.cache.LoadingDataCache;
+import org.politechnika.cache.LoadingStringCache;
 import org.politechnika.commons.Constants;
 import org.politechnika.controller.ActionControllerImpl;
 import org.politechnika.file.AbstractDataFile;
@@ -99,6 +101,8 @@ public class MainController implements Initializable {
         initFileButtons();
         initGenerationControls();
         prepareOptionsPane();
+        LoadingDataCache.initCache();
+        LoadingStringCache.initCache();
     }
 
     private void tryStartMatlab() {

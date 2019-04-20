@@ -1,6 +1,7 @@
 package org.politechnika.report;
 
 import lombok.extern.slf4j.Slf4j;
+import org.politechnika.cache.LoadingStringCache;
 import org.politechnika.commons.Constants;
 import org.politechnika.file.AbstractDataFile;
 import org.politechnika.report.glove_functions.*;
@@ -19,10 +20,12 @@ public class GloveReportGenerator implements ReportGenerator {
                 .partitionRawData(new PartitionDataByHand())
                 .doOnLeftHand(new CalculateGloveStatistics(LEFT_HAND)
                         .compose(new CreateTimeSegmentedLeftHandRawDataChart())
-                        .compose(new CreateOneHandRawDataCsv(LEFT_HAND)))
+                        .compose(new CreateOneHandRawDataCsv(LEFT_HAND))
+                        .andThen(new CacheStatistics()))
                 .doOnRightHand(new CalculateGloveStatistics(RIGHT_HAND)
                         .compose(new CreateTimeSegmentedRightHandRawDataChart())
-                        .compose(new CreateOneHandRawDataCsv(RIGHT_HAND)))
+                        .compose(new CreateOneHandRawDataCsv(RIGHT_HAND))
+                        .andThen(new CacheStatistics()))
                 .doOnLeftHandWithTimeInterval(new CalculateTimeIntervalStatistics(LEFT_HAND)
                         .andThen(new CreateTimeSegmentedAverageChart())
                         .andThen(new CreateTimeSegmentedVarianceChart())
@@ -41,6 +44,8 @@ public class GloveReportGenerator implements ReportGenerator {
 
         log.debug("Generating glove report");
         generator.generate();
+        System.out.println(LoadingStringCache.get(LoadingStringCache.EntryType.LEFT_HAND_STATS));
+        System.out.println(LoadingStringCache.get(LoadingStringCache.EntryType.RIGHT_HAND_STATS));
         log.debug("Glove report was generated");
     }
 

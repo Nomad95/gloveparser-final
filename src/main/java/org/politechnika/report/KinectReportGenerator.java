@@ -15,10 +15,11 @@ public class KinectReportGenerator implements ReportGenerator {
         GenerateKinectReport generator = GenerateKinectReport.builder()
                 .fromFile(dataFile)
                 .parseData(new ParseToBeans())
-                .doCalculations(new CalculateKinectStatistics()) //invoke charts
+                .doCalculations(new CalculateKinectStatistics())//todo: Tomek to chyba zbędne
                 .doCalculationsWithTimeInterval(new CalculateTimeIntervalKinectStatistics()) //invoke charts
                 .doPointsCalculations(new CalculatePointDistanceStatistics()
-                        .compose(new GenerateKinectPointDistanceReportCsv())) //invoke charts
+                        .compose(new GenerateKinectPointDistanceReportCsv())
+                        .andThen(new CacheStatistics())) //invoke charts
                 .doPointsCalculationsWithTimeInterval(new CalculateTimeIntervalPointDistanceStatistics()
                         .andThen(new CreateTimeSegmentAverageCoreChart()) //średnia
                         .andThen(new CreateTimeSegmentAverageLeftArmChart())

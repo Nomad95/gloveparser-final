@@ -20,8 +20,7 @@ public class ActionControllerImpl {
 
     public void generate(List<AbstractDataFile> files) {
         generateSingleReports(files);
-        //TODO: generate charts here or inside report generators?
-        generateCollectiveReports();
+        generateCollectiveReports(files);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -33,14 +32,15 @@ public class ActionControllerImpl {
                     .filter(generator -> generator.supports(file.getFileType()))
                     .findFirst();
             maybeReportGenerator.ifPresent(reportGenerator -> reportGenerator.generate(file));
-            //TODO: do we wanna stop all processing after one error or not?
         }
         log.debug("Single reports generated successfully");
     }
 
-    private void generateCollectiveReports() {
+    private void generateCollectiveReports(List<AbstractDataFile> files) {
+        log.debug("Generating collective reports...");
         for (CollectiveReportGenerator generator : collectiveReportGenerators) {
-            generator.generate();
+            generator.generate(files);
         }
+        log.debug("Collective reports generated successfully");
     }
 }
