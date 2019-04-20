@@ -10,12 +10,6 @@ import java.util.function.Function;
 
 public class CalculateTimeIntervalPointDistanceStatistics implements Function<Map<Long, List<KinectDataDto>>, TimeIntervalPointDistanceStatistics> {
 
-    private TerrifyingPointDistanceSetter setter;
-
-    public CalculateTimeIntervalPointDistanceStatistics() {
-        this.setter = new TerrifyingPointDistanceSetter();
-    }
-
     @Override
     public TimeIntervalPointDistanceStatistics apply(Map<Long, List<KinectDataDto>> kinectDataPartitionedByTimeInterval) {
 
@@ -27,7 +21,9 @@ public class CalculateTimeIntervalPointDistanceStatistics implements Function<Ma
 
     private void calculateStatsForEveryTimeInterval(Map<Long, List<KinectDataDto>> kinectDataPartitionedByTimeInterval, TimeIntervalPointDistanceStatistics statsByTimeInterval) {
         for (List<KinectDataDto> dataSection : kinectDataPartitionedByTimeInterval.values()) {
-            PointDistanceStatistics statistics = new CalculatePointDistanceStatistics().apply(dataSection);
+            PointDistanceStatistics statistics = new CalculatePointDistances()
+                    .andThen(new CalculatePointDistanceStatistics())
+                    .apply(dataSection);
             statsByTimeInterval.addStatstics(statistics);
         }
     }

@@ -1,6 +1,7 @@
 package org.politechnika.report;
 
 import lombok.extern.slf4j.Slf4j;
+import org.politechnika.cache.EntryType;
 import org.politechnika.commons.Constants;
 import org.politechnika.file.AbstractDataFile;
 import org.politechnika.report.glove_functions.*;
@@ -20,10 +21,12 @@ public class GloveReportGenerator implements ReportGenerator {
                 .doOnLeftHand(new CalculateGloveStatistics(LEFT_HAND)
                         .compose(new CreateTimeSegmentedLeftHandRawDataChart())
                         .compose(new CreateOneHandRawDataCsv(LEFT_HAND))
+                        .compose(new StoreGloveValues(EntryType.LEFT_HAND_VALUES))
                         .andThen(new CacheStatistics()))
                 .doOnRightHand(new CalculateGloveStatistics(RIGHT_HAND)
                         .compose(new CreateTimeSegmentedRightHandRawDataChart())
                         .compose(new CreateOneHandRawDataCsv(RIGHT_HAND))
+                        .compose(new StoreGloveValues(EntryType.RIGHT_HAND_VALUES))
                         .andThen(new CacheStatistics()))
                 .doOnLeftHandWithTimeInterval(new CalculateTimeIntervalStatistics(LEFT_HAND)
                         .andThen(new CreateTimeSegmentedAverageChart())

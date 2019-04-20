@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
 import org.politechnika.data_parser.model.PulsometerDataDto;
 import org.politechnika.file.AbstractDataFile;
-import org.politechnika.report.pulsometer_functions.CacheStatistics;
-import org.politechnika.report.pulsometer_functions.CalculatePulsometerStatistics;
-import org.politechnika.report.pulsometer_functions.GeneratePulsChart;
-import org.politechnika.report.pulsometer_functions.ParsePulsometerData;
+import org.politechnika.report.pulsometer_functions.*;
 
 import java.util.List;
 
@@ -22,7 +19,9 @@ public class PulsometerReportGenerator implements ReportGenerator {
         new CalculatePulsometerStatistics()
                 .andThen(new CacheStatistics())
                 .apply(pulsometerDataDtos);
-        new GeneratePulsChart().apply(pulsometerDataDtos);
+        new GeneratePulsChart()
+                .andThen(new StorePulsometerValues())
+                .apply(pulsometerDataDtos);
 
         log.debug("Pulsometer report was generated");
     }

@@ -1,5 +1,6 @@
 package org.politechnika.report.glove_functions;
 
+import org.politechnika.cache.EntryType;
 import org.politechnika.cache.LoadingStringCache;
 import org.politechnika.model.glove.HandStatistics;
 
@@ -10,9 +11,9 @@ public class CacheStatistics implements UnaryOperator<HandStatistics> {
     @Override
     public HandStatistics apply(HandStatistics handStatistics) {
         if ("left".equals(handStatistics.getHand()))
-            LoadingStringCache.put(LoadingStringCache.EntryType.LEFT_HAND_STATS, handStatistics.toReportString());
+            LoadingStringCache.put(EntryType.LEFT_HAND_STATS, handStatistics.toReportString());
         else
-            LoadingStringCache.put(LoadingStringCache.EntryType.RIGHT_HAND_STATS, handStatistics.toReportString());
+            LoadingStringCache.put(EntryType.RIGHT_HAND_STATS, handStatistics.toReportString());
 
         return handStatistics;
     }

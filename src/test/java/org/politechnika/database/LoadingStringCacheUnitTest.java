@@ -6,7 +6,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.politechnika.cache.LoadingStringCache;
 
-import static org.politechnika.cache.LoadingStringCache.EntryType.LEFT_HAND_STATS;
+import static org.politechnika.cache.EntryType.LEFT_HAND_STATS;
+
 
 public class LoadingStringCacheUnitTest {
 

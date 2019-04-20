@@ -5,7 +5,7 @@ import org.politechnika.model.pulsometer.PulsometerStatistics;
 
 import java.util.function.UnaryOperator;
 
-import static org.politechnika.cache.LoadingStringCache.EntryType.PULS_STATS;
+import static org.politechnika.cache.EntryType.PULS_STATS;
 
 public class CacheStatistics implements UnaryOperator<PulsometerStatistics> {
 

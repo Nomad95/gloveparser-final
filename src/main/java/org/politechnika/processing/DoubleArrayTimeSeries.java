@@ -3,6 +3,7 @@ package org.politechnika.processing;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.DoubleStream;
 
@@ -55,6 +56,17 @@ public class DoubleArrayTimeSeries {
                 maxArrayLength = seriesValues.length;
         }
         return maxArrayLength;
+    }
+
+    public <T> void adjustListToSeriesLength(List<T> list) {
+        if (series.isEmpty())
+            throw new IllegalStateException("There is no arrays to work on");
+        int maxArrayLength = getMaxArrayLength();
+        if (list.size() != maxArrayLength && list.size() < maxArrayLength) {
+            while (list.size() < maxArrayLength) {
+                list.add(list.get(list.size() - 1));
+            }
+        }
     }
 
     public Map<String, double[]> getAllSeriesMap() {

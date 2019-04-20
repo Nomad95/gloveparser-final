@@ -49,11 +49,4 @@ public class LoadingStringCache {
     public static void evict() {
         stringCache.invalidateAll();
     }
-
-    public enum EntryType {
-        LEFT_HAND_STATS,
-        RIGHT_HAND_STATS,
-        PULS_STATS,
-        KINECT_STATS
-    }
 }

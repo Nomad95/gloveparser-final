@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 import org.politechnika.commons.Optimized;
 import org.politechnika.data_parser.converter.PulsometerDateConverter;
 import org.politechnika.data_parser.converter.PulsometerTimeConverter;
+import org.politechnika.model.pulsometer.PulsometerValueDto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 
 @Getter
 @Optimized(optimizationFactor = 120)
@@ -29,5 +32,9 @@ public class PulsometerDataDto implements DataDto {
     @CsvBindByPosition(position = 3)
     private Integer value;
 
-//    private LocalDateTime TODO na wszelki wypadek trzeba zrobic timestamp z daty i czasu, jakby ktos robil badania o północy
+    public PulsometerValueDto toValueDto() {
+        return new PulsometerValueDto(
+                LocalDateTime.of(date, time).toInstant(ZoneOffset.UTC),
+                value);
+    }
 }

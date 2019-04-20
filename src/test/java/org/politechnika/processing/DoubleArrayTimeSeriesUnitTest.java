@@ -3,8 +3,12 @@ package org.politechnika.processing;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.Instant;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -39,5 +43,26 @@ public class DoubleArrayTimeSeriesUnitTest {
         Assert.assertThat(
                 results.get("longer").length,
                 is(equalTo(20)));
+    }
+
+    @Test
+    public void shouldAdjustListSizeToSeriesLength() {
+        //given
+        DoubleArrayTimeSeries doubleArrayTimeSeries = new DoubleArrayTimeSeries();
+        double[] series1 = DoubleStream.iterate(0, n -> n + 1).limit(20).toArray();
+        double[] series2 = DoubleStream.iterate(0, n -> n + 1).limit(20).toArray();
+        double[] series3 = DoubleStream.iterate(0, n -> n + 1).limit(20).toArray();
+        doubleArrayTimeSeries.addSeries("1", series1);
+        doubleArrayTimeSeries.addSeries("2", series2);
+        doubleArrayTimeSeries.addSeries("3", series3);
+
+        List<Instant> timestamps = IntStream.range(0, 17)
+                .mapToObj(i -> Instant.now().plusSeconds(i))
+                .collect(Collectors.toList());
+        //when
+        doubleArrayTimeSeries.adjustListToSeriesLength(timestamps);
+
+        //then
+        Assert.assertThat(timestamps.size(), is(equalTo(20)));
     }
 }

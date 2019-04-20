@@ -5,7 +5,7 @@ import org.politechnika.model.kinect.PointDistanceStatistics;
 
 import java.util.function.UnaryOperator;
 
-import static org.politechnika.cache.LoadingStringCache.EntryType.KINECT_STATS;
+import static org.politechnika.cache.EntryType.KINECT_STATS;
 
 public class CacheStatistics implements UnaryOperator<PointDistanceStatistics> {
 

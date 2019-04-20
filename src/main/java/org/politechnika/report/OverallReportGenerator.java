@@ -10,7 +10,7 @@ import org.politechnika.file.ParserWriteFileException;
 
 import java.util.List;
 
-import static org.politechnika.cache.LoadingStringCache.EntryType.*;
+import static org.politechnika.cache.EntryType.*;
 import static org.politechnika.commons.Separators.NEWLINE;
 
 @Slf4j

@@ -10,15 +10,17 @@ public class KinectReportGenerator implements ReportGenerator {
 
     @Override //TODO: ekstrapolacja - puls - srednia pomiedzyjedna a druga - rozpoznawanie. przeszukanie ignorowanie zera, czyscimy jesli pulsometr jeszcze nie zacza naliczac pulsu, definicje kolorów dla wartosci, np glowa-szyj-costam jeden kolor,  wskaza maksymalny puls w np pomiedzy 13 - a 15 sekundą, albo np co sie dzeje pomiedzy 1-10 sekundą, mail wszystkie pulsy,
     //TODO: wszystkie JPG wyslac
-    //TODO: wykres - nałożone
+    //TODO: wykres -  nałożone
     public void generate(AbstractDataFile dataFile) {
         GenerateKinectReport generator = GenerateKinectReport.builder()
                 .fromFile(dataFile)
                 .parseData(new ParseToBeans())
                 .doCalculations(new CalculateKinectStatistics())//todo: Tomek to chyba zbędne
                 .doCalculationsWithTimeInterval(new CalculateTimeIntervalKinectStatistics()) //invoke charts
-                .doPointsCalculations(new CalculatePointDistanceStatistics()
-                        .compose(new GenerateKinectPointDistanceReportCsv())
+                .doPointsCalculations(new CalculatePointDistances()
+                        .andThen(new GenerateKinectPointDistanceReportCsv())
+                        .andThen(new StorePointDistanceValues())
+                        .andThen(new CalculatePointDistanceStatistics())
                         .andThen(new CacheStatistics())) //invoke charts
                 .doPointsCalculationsWithTimeInterval(new CalculateTimeIntervalPointDistanceStatistics()
                         .andThen(new CreateTimeSegmentAverageCoreChart()) //średnia

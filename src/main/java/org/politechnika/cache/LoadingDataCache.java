@@ -20,7 +20,7 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class LoadingDataCache {
 
-    private static LoadingCache<Class<?>, List<? extends DataDto>> dataCache;
+    private static LoadingCache<EntryType, List<? extends DataDto>> dataCache;
 
     public static void initCache() {
         if (isNull(dataCache)) {
@@ -31,19 +31,19 @@ public class LoadingDataCache {
     private static void init() {
         dataCache = CacheBuilder.newBuilder()
             .maximumSize(10000)
-            .build(new CacheLoader<Class<?>, List<? extends DataDto>>() {
+            .build(new CacheLoader<EntryType, List<? extends DataDto>>() {
                 @Override
-                public List<? extends DataDto> load(Class<?> aClass) throws Exception {
+                public List<? extends DataDto> load(EntryType aClass) throws Exception {
                     return dataCache.get(aClass);
                 }
             });
     }
 
-    public static <T extends DataDto> void put(Class<T> type, List<? extends DataDto> list) {
+    public static <T extends DataDto> void put(EntryType type, List<? extends DataDto> list) {
         dataCache.put(type, list);
     }
 
-    public static <T extends DataDto> List<T> get(Class<T> type) {
+    public static <T extends DataDto> List<T> get(EntryType type) {
         List<? extends DataDto> maybeDataList = dataCache.getIfPresent(type);
         if (isNull(maybeDataList))
             return Collections.emptyList();

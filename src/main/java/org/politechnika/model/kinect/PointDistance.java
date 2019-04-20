@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.politechnika.data_parser.model.DataDto;
 
+import java.time.Instant;
+
 @Data
 @RequiredArgsConstructor
 public class PointDistance implements DataDto {
@@ -85,6 +87,8 @@ public class PointDistance implements DataDto {
 
     @CsvBindByName(column = "kciuk_prawy")
     private double thumbRight;
+
+    private Instant time;
 
     public void setValueFor(Sensor sensor, double value) {
         switch (sensor) {
