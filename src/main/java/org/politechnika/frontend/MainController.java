@@ -18,10 +18,7 @@ import org.politechnika.cache.LoadingDataCache;
 import org.politechnika.cache.LoadingStringCache;
 import org.politechnika.commons.Constants;
 import org.politechnika.controller.ActionControllerImpl;
-import org.politechnika.file.AbstractDataFile;
-import org.politechnika.file.GloveDataFile;
-import org.politechnika.file.KinectDataFile;
-import org.politechnika.file.PulsometerDataFile;
+import org.politechnika.file.*;
 import org.politechnika.matlab.StartMatlabInstanceTask;
 import org.politechnika.report.*;
 
@@ -61,7 +58,7 @@ public class MainController implements Initializable {
     private Map<String, AbstractDataFile> filesMap = new HashMap<>(3);
     private ActionControllerImpl actionController = new ActionControllerImpl(
             newArrayList(new PulsometerReportGenerator(), new KinectReportGenerator(), new GloveReportGenerator()),
-            newArrayList(new InferenceReportGenerator(), new CorrelationReportGenerator(), new OverallReportGenerator()));
+            newArrayList(new InferenceReportGenerator(), new CorrelationReportGenerator(), new OverallReportGenerator(new FileWriter())));
 
     private boolean matlabRunning = false;
     private boolean destinationFolderChosen = false;

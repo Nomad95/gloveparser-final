@@ -1,7 +1,6 @@
 package org.politechnika.report;
 
 import lombok.extern.slf4j.Slf4j;
-import org.politechnika.cache.LoadingStringCache;
 import org.politechnika.commons.Constants;
 import org.politechnika.file.AbstractDataFile;
 import org.politechnika.report.glove_functions.*;
@@ -44,8 +43,6 @@ public class GloveReportGenerator implements ReportGenerator {
 
         log.debug("Generating glove report");
         generator.generate();
-        System.out.println(LoadingStringCache.get(LoadingStringCache.EntryType.LEFT_HAND_STATS));
-        System.out.println(LoadingStringCache.get(LoadingStringCache.EntryType.RIGHT_HAND_STATS));
         log.debug("Glove report was generated");
     }
 

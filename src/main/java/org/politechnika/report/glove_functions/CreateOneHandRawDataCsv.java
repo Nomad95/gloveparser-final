@@ -1,12 +1,12 @@
 package org.politechnika.report.glove_functions;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
-import org.politechnika.data_parser.BeanToCsvParser;
 import org.politechnika.data_parser.CsvParsingException;
 import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.data_parser.model.OneHandGloveRawData;
-import org.politechnika.frontend.MainController;
+import org.politechnika.file.FileWriter;
 import org.politechnika.model.glove.Finger;
 import org.politechnika.processing.DoubleArrayTimeSeries;
 
@@ -19,6 +19,7 @@ import static java.lang.String.format;
 import static org.politechnika.model.glove.Finger.*;
 import static org.politechnika.processing.DoubleArrayTimeSeries.AligningMode.LAST_VALUE;
 
+@Slf4j
 @AllArgsConstructor
 public class CreateOneHandRawDataCsv implements UnaryOperator<Map<Finger, List<GloveDataDto>>> {
 
@@ -26,6 +27,7 @@ public class CreateOneHandRawDataCsv implements UnaryOperator<Map<Finger, List<G
 
     @Override
     public Map<Finger, List<GloveDataDto>> apply(Map<Finger, List<GloveDataDto>> rawLeftHandDataByFinger) {
+        log.debug(String.format("Creating %s hand raw data csv", handName));
         double[] thumbFingerRawData = rawLeftHandDataByFinger.get(THUMB).stream().mapToDouble(GloveDataDto::getRaw).toArray();
         double[] indexFingerRawData = rawLeftHandDataByFinger.get(INDEX).stream().mapToDouble(GloveDataDto::getRaw).toArray();
         double[] middleFingerRawData = rawLeftHandDataByFinger.get(MIDDLE).stream().mapToDouble(GloveDataDto::getRaw).toArray();
@@ -64,10 +66,9 @@ public class CreateOneHandRawDataCsv implements UnaryOperator<Map<Finger, List<G
 
     private void tryWriteDataToCsv(ArrayList<OneHandGloveRawData> res) {
         try {
-            new BeanToCsvParser().parseToCsv(res, MainController.getDestinationSubFolder() + format("/raw_data_glove_%s_hand.csv", handName));
+            new FileWriter().writeToCsvFile(res, format("/raw_data_glove_%s_hand.csv", handName));
         } catch (CsvParsingException e) {
-            //todo: add to all errors
-            e.printStackTrace();
+            log.error("Could not write glove csv. {}", e.getMessage());
         }
     }
 }
