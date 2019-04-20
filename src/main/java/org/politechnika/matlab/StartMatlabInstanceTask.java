@@ -3,6 +3,8 @@ package org.politechnika.matlab;
 import com.mathworks.engine.EngineException;
 import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
+import org.politechnika.cache.ErrorCache;
+import org.politechnika.commons.ParserMatlabException;
 
 @Slf4j
 public class StartMatlabInstanceTask extends Task<Void> {
@@ -13,8 +15,9 @@ public class StartMatlabInstanceTask extends Task<Void> {
         try {
             MatlabSessionFactory.getMatlabSession();
         } catch (EngineException e) {
-            //todo: wyswietl error
+            ErrorCache.addError("Could not start matlab", e);
             log.error("Could not start matlab instance", e);
+            throw new ParserMatlabException("Could not start matlab instance", e);
         }
         log.debug("Started matlab instance");
 

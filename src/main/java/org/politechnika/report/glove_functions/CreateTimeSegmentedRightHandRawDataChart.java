@@ -1,6 +1,8 @@
 package org.politechnika.report.glove_functions;
 
+import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
+import org.politechnika.commons.ParserMatlabException;
 import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.frontend.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
@@ -15,6 +17,7 @@ import java.util.function.UnaryOperator;
 import static org.politechnika.model.glove.Finger.*;
 import static org.politechnika.processing.DoubleArrayTimeSeries.AligningMode.LAST_VALUE;
 
+@Slf4j
 public class CreateTimeSegmentedRightHandRawDataChart implements UnaryOperator<Map<Finger, List<GloveDataDto>>> {
 
     @Override
@@ -42,15 +45,19 @@ public class CreateTimeSegmentedRightHandRawDataChart implements UnaryOperator<M
     }
 
     private void drawChart(Object[] dataSeries, double[] timeSeries) {
-        new ChartGeneratorImpl().drawChart(
-                new Plot.Builder(dataSeries,
-                        timeSeries)
-                        .withFileName("right_hand_raw_data")
-                        .withGrid()
-                        .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Wartości pobrane z poszczególnych palców prawej ręki")
-                        .withXAxisName("Numer wartości")
-                        .withYAxisName("Wartości pobrane z rękawicy")
-                        .build(MainController.getDestinationSubFolder()));
+        try {
+            new ChartGeneratorImpl().drawChart(
+                    new Plot.Builder(dataSeries,
+                            timeSeries)
+                            .withFileName("right_hand_raw_data")
+                            .withGrid()
+                            .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
+                            .withTitle("Wartości pobrane z poszczególnych palców prawej ręki")
+                            .withXAxisName("Numer wartości")
+                            .withYAxisName("Wartości pobrane z rękawicy")
+                            .build(MainController.getDestinationSubFolder()));
+        } catch (ParserMatlabException e) {
+            log.error("Could not create Time segmented right hand raw data chart: {}", e.getMessage());
+        }
     }
 }

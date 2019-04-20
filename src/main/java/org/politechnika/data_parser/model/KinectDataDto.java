@@ -40,7 +40,6 @@ public class KinectDataDto implements DataDto {
     // HandTipRight_x|HandTipRight_y|HandTipRight_z|
     // ThumbRight_x|ThumbRight_y|ThumbRight_z|
     // TimeStamp
-    //TODO: later
 
     @CsvCustomBindByName(column = "SpineBase_x", converter = DoubleWithCommaConverter.class)
     private double spineBase_x;

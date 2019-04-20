@@ -2,6 +2,7 @@ package org.politechnika.report.glove_functions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Constants;
+import org.politechnika.commons.ParserMatlabException;
 import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.frontend.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
@@ -46,16 +47,20 @@ public class CreateTimeSegmentedLeftHandRawDataChart implements UnaryOperator<Ma
     }
 
     private void drawChart(Object[] dataSeries, double[] timeSeries) {
-        new ChartGeneratorImpl().drawChart(
-                new Plot.Builder(
-                        dataSeries,
-                        timeSeries)
-                        .withFileName("left_hand_raw_data")
-                        .withGrid()
-                        .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
-                        .withTitle("Wartości pobrane z poszczególnych palców lewej ręki")
-                        .withXAxisName("Numer wartości")
-                        .withYAxisName("Wartości pobrane z rękawicy")
-                        .build(MainController.getDestinationSubFolder()));
+        try {
+            new ChartGeneratorImpl().drawChart(
+                    new Plot.Builder(
+                            dataSeries,
+                            timeSeries)
+                            .withFileName("left_hand_raw_data")
+                            .withGrid()
+                            .withLegend("{'Kciuk','Wskazujący', 'Środkowy', 'Serdeczny', 'Mały'}")
+                            .withTitle("Wartości pobrane z poszczególnych palców lewej ręki")
+                            .withXAxisName("Numer wartości")
+                            .withYAxisName("Wartości pobrane z rękawicy")
+                            .build(MainController.getDestinationSubFolder()));
+        } catch (ParserMatlabException e) {
+            log.error("COuld not create Time segmented left hand raw data chart");
+        }
     }
 }

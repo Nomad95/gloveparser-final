@@ -3,6 +3,7 @@ package org.politechnika.report.pulsometer_functions;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.analysis.StandardStatisticsAnalyzerImpl;
+import org.politechnika.commons.ParserMatlabException;
 import org.politechnika.data_parser.model.PulsometerDataDto;
 import org.politechnika.frontend.MainController;
 import org.politechnika.matlab.ChartGeneratorImpl;
@@ -55,15 +56,19 @@ public class GeneratePulsChart implements UnaryOperator<List<PulsometerDataDto>>
     }
 
     private void drawChart(double[] valueSeries, double[] timeSeries) {
-        new ChartGeneratorImpl().drawChart(
-                new Plot.Builder(
-                        new Object[]{valueSeries}, timeSeries)
-                        .withFileName("puls-chart")
-                        .withGrid()
-                        .withTitle("Pulsometr - Dynamika pulsu")
-                        .withXAxisName("Czas [s]")
-                        .withYAxisName("Wartość")
-                        .build(MainController.getDestinationSubFolder()));
+        try {
+            new ChartGeneratorImpl().drawChart(
+                    new Plot.Builder(
+                            new Object[]{valueSeries}, timeSeries)
+                            .withFileName("puls-chart")
+                            .withGrid()
+                            .withTitle("Pulsometr - Dynamika pulsu")
+                            .withXAxisName("Czas [s]")
+                            .withYAxisName("Wartość")
+                            .build(MainController.getDestinationSubFolder()));
+        } catch (ParserMatlabException e) {
+            log.error("Could not create Pulsometer chart");
+        }
     }
 
     private DoubleUnaryOperator timeStartFromZero(double firstValue) {

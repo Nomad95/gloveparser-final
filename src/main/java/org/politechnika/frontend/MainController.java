@@ -177,7 +177,6 @@ public class MainController implements Initializable {
         destinationFolderTextField.setOnAction(event -> {
             DirectoryChooser dirChooser = new DirectoryChooser();
             File directory = dirChooser.showDialog(null);
-            //todo do sth with destination dir
         });
 
         generateReport.setDisable(true);

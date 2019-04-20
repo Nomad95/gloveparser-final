@@ -2,6 +2,7 @@ package org.politechnika.matlab;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.politechnika.commons.ParserMatlabException;
 import org.politechnika.matlab.builders.MultiPlot;
 import org.politechnika.matlab.builders.Plot;
 import org.politechnika.matlab.builders.Scatter;
@@ -11,7 +12,7 @@ public class ChartGeneratorTest {
 
     @Test
     @Ignore
-    public void shouldSaveFile() {
+    public void shouldSaveFile() throws ParserMatlabException {
         ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
 
         double[] doubles = {0.123d, 0.23612d, 123.22d, 98.44d};
@@ -35,7 +36,7 @@ public class ChartGeneratorTest {
 
     @Test
     @Ignore
-    public void shouldSaveFileComplex() {
+    public void shouldSaveFileComplex() throws ParserMatlabException {
         ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
 
         double[] doubles = {0.123d, 0.23612d, 123.22d, 98.44d};
@@ -69,7 +70,7 @@ public class ChartGeneratorTest {
 
     @Test
     @Ignore
-    public void shouldSaveScatter() {
+    public void shouldSaveScatter() throws ParserMatlabException {
         ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
 
         double[] double11 = {0.123d, 0.23612d, 123.22d, 98.44d};

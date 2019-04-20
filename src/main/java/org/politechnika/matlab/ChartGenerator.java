@@ -1,5 +1,6 @@
 package org.politechnika.matlab;
 
+import org.politechnika.commons.ParserMatlabException;
 import org.politechnika.matlab.builders.ChartBuilder;
 
 /**
@@ -12,5 +13,5 @@ import org.politechnika.matlab.builders.ChartBuilder;
  */
 public interface ChartGenerator {
 
-    void drawChart(ChartBuilder builder);
+    void drawChart(ChartBuilder builder) throws ParserMatlabException;
 }
