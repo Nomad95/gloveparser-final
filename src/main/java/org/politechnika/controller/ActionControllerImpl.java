@@ -26,7 +26,7 @@ public class ActionControllerImpl {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void generateSingleReports(List<AbstractDataFile> files) {
         log.debug("Generating single reports...");
-        new File(MainController.getDestinationSubFolder()).mkdirs();//TODO: warn if there are files in this dir?
+        new File(MainController.getDestinationSubFolder()).mkdirs();
         for (AbstractDataFile file : files) {
             Optional<ReportGenerator> maybeReportGenerator = reportGenerators.stream()
                     .filter(generator -> generator.supports(file.getFileType()))

@@ -90,6 +90,8 @@ class SeriesTransformer {
     }
 
     void cutTimeOfOtherSeriesToAlignToSeriesOfType(StandardSuperimposedChart stdSuper, SeriesType type) {
+        if (type.getSeries(stdSuper).isEmpty())
+            return;
         Instant start = type.getSeries(stdSuper).stream().findFirst().orElseThrow(NO_VALUES_EXISTS).getTime();
         Instant end = type.getSeries(stdSuper).get(type.getSeries(stdSuper).size() - 1).getTime();
 

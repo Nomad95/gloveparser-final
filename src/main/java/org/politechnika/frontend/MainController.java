@@ -21,6 +21,7 @@ import org.politechnika.controller.ActionControllerImpl;
 import org.politechnika.file.*;
 import org.politechnika.matlab.StartMatlabInstanceTask;
 import org.politechnika.report.*;
+import org.politechnika.superimpose.standard.StandardSuperimposedChartFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class MainController implements Initializable {
     private Map<String, AbstractDataFile> filesMap = new HashMap<>(3);
     private ActionControllerImpl actionController = new ActionControllerImpl(
             newArrayList(new PulsometerReportGenerator(), new KinectReportGenerator(), new GloveReportGenerator()),
-            newArrayList(new InferenceReportGenerator(), new CorrelationReportGenerator(), new OverallReportGenerator(new FileWriter())));
+            newArrayList(new InferenceReportGenerator(), new CorrelationReportGenerator(), new OverallReportGenerator(new FileWriter()), new SuperimposedChartGenerator(new StandardSuperimposedChartFactory())));
 
     private boolean matlabRunning = false;
     private boolean destinationFolderChosen = false;
