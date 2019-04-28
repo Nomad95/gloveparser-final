@@ -1,9 +1,9 @@
 package org.politechnika.superimpose;
 
-import javafx.scene.chart.LineChart;
 import org.politechnika.model.glove.GloveValueDto;
 import org.politechnika.model.kinect.PointDistanceValueDto;
 import org.politechnika.model.pulsometer.PulsometerValueDto;
+import org.politechnika.superimpose.standard.SuperimposedChartBundle;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public interface Superimposed {
 
     void adjustSeries();
 
-    LineChart<Number, Number> getChart();
+    SuperimposedChartBundle getChartBundle();
 }

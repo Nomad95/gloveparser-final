@@ -22,6 +22,11 @@ public final class MatlabCommons {
                 .toArray();
     }
 
+    public static Object[] getFunctionArguments(@NonNull Object[] dataSets, @NonNull double[] timeArray, String markerColor) {
+        Object[] resArr = getFunctionArguments(dataSets, timeArray);
+        return  appendToArray(resArr,  markerColor );
+    }
+
     public static Object[] appendToArray(Object[] array, Object obj) {
         Object[] newArray = Arrays.copyOf(array, array.length + 1);
         newArray[newArray.length - 1] = obj;

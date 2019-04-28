@@ -1,8 +1,6 @@
 package org.politechnika.superimpose.standard;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
 import javafx.stage.Stage;
 import org.politechnika.model.glove.GloveValueDto;
 import org.politechnika.model.kinect.PointDistanceValueDto;
@@ -55,15 +53,9 @@ public class ChartSample extends Application {
         stdSuper.adjustSeries();
 
         //when
-        LineChart<Number, Number> chart = stdSuper.getChart();
+        //getChartBundle();
 
         //then should draw chart
-        Scene scene  = new Scene(chart,800,600);
-        Stage stage = new Stage();
-        stage.setResizable(true);
-        stage.setTitle("Opcje");
-        stage.setScene(scene);
-        stage.show();
     }
 
     private GloveValueDto newGloveValueOfTime(Instant time) {

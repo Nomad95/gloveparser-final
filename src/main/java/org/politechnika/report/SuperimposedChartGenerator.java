@@ -1,16 +1,15 @@
 package org.politechnika.report;
 
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.cache.EntryType;
 import org.politechnika.cache.LoadingDataCache;
 import org.politechnika.commons.Constants;
 import org.politechnika.file.AbstractDataFile;
+import org.politechnika.report.superimposed_functions.DrawSuperimposedChart;
 import org.politechnika.superimpose.Superimposed;
 import org.politechnika.superimpose.standard.StandardSuperimposedChartFactory;
+import org.politechnika.superimpose.standard.SuperimposedChartBundle;
 
 import java.util.List;
 
@@ -41,13 +40,15 @@ public class SuperimposedChartGenerator implements CollectiveReportGenerator {
             }
         }
         superimposed.adjustSeries();
-        LineChart<Number, Number> chart = superimposed.getChart();
-        Scene scene  = new Scene(chart,800,600);
-        Stage stage = new Stage();
-        stage.setResizable(true);
-        stage.setTitle("Nałożony wykres");
-        stage.setScene(scene);
-        stage.show();
+        SuperimposedChartBundle chartBundle = superimposed.getChartBundle();
+        new DrawSuperimposedChart().drawSuperimposedChart(chartBundle);
+//        LineChart<Number, Number> chart = superimposed.getChartBundle();
+//        Scene scene  = new Scene(chart,800,600);
+//        Stage stage = new Stage();
+//        stage.setResizable(true);
+//        stage.setTitle("Nałożony wykres");
+//        stage.setScene(scene);
+//        stage.show();
         log.debug("Superimposed chart created successfully");
     }
 

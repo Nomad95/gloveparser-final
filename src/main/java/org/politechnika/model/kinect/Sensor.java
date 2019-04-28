@@ -30,5 +30,5 @@ public enum Sensor {
 
     //head, neck, spine x3,
     //shoulder, elbow, hand, hand_tip, thumb
-    // hip, knee, foot, wrist
+    // hip, knee, foot, wrist, uncle
 }

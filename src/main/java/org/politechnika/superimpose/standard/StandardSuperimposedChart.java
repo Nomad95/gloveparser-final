@@ -1,8 +1,5 @@
 package org.politechnika.superimpose.standard;
 
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Optimized;
@@ -70,170 +67,82 @@ class StandardSuperimposedChart implements Superimposed {
     }
 
     @Override
-    public LineChart<Number, Number> getChart() {
-        NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Czas");
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Wartość");
-        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle("Nałożone wykresy");
-
-        XYChart.Series<Number, Number> head = new XYChart.Series<>();
-        XYChart.Series<Number, Number> neck = new XYChart.Series<>();
-        XYChart.Series<Number, Number> spineShoulder = new XYChart.Series<>();
-        XYChart.Series<Number, Number> spineMid = new XYChart.Series<>();
-        XYChart.Series<Number, Number> spineBase = new XYChart.Series<>();
-
-        XYChart.Series<Number, Number> shoulderLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> elbowLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> handLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> handTipLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> thumbLeft = new XYChart.Series<>();
-
-        XYChart.Series<Number, Number> shoulderRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> elbowRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> handRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> handTipRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> thumbRight = new XYChart.Series<>();
-
-        XYChart.Series<Number, Number> wristLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> hipLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> kneeLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> ankleLeft = new XYChart.Series<>();
-        XYChart.Series<Number, Number> footLeft = new XYChart.Series<>();
-
-        XYChart.Series<Number, Number> wristRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> hipRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> kneeRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> ankleRight = new XYChart.Series<>();
-        XYChart.Series<Number, Number> footRight = new XYChart.Series<>();
-
-        long startMili = kinectValues.get(0).getTime().toEpochMilli();
-        for (PointDistanceValueDto kinectValue : kinectValues) {
-            head.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getHead()));
-            neck.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getNeck()));
-            spineShoulder.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getSpineShoulder()));
-            spineMid.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getSpineMid()));
-            spineBase.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getSpineBase()));
-
-            shoulderLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getShoulderLeft()));
-            elbowLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getElbowLeft()));
-            handLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getHandLeft()));
-            handTipLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getHandTipLeft()));
-            thumbLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getThumbLeft()));
-
-            shoulderRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getShoulderRight()));
-            elbowRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getElbowRight()));
-            handRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getHandRight()));
-            handTipRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getHandTipRight()));
-            thumbRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getThumbRight()));
-
-            wristLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getWristLeft()));
-            hipLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getHipLeft()));
-            kneeLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getKneeLeft()));
-            ankleLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getAnkleLeft()));
-            footLeft.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getFootLeft()));
-
-            wristRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getWristRight()));
-            hipRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getHipRight()));
-            kneeRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getKneeRight()));
-            ankleRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getAnkleRight()));
-            footRight.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, kinectValue), kinectValue.getFootRight()));
+    public SuperimposedChartBundle getChartBundle() {
+        SuperimposedChartBundle bundle = new SuperimposedChartBundle();
+        if (!pulsometerValues.isEmpty()) {
+            long startMilli = pulsometerValues.get(0).getTime().toEpochMilli();
+            double[] timeSeries = pulsometerStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
+            double[] values = pulsometerStream().mapToDouble(PulsometerValueDto::getValue).toArray();
+            bundle.addPulsometerSeries(new StandardDataSeries(timeSeries, new Object[]{values}));
         }
 
-        lineChart.getData().addAll(head, neck, spineShoulder, spineMid, spineBase);
-        head.nodeProperty().get().setStyle("-fx-stroke: red;");
-        neck.nodeProperty().get().setStyle("-fx-stroke: red;");
-        spineShoulder.nodeProperty().get().setStyle("-fx-stroke: red;");
-        spineMid.nodeProperty().get().setStyle("-fx-stroke: red;");
-        spineBase.nodeProperty().get().setStyle("-fx-stroke: red;");
-
-        lineChart.getData().addAll(shoulderLeft, elbowLeft, handLeft, handTipLeft, thumbLeft);
-        shoulderLeft.nodeProperty().get().setStyle("-fx-stroke: #9f0000;");
-        elbowLeft.nodeProperty().get().setStyle("-fx-stroke: #9f0000;");
-        handLeft.nodeProperty().get().setStyle("-fx-stroke: #9f0000;");
-        handTipLeft.nodeProperty().get().setStyle("-fx-stroke: #9f0000;");
-        thumbLeft.nodeProperty().get().setStyle("-fx-stroke: #9f0000;");
-
-        lineChart.getData().addAll(shoulderRight, elbowRight, handRight, handTipRight, thumbRight);
-        shoulderRight.nodeProperty().get().setStyle("-fx-stroke: #850000;");
-        elbowRight.nodeProperty().get().setStyle("-fx-stroke: #850000;");
-        handRight.nodeProperty().get().setStyle("-fx-stroke: #850000;");
-        handTipRight.nodeProperty().get().setStyle("-fx-stroke: #850000;");
-        thumbRight.nodeProperty().get().setStyle("-fx-stroke: #850000;");
-
-        lineChart.getData().addAll(wristLeft, hipLeft, kneeLeft, ankleLeft, footLeft);
-        wristLeft.nodeProperty().get().setStyle("-fx-stroke: #4f0000;");
-        hipLeft.nodeProperty().get().setStyle("-fx-stroke: #4f0000;");
-        kneeLeft.nodeProperty().get().setStyle("-fx-stroke: #4f0000;");
-        ankleLeft.nodeProperty().get().setStyle("-fx-stroke: #4f0000;");
-        footLeft.nodeProperty().get().setStyle("-fx-stroke: #4f0000;");
-
-        lineChart.getData().addAll(wristRight, hipRight, kneeRight, ankleRight, footRight);
-        wristRight.nodeProperty().get().setStyle("-fx-stroke: #3a0000;");
-        hipRight.nodeProperty().get().setStyle("-fx-stroke: #3a0000;");
-        kneeRight.nodeProperty().get().setStyle("-fx-stroke: #3a0000;");
-        ankleRight.nodeProperty().get().setStyle("-fx-stroke: #3a0000;");
-        footRight.nodeProperty().get().setStyle("-fx-stroke: #3a0000;");
-
-        XYChart.Series<Number, Number> puls = new XYChart.Series<>();
-        startMili = kinectValues.get(0).getTime().toEpochMilli();
-        for (PulsometerValueDto pulsometerValue : pulsometerValues) {
-            puls.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, pulsometerValue), pulsometerValue.getValue()));
+        if (!leftGloveValues.isEmpty()) {
+            long startMilli = leftGloveValues.get(0).getTime().toEpochMilli();
+            double[] timeSeries = leftGloveStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
+            double[] thumbSeries = leftGloveStream().mapToDouble(GloveValueDto::getThumb).toArray();
+            double[] indexSeries = leftGloveStream().mapToDouble(GloveValueDto::getIndex).toArray();
+            double[] middleSeries = leftGloveStream().mapToDouble(GloveValueDto::getMiddle).toArray();
+            double[] ringSeries = leftGloveStream().mapToDouble(GloveValueDto::getRing).toArray();
+            double[] littleSeries = leftGloveStream().mapToDouble(GloveValueDto::getLittle).toArray();
+            //bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{thumbSeries, indexSeries, middleSeries, ringSeries, littleSeries}));
         }
 
-        lineChart.getData().addAll(puls);
-        puls.nodeProperty().get().setStyle("-fx-stroke: #367aff;");
-
-        XYChart.Series<Number, Number> lThumb = new XYChart.Series<>();
-        XYChart.Series<Number, Number> lIndex = new XYChart.Series<>();
-        XYChart.Series<Number, Number> lMiddle = new XYChart.Series<>();
-        XYChart.Series<Number, Number> lRing = new XYChart.Series<>();
-        XYChart.Series<Number, Number> lLitle = new XYChart.Series<>();
-
-        startMili = kinectValues.get(0).getTime().toEpochMilli();
-        for (GloveValueDto leftGloveValue : leftGloveValues) {
-            lThumb.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getThumb()));
-            lIndex.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getIndex()));
-            lMiddle.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getMiddle()));
-            lRing.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getRing()));
-            lLitle.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getLittle()));
+        if (!rightGloveValues.isEmpty()) {
+            long startMilli = rightGloveValues.get(0).getTime().toEpochMilli();
+            double[] timeSeries = rightGloveStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
+            double[] thumbSeries = rightGloveStream().mapToDouble(GloveValueDto::getThumb).toArray();
+            double[] indexSeries = rightGloveStream().mapToDouble(GloveValueDto::getIndex).toArray();
+            double[] middleSeries = rightGloveStream().mapToDouble(GloveValueDto::getMiddle).toArray();
+            double[] ringSeries = rightGloveStream().mapToDouble(GloveValueDto::getRing).toArray();
+            double[] littleSeries = rightGloveStream().mapToDouble(GloveValueDto::getLittle).toArray();
+            bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{thumbSeries, indexSeries, middleSeries, ringSeries, littleSeries}));
         }
 
-        lineChart.getData().addAll(lThumb, lIndex, lMiddle, lRing, lLitle);
-        lThumb.nodeProperty().get().setStyle("-fx-stroke: #149743;");
-        lIndex.nodeProperty().get().setStyle("-fx-stroke: #149743;");
-        lMiddle.nodeProperty().get().setStyle("-fx-stroke: #149743;");
-        lRing.nodeProperty().get().setStyle("-fx-stroke: #149743;");
-        lLitle.nodeProperty().get().setStyle("-fx-stroke: #149743;");
+        //TODO: na chwile zakomentowane zeby bylo cokolwiek widac
+        if (!kinectValues.isEmpty()) {
+            long startMilli = kinectValues.get(0).getTime().toEpochMilli();
+            double[] timeSeries = kinectStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
+            double[] head = kinectStream().mapToDouble(v -> v.getHead()).toArray();
+            double[] neck = kinectStream().mapToDouble(v -> v.getNeck()).toArray();
+            double[] spineBase = kinectStream().mapToDouble(v -> v.getSpineBase()).toArray();
+            double[] spineMid = kinectStream().mapToDouble(v -> v.getSpineMid()).toArray();
+            double[] spineShoulder = kinectStream().mapToDouble(v -> v.getSpineShoulder()).toArray();
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{head, neck, spineBase, spineMid, spineShoulder}));
 
-        XYChart.Series<Number, Number> rThumb = new XYChart.Series<>();
-        XYChart.Series<Number, Number> rIndex = new XYChart.Series<>();
-        XYChart.Series<Number, Number> rMiddle = new XYChart.Series<>();
-        XYChart.Series<Number, Number> rRing = new XYChart.Series<>();
-        XYChart.Series<Number, Number> rLitle = new XYChart.Series<>();
+            double[] lshoulder = kinectStream().mapToDouble(v -> v.getShoulderLeft()).toArray();
+            double[] lelbow = kinectStream().mapToDouble(v -> v.getElbowLeft()).toArray();
+            double[] lhand = kinectStream().mapToDouble(v -> v.getHandLeft()).toArray();
+            double[] lhandTip = kinectStream().mapToDouble(v -> v.getHandTipLeft()).toArray();
+            double[] lthumbLeft = kinectStream().mapToDouble(v -> v.getThumbLeft()).toArray();
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{lshoulder, lelbow, lhand, lhandTip, lthumbLeft}));
 
-        startMili = kinectValues.get(0).getTime().toEpochMilli();
-        for (GloveValueDto leftGloveValue : leftGloveValues) {
-            rThumb.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getThumb()));
-            rIndex.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getIndex()));
-            rMiddle.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getMiddle()));
-            rRing.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getRing()));
-            rLitle.getData().add(new XYChart.Data<>(getTimeSeconds(startMili, leftGloveValue), leftGloveValue.getLittle()));
+            double[] rshoulder = kinectStream().mapToDouble(v -> v.getShoulderRight()).toArray();
+            double[] relbow = kinectStream().mapToDouble(v -> v.getElbowRight()).toArray();
+            double[] rhand = kinectStream().mapToDouble(v -> v.getHandRight()).toArray();
+            double[] rhandTip = kinectStream().mapToDouble(v -> v.getHandTipRight()).toArray();
+            double[] rthumbLeft = kinectStream().mapToDouble(v -> v.getThumbRight()).toArray();
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{rshoulder, relbow, rhand, rhandTip, rthumbLeft}));
+
+            double[] lhip = kinectStream().mapToDouble(v -> v.getHipLeft()).toArray();
+            double[] lknee = kinectStream().mapToDouble(v -> v.getKneeLeft()).toArray();
+            double[] lfoot = kinectStream().mapToDouble(v -> v.getFootLeft()).toArray();
+            double[] lwrist = kinectStream().mapToDouble(v -> v.getWristLeft()).toArray();
+            double[] lankle = kinectStream().mapToDouble(v -> v.getAnkleLeft()).toArray();
+            //bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{lhip, lknee, lfoot, lwrist, lankle}));
+
+            double[] rhip = kinectStream().mapToDouble(v -> v.getHipRight()).toArray();
+            double[] rknee = kinectStream().mapToDouble(v -> v.getKneeRight()).toArray();
+            double[] rfoot = kinectStream().mapToDouble(v -> v.getFootRight()).toArray();
+            double[] rwrist = kinectStream().mapToDouble(v -> v.getWristRight()).toArray();
+            double[] rankle = kinectStream().mapToDouble(v -> v.getAnkleRight()).toArray();
+            //bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{rhip, rknee, rfoot, rwrist, rankle}));
         }
 
-        lineChart.getData().addAll(rThumb, rIndex, rMiddle, rRing, rLitle);
-        rThumb.nodeProperty().get().setStyle("-fx-stroke: #127037;");
-        rIndex.nodeProperty().get().setStyle("-fx-stroke: #127037;");
-        rMiddle.nodeProperty().get().setStyle("-fx-stroke: #127037;");
-        rRing.nodeProperty().get().setStyle("-fx-stroke: #127037;");
-        rLitle.nodeProperty().get().setStyle("-fx-stroke: #127037;");
-
-        return lineChart;
+        return bundle;
     }
 
-    private double getTimeSeconds(long startMili, TimeSequential kinectValue) {
-        return ((double)kinectValue.getTime().toEpochMilli() - startMili) / 1000;
+    private double getTimeSeconds(long startMili, TimeSequential sequential) {
+        return ((double)sequential.getTime().toEpochMilli() - startMili) / 1000;
     }
 
 
