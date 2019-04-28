@@ -3,10 +3,12 @@ package org.politechnika.model.kinect;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.politechnika.data_parser.csv.definitions.DataDto;
+import org.politechnika.data_parser.model.DataDto;
 
-@RequiredArgsConstructor
+import java.time.Instant;
+
 @Data
+@RequiredArgsConstructor
 public class PointDistance implements DataDto {
 
     private final String description;
@@ -86,6 +88,8 @@ public class PointDistance implements DataDto {
     @CsvBindByName(column = "kciuk_prawy")
     private double thumbRight;
 
+    private Instant time;
+
     public void setValueFor(Sensor sensor, double value) {
         switch (sensor) {
             case SPINE_BASE: spineBase = value; return;
@@ -116,7 +120,7 @@ public class PointDistance implements DataDto {
         }
     }
 
-    public double getValueFor(Sensor sensor) {
+     double getValueFor(Sensor sensor) {
         switch (sensor) {
             case SPINE_BASE: return spineBase;
             case SPINE_MID: return spineMid;

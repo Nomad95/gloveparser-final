@@ -2,7 +2,7 @@ package org.politechnika.model.kinect;
 
 import com.google.common.collect.Lists;
 import org.politechnika.commons.Constants;
-import org.politechnika.frontend.main_controller.MainController;
+import org.politechnika.frontend.MainController;
 
 import java.util.List;
 import java.util.stream.IntStream;

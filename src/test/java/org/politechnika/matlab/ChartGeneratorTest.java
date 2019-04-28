@@ -2,6 +2,7 @@ package org.politechnika.matlab;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.politechnika.commons.ParserMatlabException;
 import org.politechnika.matlab.builders.MultiPlot;
 import org.politechnika.matlab.builders.Plot;
 import org.politechnika.matlab.builders.Scatter;
@@ -11,7 +12,7 @@ public class ChartGeneratorTest {
 
     @Test
     @Ignore
-    public void shouldSaveFile() {
+    public void shouldSaveFile() throws ParserMatlabException {
         ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
 
         double[] doubles = {0.123d, 0.23612d, 123.22d, 98.44d};
@@ -35,7 +36,7 @@ public class ChartGeneratorTest {
 
     @Test
     @Ignore
-    public void shouldSaveFileComplex() {
+    public void shouldSaveFileComplex() throws ParserMatlabException {
         ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
 
         double[] doubles = {0.123d, 0.23612d, 123.22d, 98.44d};
@@ -69,7 +70,7 @@ public class ChartGeneratorTest {
 
     @Test
     @Ignore
-    public void shouldSaveScatter() {
+    public void shouldSaveScatter() throws ParserMatlabException {
         ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
 
         double[] double11 = {0.123d, 0.23612d, 123.22d, 98.44d};
@@ -89,6 +90,42 @@ public class ChartGeneratorTest {
         .withYAxisName("Wariancja")
         .withLegend("{'dupy', 'cycki'}")
         .build("D:\\\\"));
+
+    }
+
+    @Test
+    @Ignore
+    public void shouldSaveSuperimposed() throws ParserMatlabException {
+        ChartGeneratorImpl chartGenerator = new ChartGeneratorImpl();
+
+        double[] double11 = {0.123d, 0.00002d, 0.22d, 0.44d, 0.33, 0.0000004, 0.000031};
+        double[] double12 = {89.123d, 100.53612d, 120.22d, 110.44d};
+
+        double[] double21 = {2200.123d, 2300.23612d, 2200.22d, 2399.44d};
+        double[] double22 = {2300.123d, 2000.23612d, 1900.22d, 1799.44d};
+
+        double[] time1 = new double[double11.length];
+        for (int i = 0; i < time1.length; i++) {
+            time1[i] = (i / 4.0D);
+        }
+
+        double[] time2 = new double[double12.length];
+        for (int i = 0; i < time2.length; i++) {
+            time2[i] = (i / 4.0D);
+        }
+
+//        chartGenerator.drawChart(new SuperimposedChart.Builder()
+//                .withTitle("title1")
+//                .withXAxisName("X1")
+//                .withYAxisName("Y1")
+//                .leftYaxis()
+//                .addPulsometerPlot(double11, time1)
+//                .holdOn()
+//                .addGlovePlot(double21, time2)
+//                .addGlovePlot(double22, time2)
+//                .rightYaxis()
+//                .addKinectPlot(double12, time2)
+//                .build("D:\\\\"));
 
     }
 

@@ -5,8 +5,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.politechnika.data_parser.csv.definitions.DataDto;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
+import org.politechnika.cache.EntryType;
+import org.politechnika.cache.LoadingDataCache;
+import org.politechnika.data_parser.model.DataDto;
+import org.politechnika.data_parser.model.GloveDataDto;
 
 import java.util.List;
 
@@ -26,8 +28,8 @@ public class LoadingDataCacheUnitTest {
     public void shouldPutGenericDataToCacheAndBePresent() {
         DataDto gloveDataDto = new GloveDataDto();
 
-        LoadingDataCache.put(GloveDataDto.class, Lists.newArrayList(gloveDataDto));
-        List<GloveDataDto> gloveDataDtos = LoadingDataCache.get(GloveDataDto.class);
+        LoadingDataCache.put(EntryType.KINECT_STATS, Lists.newArrayList(gloveDataDto));
+        List<GloveDataDto> gloveDataDtos = LoadingDataCache.get(EntryType.KINECT_STATS);
 
         Assert.assertFalse(gloveDataDtos.isEmpty());
         Assert.assertEquals(gloveDataDto, gloveDataDtos.get(gloveDataDtos.size() - 1));
@@ -35,7 +37,7 @@ public class LoadingDataCacheUnitTest {
 
     @Test
     public void shouldReturnEmptyListWhenGettingNonExistingData() {
-        List<GloveDataDto> gloveDataDtos = LoadingDataCache.get(GloveDataDto.class);
+        List<GloveDataDto> gloveDataDtos = LoadingDataCache.get(EntryType.KINECT_STATS);
 
         Assert.assertTrue(gloveDataDtos.isEmpty());
     }

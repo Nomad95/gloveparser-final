@@ -19,10 +19,9 @@
 
     <build>
 
-        <finalName>pl.igor</finalName>
+        <finalName>ParserDanych</finalName>
 
         <plugins>
-
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
@@ -35,18 +34,34 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>/target</outputDirectory>
+                    <outputDirectory>${project.build.directory}/target</outputDirectory>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>gen3.MainApp</mainClass>
+                            <mainClass>org.politechnika.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+
+                    <outputDirectory>${project.build.directory}/target</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>org.politechnika.Application</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -162,8 +177,9 @@
         <dependency>
             <groupId>com.mathworks</groupId>
             <artifactId>engine</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/libs/engine.jar</systemPath>
+            <version>1.0.0</version>
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${project.basedir}/src/main/resources/libs/engine.jar</systemPath>-->
         </dependency>
 
         <dependency>
@@ -171,7 +187,6 @@
             <artifactId>commons-math3</artifactId>
             <version>3.6.1</version>
         </dependency>
-
 
     </dependencies>
 

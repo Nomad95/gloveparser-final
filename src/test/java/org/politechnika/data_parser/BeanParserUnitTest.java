@@ -6,12 +6,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.politechnika.StaticTestResources;
-import org.politechnika.data_parser.csv.definitions.GloveParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.PulsometerParsingStrategy;
-import org.politechnika.data_parser.csv.definitions.beans.GloveDataDto;
-import org.politechnika.data_parser.csv.definitions.beans.PulsometerDataDto;
-import org.politechnika.data_parser.csv.impl.BeanCsvParser;
-import org.politechnika.file.model.AbstractDataFile;
+import org.politechnika.data_parser.model.GloveDataDto;
+import org.politechnika.data_parser.model.PulsometerDataDto;
+import org.politechnika.data_parser.strategy.GloveParsingStrategy;
+import org.politechnika.data_parser.strategy.PulsometerParsingStrategy;
+import org.politechnika.file.AbstractDataFile;
 
 import java.io.FileNotFoundException;
 import java.io.StringReader;
@@ -27,15 +26,15 @@ public class BeanParserUnitTest {
     public void shouldParseGenerics() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.GLOVE_TEST_DATA)).when(file).getReader();
 
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
-        List<GloveDataDto> gloveDataFiles = beanCsvParser.parseToBean(file, new GloveParsingStrategy());
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
+        List<GloveDataDto> gloveDataFiles = csvToBeanParser.parseToBean(file, new GloveParsingStrategy());
     }
 
     @Test
     public void shouldParsePulsometerData() throws FileNotFoundException {
         Mockito.doReturn(new StringReader(StaticTestResources.PULSOMETER_TEST_DATA)).when(file).getReader();
 
-        BeanCsvParser beanCsvParser = new BeanCsvParser();
-        List<PulsometerDataDto> pulsometerDataFiles = beanCsvParser.parseToBean(file, new PulsometerParsingStrategy());
+        CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
+        List<PulsometerDataDto> pulsometerDataFiles = csvToBeanParser.parseToBean(file, new PulsometerParsingStrategy());
     }
 }
