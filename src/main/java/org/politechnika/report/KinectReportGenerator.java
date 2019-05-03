@@ -20,6 +20,7 @@ public class KinectReportGenerator implements ReportGenerator {
                 .doPointsCalculations(new CalculatePointDistances()
                         .andThen(new GenerateKinectPointDistanceReportCsv())
                         .andThen(new StorePointDistanceValues())
+                        .andThen(new CalculateAndCachePearsonCorrelations())
                         .andThen(new CalculatePointDistanceStatistics())
                         .andThen(new CacheStatistics())) //invoke charts
                 .doPointsCalculationsWithTimeInterval(new CalculateTimeIntervalPointDistanceStatistics()
@@ -49,7 +50,6 @@ public class KinectReportGenerator implements ReportGenerator {
         log.debug("Generating Kinect report");
         generator.generate();
         log.debug("Kinect report was generated");
-        //TODO: load data -> process and aggregate -> save to cache if needed for further processing -> save result to file (LAZY!)-> generate and save charts
     }
 
     @Override

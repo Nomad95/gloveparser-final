@@ -2,6 +2,7 @@ package org.politechnika.processing;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,16 @@ public class DoubleArrayTimeSeries {
 
     private Map<String, double[]> series;
 
+    private List<String> keysInsertOrder = new ArrayList<>(25);
+
     public DoubleArrayTimeSeries() {
         this.series = new HashMap<>();
     }
 
     public void addSeries(String seriesName, double[] seriesArray) {
         series.put(seriesName, seriesArray);
+        if (!keysInsertOrder.contains(seriesName))
+            keysInsertOrder.add(seriesName);
     }
 
     public void alignArrays(AligningMode aligningMode) {
@@ -79,6 +84,10 @@ public class DoubleArrayTimeSeries {
 
     public Object[] getAllSeriesArrays() {
         return series.values().toArray();
+    }
+
+    public String[] getInsertOrderKeys() {
+        return keysInsertOrder.toArray(new String[0]);
     }
 
     public enum AligningMode {

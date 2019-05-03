@@ -68,6 +68,7 @@ class StandardSuperimposedChart implements Superimposed {
 
     @Override
     public SuperimposedChartBundle getChartBundle() {
+        //TODO: wydzielic
         SuperimposedChartBundle bundle = new SuperimposedChartBundle();
         if (!pulsometerValues.isEmpty()) {
             long startMilli = pulsometerValues.get(0).getTime().toEpochMilli();
