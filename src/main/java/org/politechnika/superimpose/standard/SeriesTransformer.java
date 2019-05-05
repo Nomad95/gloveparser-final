@@ -87,6 +87,7 @@ class SeriesTransformer {
         stdSuper.pulsometerValues = stdSuper.pulsometerStream()
                 .filter(v -> !where.test(v.getValue()))
                 .collect(toCollection(LinkedList::new));
+        //TODO: a co jak utniemy w srodku??
     }
 
     void cutTimeOfOtherSeriesToAlignToSeriesOfType(StandardSuperimposedChart stdSuper, SeriesType type) {

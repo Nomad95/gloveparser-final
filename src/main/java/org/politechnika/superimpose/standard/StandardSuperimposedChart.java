@@ -68,6 +68,7 @@ class StandardSuperimposedChart implements Superimposed {
 
     @Override
     public SuperimposedChartBundle getChartBundle() {
+        //TODO: wydzielic
         SuperimposedChartBundle bundle = new SuperimposedChartBundle();
         if (!pulsometerValues.isEmpty()) {
             long startMilli = pulsometerValues.get(0).getTime().toEpochMilli();
@@ -84,7 +85,7 @@ class StandardSuperimposedChart implements Superimposed {
             double[] middleSeries = leftGloveStream().mapToDouble(GloveValueDto::getMiddle).toArray();
             double[] ringSeries = leftGloveStream().mapToDouble(GloveValueDto::getRing).toArray();
             double[] littleSeries = leftGloveStream().mapToDouble(GloveValueDto::getLittle).toArray();
-            //bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{thumbSeries, indexSeries, middleSeries, ringSeries, littleSeries}));
+            bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{thumbSeries, indexSeries, middleSeries, ringSeries, littleSeries}));
         }
 
         if (!rightGloveValues.isEmpty()) {
@@ -128,14 +129,14 @@ class StandardSuperimposedChart implements Superimposed {
             double[] lfoot = kinectStream().mapToDouble(v -> v.getFootLeft()).toArray();
             double[] lwrist = kinectStream().mapToDouble(v -> v.getWristLeft()).toArray();
             double[] lankle = kinectStream().mapToDouble(v -> v.getAnkleLeft()).toArray();
-            //bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{lhip, lknee, lfoot, lwrist, lankle}));
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{lhip, lknee, lfoot, lwrist, lankle}));
 
             double[] rhip = kinectStream().mapToDouble(v -> v.getHipRight()).toArray();
             double[] rknee = kinectStream().mapToDouble(v -> v.getKneeRight()).toArray();
             double[] rfoot = kinectStream().mapToDouble(v -> v.getFootRight()).toArray();
             double[] rwrist = kinectStream().mapToDouble(v -> v.getWristRight()).toArray();
             double[] rankle = kinectStream().mapToDouble(v -> v.getAnkleRight()).toArray();
-            //bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{rhip, rknee, rfoot, rwrist, rankle}));
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{rhip, rknee, rfoot, rwrist, rankle}));
         }
 
         return bundle;

@@ -16,8 +16,6 @@ import java.util.Map;
 import java.util.function.UnaryOperator;
 
 import static java.lang.String.format;
-import static org.politechnika.model.glove.Finger.*;
-import static org.politechnika.processing.DoubleArrayTimeSeries.AligningMode.LAST_VALUE;
 
 @Slf4j
 @AllArgsConstructor
@@ -28,25 +26,13 @@ public class CreateOneHandRawDataCsv implements UnaryOperator<Map<Finger, List<G
     @Override
     public Map<Finger, List<GloveDataDto>> apply(Map<Finger, List<GloveDataDto>> rawLeftHandDataByFinger) {
         log.debug(String.format("Creating %s hand raw data csv", handName));
-        double[] thumbFingerRawData = rawLeftHandDataByFinger.get(THUMB).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] indexFingerRawData = rawLeftHandDataByFinger.get(INDEX).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] middleFingerRawData = rawLeftHandDataByFinger.get(MIDDLE).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] ringFingerRawData = rawLeftHandDataByFinger.get(RING).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] littleFingerRawData = rawLeftHandDataByFinger.get(LITTLE).stream().mapToDouble(GloveDataDto::getRaw).toArray();
+        DoubleArrayTimeSeries arrayTimeSeries = new AlignGloveSeries().apply(rawLeftHandDataByFinger);
 
-        DoubleArrayTimeSeries arrayTimeSeries = new DoubleArrayTimeSeries();
-        arrayTimeSeries.addSeries(Constants.THUMB, thumbFingerRawData);
-        arrayTimeSeries.addSeries(Constants.INDEX, indexFingerRawData);
-        arrayTimeSeries.addSeries(Constants.MIDDLE, middleFingerRawData);
-        arrayTimeSeries.addSeries(Constants.RING, ringFingerRawData);
-        arrayTimeSeries.addSeries(Constants.LITTLE, littleFingerRawData);
-        arrayTimeSeries.alignArrays(LAST_VALUE);
-
-        thumbFingerRawData = arrayTimeSeries.getSeries(Constants.THUMB);
-        indexFingerRawData = arrayTimeSeries.getSeries(Constants.INDEX);
-        middleFingerRawData = arrayTimeSeries.getSeries(Constants.MIDDLE);
-        ringFingerRawData = arrayTimeSeries.getSeries(Constants.RING);
-        littleFingerRawData = arrayTimeSeries.getSeries(Constants.LITTLE);
+        double[] thumbFingerRawData = arrayTimeSeries.getSeries(Constants.THUMB);
+        double[] indexFingerRawData = arrayTimeSeries.getSeries(Constants.INDEX);
+        double[] middleFingerRawData = arrayTimeSeries.getSeries(Constants.MIDDLE);
+        double[] ringFingerRawData = arrayTimeSeries.getSeries(Constants.RING);
+        double[] littleFingerRawData = arrayTimeSeries.getSeries(Constants.LITTLE);
 
         ArrayList<OneHandGloveRawData> res = new ArrayList<>();
         for (int i = 0; i < thumbFingerRawData.length; i++) {

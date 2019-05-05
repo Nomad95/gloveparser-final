@@ -38,17 +38,18 @@ public enum Finger {
     abstract String getFingerName();
 
     public static Finger getFingerBySensorNumber(int sensorNumber) {
-        if (sensorNumber == 1 || sensorNumber == 0)
+        if (sensorNumber == 1 || sensorNumber == 0 || sensorNumber == 2)
             return THUMB;
-        if (sensorNumber == 3 || sensorNumber == 4)
+        if (sensorNumber == 3 || sensorNumber == 4 || sensorNumber == 5)
             return INDEX;
-        if (sensorNumber == 6 || sensorNumber == 7)
+        if (sensorNumber == 6 || sensorNumber == 7 || sensorNumber == 8)
             return MIDDLE;
-        if (sensorNumber == 9 || sensorNumber == 10)
+        if (sensorNumber == 9 || sensorNumber == 10 || sensorNumber == 11)
             return RING;
         if (sensorNumber == 12 || sensorNumber == 13)
             return LITTLE;
 
+        //todo: sie okazało ze gdzies była wartość z sensora 2 - co robimy w takim wypadku?
         throw new InvalidParameterException(sensorNumber + " is not a valid finger sensor");
     }
 }
