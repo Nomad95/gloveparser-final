@@ -99,7 +99,7 @@ public class DoubleArrayTimeSeries {
         }, LAST_VALUE {
             @Override
             double getValueToAlign(double[] arrayToAppendTo) {
-                return arrayToAppendTo[arrayToAppendTo.length - 1];
+                return arrayToAppendTo.length == 0 ? 0 : arrayToAppendTo[arrayToAppendTo.length - 1];
             }
         };
 

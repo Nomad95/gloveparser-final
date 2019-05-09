@@ -8,4 +8,5 @@ public interface ParsingStrategy<BEAN> {
 
     char getWriteSeparator();
 
+    boolean supportsFileExtension(String ext);
 }

@@ -23,18 +23,20 @@ public class DrawSuperimposedChart {
                 .leftYaxis()
                 .holdOn();
 
-        for (DataSeries pulso : bundle.getPulsometerSeries()) {
-            builder = builder.addPulsometerPlot(pulso.getDataArrays(), pulso.getTimeArray());
+        builder = builder.rightYaxis();
+
+        for (DataSeries kinecto : bundle.getKinectSeries()) {
+            builder = builder.addKinectPlot(kinecto.getDataArrays(), kinecto.getTimeArray());
         }
+
+        builder = builder.leftYaxis();
 
         for (DataSeries glovo : bundle.getGloveSeries()) {
             builder = builder.addGlovePlot(glovo.getDataArrays(), glovo.getTimeArray());
         }
 
-        builder = builder.rightYaxis();
-
-        for (DataSeries kinecto : bundle.getKinectSeries()) {
-            builder = builder.addKinectPlot(kinecto.getDataArrays(), kinecto.getTimeArray());
+        for (DataSeries pulso : bundle.getPulsometerSeries()) {
+            builder = builder.addPulsometerPlot(pulso.getDataArrays(), pulso.getTimeArray());
         }
 
         SuperimposedChart build = builder.build(MainController.getDestinationSubFolder());

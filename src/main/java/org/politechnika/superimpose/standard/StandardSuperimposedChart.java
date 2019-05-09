@@ -10,6 +10,7 @@ import org.politechnika.model.pulsometer.PulsometerValueDto;
 import org.politechnika.superimpose.Projection;
 import org.politechnika.superimpose.Superimposed;
 
+import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -61,24 +62,47 @@ class StandardSuperimposedChart implements Superimposed {
     public void adjustSeries() {
         SeriesType mostFrequentSeries = timeFrequencyAnalyzer.findSeriesWithMostFrequentChanges(this);
         seriesTransformer.cutPulsometerValues(this, val -> val == 0);
-        seriesTransformer.transformSeriesToStartAtSameTimeAs(this, mostFrequentSeries);
+        //seriesTransformer.transformSeriesToStartAtSameTimeAs(this, mostFrequentSeries);
         seriesTransformer.cutTimeOfOtherSeriesToAlignToSeriesOfType(this, PULS);
-        seriesTransformer.interpolateWithSeries(this, mostFrequentSeries);
+        seriesTransformer.interpolateWithSeries(this, mostFrequentSeries);//TODO: hmm to się konczy w tym samym momencie ale się nie teges
     }
 
     @Override
     public SuperimposedChartBundle getChartBundle() {
         //TODO: wydzielic
+        Instant first = Instant.now();
+        if (!pulsometerValues.isEmpty()) {
+            first = pulsometerValues.get(0).getTime();
+        }
+
+        if (!leftGloveValues.isEmpty()) {
+            if (leftGloveValues.get(0).getTime().isBefore(first)) {
+                first = leftGloveValues.get(0).getTime();
+            }
+        }
+
+        if (!rightGloveValues.isEmpty()) {
+            if (rightGloveValues.get(0).getTime().isBefore(first)) {
+                first = rightGloveValues.get(0).getTime();
+            }
+        }
+
+        if (!kinectValues.isEmpty()) {
+            if (kinectValues.get(0).getTime().isBefore(first)) {
+                first = kinectValues.get(0).getTime();
+            }
+        }
+
+        long startMilli = first.toEpochMilli();
+
         SuperimposedChartBundle bundle = new SuperimposedChartBundle();
         if (!pulsometerValues.isEmpty()) {
-            long startMilli = pulsometerValues.get(0).getTime().toEpochMilli();
             double[] timeSeries = pulsometerStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
             double[] values = pulsometerStream().mapToDouble(PulsometerValueDto::getValue).toArray();
             bundle.addPulsometerSeries(new StandardDataSeries(timeSeries, new Object[]{values}));
         }
 
         if (!leftGloveValues.isEmpty()) {
-            long startMilli = leftGloveValues.get(0).getTime().toEpochMilli();
             double[] timeSeries = leftGloveStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
             double[] thumbSeries = leftGloveStream().mapToDouble(GloveValueDto::getThumb).toArray();
             double[] indexSeries = leftGloveStream().mapToDouble(GloveValueDto::getIndex).toArray();
@@ -89,7 +113,6 @@ class StandardSuperimposedChart implements Superimposed {
         }
 
         if (!rightGloveValues.isEmpty()) {
-            long startMilli = rightGloveValues.get(0).getTime().toEpochMilli();
             double[] timeSeries = rightGloveStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
             double[] thumbSeries = rightGloveStream().mapToDouble(GloveValueDto::getThumb).toArray();
             double[] indexSeries = rightGloveStream().mapToDouble(GloveValueDto::getIndex).toArray();
@@ -99,44 +122,58 @@ class StandardSuperimposedChart implements Superimposed {
             bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{thumbSeries, indexSeries, middleSeries, ringSeries, littleSeries}));
         }
 
-        //TODO: na chwile zakomentowane zeby bylo cokolwiek widac
         if (!kinectValues.isEmpty()) {
-            long startMilli = kinectValues.get(0).getTime().toEpochMilli();
             double[] timeSeries = kinectStream().mapToDouble(v -> getTimeSeconds(startMilli, v)).toArray();
             double[] head = kinectStream().mapToDouble(v -> v.getHead()).toArray();
             double[] neck = kinectStream().mapToDouble(v -> v.getNeck()).toArray();
             double[] spineBase = kinectStream().mapToDouble(v -> v.getSpineBase()).toArray();
             double[] spineMid = kinectStream().mapToDouble(v -> v.getSpineMid()).toArray();
             double[] spineShoulder = kinectStream().mapToDouble(v -> v.getSpineShoulder()).toArray();
-            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{head, neck, spineBase, spineMid, spineShoulder}));
+            double[] avg = new double[timeSeries.length];
+            for (int i = 0; i < avg.length; i++) {
+                avg[i] = (head[i] + neck[i] + spineBase[i] + spineMid[i] + spineShoulder[i] )/ 5;
+            }
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{avg}));
 
             double[] lshoulder = kinectStream().mapToDouble(v -> v.getShoulderLeft()).toArray();
             double[] lelbow = kinectStream().mapToDouble(v -> v.getElbowLeft()).toArray();
             double[] lhand = kinectStream().mapToDouble(v -> v.getHandLeft()).toArray();
             double[] lhandTip = kinectStream().mapToDouble(v -> v.getHandTipLeft()).toArray();
             double[] lthumbLeft = kinectStream().mapToDouble(v -> v.getThumbLeft()).toArray();
-            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{lshoulder, lelbow, lhand, lhandTip, lthumbLeft}));
+            for (int i = 0; i < avg.length; i++) {
+                avg[i] = (lshoulder[i] + lelbow[i] + lhand[i] + lhandTip[i] + lthumbLeft[i] )/ 5;
+            }
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{avg}));
 
             double[] rshoulder = kinectStream().mapToDouble(v -> v.getShoulderRight()).toArray();
             double[] relbow = kinectStream().mapToDouble(v -> v.getElbowRight()).toArray();
             double[] rhand = kinectStream().mapToDouble(v -> v.getHandRight()).toArray();
             double[] rhandTip = kinectStream().mapToDouble(v -> v.getHandTipRight()).toArray();
             double[] rthumbLeft = kinectStream().mapToDouble(v -> v.getThumbRight()).toArray();
-            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{rshoulder, relbow, rhand, rhandTip, rthumbLeft}));
+            for (int i = 0; i < avg.length; i++) {
+                avg[i] = (rshoulder[i] + relbow[i] + rhand[i] + rhandTip[i] + rthumbLeft[i] )/ 5;
+            }
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{avg}));
 
             double[] lhip = kinectStream().mapToDouble(v -> v.getHipLeft()).toArray();
             double[] lknee = kinectStream().mapToDouble(v -> v.getKneeLeft()).toArray();
             double[] lfoot = kinectStream().mapToDouble(v -> v.getFootLeft()).toArray();
             double[] lwrist = kinectStream().mapToDouble(v -> v.getWristLeft()).toArray();
             double[] lankle = kinectStream().mapToDouble(v -> v.getAnkleLeft()).toArray();
-            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{lhip, lknee, lfoot, lwrist, lankle}));
+            for (int i = 0; i < avg.length; i++) {
+                avg[i] = (lhip[i] + lknee[i] + lfoot[i] + lwrist[i] + lankle[i] )/ 5;
+            }
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{avg}));
 
             double[] rhip = kinectStream().mapToDouble(v -> v.getHipRight()).toArray();
             double[] rknee = kinectStream().mapToDouble(v -> v.getKneeRight()).toArray();
             double[] rfoot = kinectStream().mapToDouble(v -> v.getFootRight()).toArray();
             double[] rwrist = kinectStream().mapToDouble(v -> v.getWristRight()).toArray();
             double[] rankle = kinectStream().mapToDouble(v -> v.getAnkleRight()).toArray();
-            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{rhip, rknee, rfoot, rwrist, rankle}));
+            for (int i = 0; i < avg.length; i++) {
+                avg[i] = (rhip[i] + rknee[i] + rfoot[i] + rwrist[i] + rankle[i] )/ 5;
+            }
+            bundle.addKinectSeries(new StandardDataSeries(timeSeries, new Object[]{avg}));
         }
 
         return bundle;

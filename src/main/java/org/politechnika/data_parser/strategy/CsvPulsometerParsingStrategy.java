@@ -1,15 +1,15 @@
 package org.politechnika.data_parser.strategy;
 
-import org.politechnika.data_parser.model.KinectDataDto;
+import org.politechnika.data_parser.model.TimestampPulsometerData;
 
 import static org.politechnika.commons.Separators.PIPE;
 import static org.politechnika.commons.Separators.SEMICOLON;
 
-public class KinectParsingStrategy implements ParsingStrategy<KinectDataDto> {
+public class CsvPulsometerParsingStrategy implements ParsingStrategy<TimestampPulsometerData> {
 
     @Override
-    public Class<KinectDataDto> getBeanClass() {
-        return KinectDataDto.class;
+    public Class<TimestampPulsometerData> getBeanClass() {
+        return TimestampPulsometerData.class;
     }
 
     @Override

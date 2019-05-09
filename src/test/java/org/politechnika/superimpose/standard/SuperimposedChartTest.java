@@ -11,7 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.politechnika.StaticTestResources;
 import org.politechnika.data_parser.CsvToBeanParser;
 import org.politechnika.data_parser.model.PulsometerDataDto;
-import org.politechnika.data_parser.strategy.PulsometerParsingStrategy;
+import org.politechnika.data_parser.strategy.TxtPulsometerParsingStrategy;
 import org.politechnika.file.AbstractDataFile;
 import org.politechnika.model.glove.GloveValueDto;
 import org.politechnika.model.kinect.PointDistanceValueDto;
@@ -373,7 +373,7 @@ public class SuperimposedChartTest {
                         .mapToObj(i -> newKinectValueOfTime(Instant.now().plusMillis(i)))
                         .limit(21)
                         .collect(toCollection(LinkedList::new));
-        List<PulsometerValueDto> puls = csvToBeanParser.parseToBean(file, new PulsometerParsingStrategy()).stream()
+        List<PulsometerValueDto> puls = csvToBeanParser.parseToBean(file, new TxtPulsometerParsingStrategy()).stream()
                 .map(PulsometerDataDto::toValueDto)
                 .collect(toCollection(LinkedList::new));
         stdSuper.loadLeftGloveValues(left);
@@ -408,7 +408,7 @@ public class SuperimposedChartTest {
                         .mapToObj(i -> newKinectValueOfTime(Instant.now().plusMillis(i)))
                         .limit(21)
                         .collect(toCollection(LinkedList::new));
-        List<PulsometerValueDto> puls = csvToBeanParser.parseToBean(file, new PulsometerParsingStrategy()).stream()
+        List<PulsometerValueDto> puls = csvToBeanParser.parseToBean(file, new TxtPulsometerParsingStrategy()).stream()
                 .map(PulsometerDataDto::toValueDto)
                 .collect(toCollection(LinkedList::new));
         stdSuper.loadLeftGloveValues(left);

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+import static java.util.Collections.emptyList;
 import static org.politechnika.model.glove.Finger.*;
 import static org.politechnika.processing.DoubleArrayTimeSeries.AligningMode.LAST_VALUE;
 
@@ -16,11 +17,11 @@ public class AlignGloveSeries implements Function<Map<Finger, List<GloveDataDto>
 
     @Override
     public DoubleArrayTimeSeries apply(Map<Finger, List<GloveDataDto>> fingerListMap) {
-        double[] thumbFingerRawData = fingerListMap.get(THUMB).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] indexFingerRawData = fingerListMap.get(INDEX).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] middleFingerRawData = fingerListMap.get(MIDDLE).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] ringFingerRawData = fingerListMap.get(RING).stream().mapToDouble(GloveDataDto::getRaw).toArray();
-        double[] littleFingerRawData = fingerListMap.get(LITTLE).stream().mapToDouble(GloveDataDto::getRaw).toArray();
+        double[] thumbFingerRawData = fingerListMap.getOrDefault(THUMB, emptyList()).stream().mapToDouble(GloveDataDto::getRaw).toArray();
+        double[] indexFingerRawData = fingerListMap.getOrDefault(INDEX, emptyList()).stream().mapToDouble(GloveDataDto::getRaw).toArray();
+        double[] middleFingerRawData = fingerListMap.getOrDefault(MIDDLE, emptyList()).stream().mapToDouble(GloveDataDto::getRaw).toArray();
+        double[] ringFingerRawData = fingerListMap.getOrDefault(RING, emptyList()).stream().mapToDouble(GloveDataDto::getRaw).toArray();
+        double[] littleFingerRawData = fingerListMap.getOrDefault(LITTLE, emptyList()).stream().mapToDouble(GloveDataDto::getRaw).toArray();
 
         DoubleArrayTimeSeries arrayTimeSeries = new DoubleArrayTimeSeries();
         arrayTimeSeries.addSeries(Constants.THUMB, thumbFingerRawData);

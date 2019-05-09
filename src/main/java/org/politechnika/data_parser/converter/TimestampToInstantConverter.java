@@ -10,7 +10,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class GloveTimestampToInstantConverter extends AbstractBeanField<Instant> {
+public class TimestampToInstantConverter extends AbstractBeanField<Instant> {
 
     @Override
     protected Instant convert(String value) throws CsvDataTypeMismatchException, CsvConstraintViolationException {

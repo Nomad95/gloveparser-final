@@ -1,6 +1,7 @@
 package org.politechnika.file;
 
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,4 +17,8 @@ public abstract class AbstractDataFile {
     }
 
     public abstract String getFileType();
+
+    public String getFileExtension() {
+        return FilenameUtils.getExtension(filePath);
+    }
 }

@@ -21,4 +21,9 @@ public class GloveParsingStrategy implements ParsingStrategy<GloveDataDto> {
     public char getWriteSeparator() {
         return SEMICOLON;
     }
+
+    @Override
+    public boolean supportsFileExtension(String ext) {
+        return "csv".equals(ext);
+    }
 }

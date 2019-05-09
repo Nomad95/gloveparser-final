@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 import lombok.*;
 import org.politechnika.data_parser.converter.DoubleWithCommaConverter;
-import org.politechnika.data_parser.converter.GloveTimestampToInstantConverter;
+import org.politechnika.data_parser.converter.TimestampToInstantConverter;
 
 import java.time.Instant;
 
@@ -36,6 +36,6 @@ public class GloveDataDto implements DataDto {
     @CsvBindByName(column = "Up")
     private int up;
 
-    @CsvCustomBindByName(column = "TimeStamp", converter = GloveTimestampToInstantConverter.class)
+    @CsvCustomBindByName(column = "TimeStamp", converter = TimestampToInstantConverter.class)
     private Instant timestamp;
 }

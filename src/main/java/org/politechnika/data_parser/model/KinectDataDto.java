@@ -3,7 +3,7 @@ package org.politechnika.data_parser.model;
 import com.opencsv.bean.CsvCustomBindByName;
 import lombok.*;
 import org.politechnika.data_parser.converter.DoubleWithCommaConverter;
-import org.politechnika.data_parser.converter.GloveTimestampToInstantConverter;
+import org.politechnika.data_parser.converter.TimestampToInstantConverter;
 
 import java.time.Instant;
 
@@ -266,6 +266,6 @@ public class KinectDataDto implements DataDto {
     @CsvCustomBindByName(column = "ThumbRight_z", converter = DoubleWithCommaConverter.class)
     private double thumbRight_z;
 
-    @CsvCustomBindByName(column = "TimeStamp", converter = GloveTimestampToInstantConverter.class)
+    @CsvCustomBindByName(column = "TimeStamp", converter = TimestampToInstantConverter.class)
     private Instant timestamp;
 }

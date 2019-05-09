@@ -9,7 +9,7 @@ import org.politechnika.StaticTestResources;
 import org.politechnika.data_parser.model.GloveDataDto;
 import org.politechnika.data_parser.model.PulsometerDataDto;
 import org.politechnika.data_parser.strategy.GloveParsingStrategy;
-import org.politechnika.data_parser.strategy.PulsometerParsingStrategy;
+import org.politechnika.data_parser.strategy.TxtPulsometerParsingStrategy;
 import org.politechnika.file.AbstractDataFile;
 
 import java.io.FileNotFoundException;
@@ -35,6 +35,6 @@ public class BeanParserUnitTest {
         Mockito.doReturn(new StringReader(StaticTestResources.PULSOMETER_TEST_DATA)).when(file).getReader();
 
         CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
-        List<PulsometerDataDto> pulsometerDataFiles = csvToBeanParser.parseToBean(file, new PulsometerParsingStrategy());
+        List<PulsometerDataDto> pulsometerDataFiles = csvToBeanParser.parseToBean(file, new TxtPulsometerParsingStrategy());
     }
 }
