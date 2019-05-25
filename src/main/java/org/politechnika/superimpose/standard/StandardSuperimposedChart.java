@@ -1,6 +1,6 @@
 package org.politechnika.superimpose.standard;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.commons.Optimized;
 import org.politechnika.data_parser.model.TimeSequential;
@@ -20,13 +20,21 @@ import static org.politechnika.superimpose.standard.SeriesType.PULS;
 /**
  * Pulsometer has precedence in this series (if exists)
  */
+@SuppressWarnings("Duplicates")
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Optimized(optimizationFactor = 9000)
 class StandardSuperimposedChart implements Superimposed {
 
     private final TimeFrequencyAnalyzer timeFrequencyAnalyzer;
     private final SeriesTransformer seriesTransformer;
+    private Projection projection;
+
+    StandardSuperimposedChart(TimeFrequencyAnalyzer timeFrequencyAnalyzer, SeriesTransformer seriesTransformer, Projection projection) {
+        this.timeFrequencyAnalyzer = timeFrequencyAnalyzer;
+        this.seriesTransformer = seriesTransformer;
+        this.projection = projection;
+    }
 
     List<GloveValueDto> leftGloveValues = new LinkedList<>();
     List<GloveValueDto> rightGloveValues = new LinkedList<>();
@@ -55,16 +63,23 @@ class StandardSuperimposedChart implements Superimposed {
 
     @Override
     public void setProjection(Projection projection) {
-
+        this.projection = projection;
     }
 
     @Override
     public void adjustSeries() {
         SeriesType mostFrequentSeries = timeFrequencyAnalyzer.findSeriesWithMostFrequentChanges(this);
-        seriesTransformer.cutPulsometerValues(this, val -> val == 0);
-        //seriesTransformer.transformSeriesToStartAtSameTimeAs(this, mostFrequentSeries);
-        seriesTransformer.cutTimeOfOtherSeriesToAlignToSeriesOfType(this, PULS);
-        seriesTransformer.interpolateWithSeries(this, mostFrequentSeries);//TODO: hmm to się konczy w tym samym momencie ale się nie teges
+        if (projection.cutPulsometer())
+            seriesTransformer.cutPulsometerValues(this, val -> val == 0);
+        if (projection.startAtSameTime())
+            seriesTransformer.transformSeriesToStartAtSameTimeAs(this, mostFrequentSeries);
+        if (projection.endAtSameTime())
+            seriesTransformer.transformSeriesToEndAtSameTimeAs(this, mostFrequentSeries);
+        if (projection.cutOtherToAlignToPulsometer())
+            seriesTransformer.cutTimeOfOtherSeriesToAlignToSeriesOfType(this, PULS);
+        if (projection.cleanData())
+            seriesTransformer.cleanData(this);
+        seriesTransformer.interpolateWithSeries(this, mostFrequentSeries);
     }
 
     @Override
@@ -109,7 +124,11 @@ class StandardSuperimposedChart implements Superimposed {
             double[] middleSeries = leftGloveStream().mapToDouble(GloveValueDto::getMiddle).toArray();
             double[] ringSeries = leftGloveStream().mapToDouble(GloveValueDto::getRing).toArray();
             double[] littleSeries = leftGloveStream().mapToDouble(GloveValueDto::getLittle).toArray();
-            bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{thumbSeries, indexSeries, middleSeries, ringSeries, littleSeries}));
+            double[] avg = new double[timeSeries.length];
+            for (int i = 0; i < avg.length; i++) {
+                avg[i] = (thumbSeries[i] + indexSeries[i] + middleSeries[i] + ringSeries[i] + littleSeries[i] )/ 5;
+            }
+            bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{avg}));
         }
 
         if (!rightGloveValues.isEmpty()) {
@@ -119,7 +138,11 @@ class StandardSuperimposedChart implements Superimposed {
             double[] middleSeries = rightGloveStream().mapToDouble(GloveValueDto::getMiddle).toArray();
             double[] ringSeries = rightGloveStream().mapToDouble(GloveValueDto::getRing).toArray();
             double[] littleSeries = rightGloveStream().mapToDouble(GloveValueDto::getLittle).toArray();
-            bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{thumbSeries, indexSeries, middleSeries, ringSeries, littleSeries}));
+            double[] avg = new double[timeSeries.length];
+            for (int i = 0; i < avg.length; i++) {
+                avg[i] = (thumbSeries[i] + indexSeries[i] + middleSeries[i] + ringSeries[i] + littleSeries[i] )/ 5;
+            }
+            bundle.addGloveSeries(new StandardDataSeries(timeSeries, new Object[]{avg}));
         }
 
         if (!kinectValues.isEmpty()) {

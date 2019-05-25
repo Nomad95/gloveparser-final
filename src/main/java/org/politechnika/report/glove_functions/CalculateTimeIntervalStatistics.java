@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.groupingBy;
-import static org.politechnika.report.functions.GloveFunctions.sensorToFinger;
+import static org.politechnika.report.functions.Functions.sensorToFinger;
 
 @Slf4j
 public class CalculateTimeIntervalStatistics implements Function<Map<Long, List<GloveDataDto>>, TimeIntervalHandStatistics> {

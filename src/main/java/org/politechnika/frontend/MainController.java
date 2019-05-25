@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -16,10 +17,12 @@ import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
 import org.politechnika.cache.LoadingDataCache;
 import org.politechnika.cache.LoadingStringCache;
+import org.politechnika.cache.ProjectionCache;
 import org.politechnika.commons.Constants;
 import org.politechnika.controller.ActionControllerImpl;
 import org.politechnika.file.*;
 import org.politechnika.matlab.StartMatlabInstanceTask;
+import org.politechnika.model.UserProjection;
 import org.politechnika.report.*;
 import org.politechnika.superimpose.standard.StandardSuperimposedChartFactory;
 
@@ -52,6 +55,11 @@ public class MainController implements Initializable {
     @FXML private TextField destinationFolderTextField;
     @FXML private TextField millisTextField;
     @FXML private Button optionsButton;
+
+    @FXML private CheckBox cutPulsometerCB;
+    @FXML private CheckBox startAtSameTimeCB;
+    @FXML private CheckBox endAtSameTimeCB;
+    @FXML private CheckBox cleanDataCB;
 
     @FXML private Label matlabStatusLabel;
     @FXML private Label progresLabel;
@@ -200,11 +208,17 @@ public class MainController implements Initializable {
         generateReport.setOnAction(event -> {
             stopUi();
             List<AbstractDataFile> files = unmodifiableList(newArrayList(filesMap.values()));
+            destinationSubFolder = destinationFolder
+                    + ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
+                    .toLocalDateTime()
+                    .format(DateTimeFormatter.ofPattern(FOLDER_DATE_FORMATTER));
+            UserProjection projection = UserProjection.builder()
+                    .cutPulsometer(cutPulsometerCB.isSelected())
+                    .startAtSameTime(startAtSameTimeCB.isSelected())
+                    .endAtSameTime(endAtSameTimeCB.isSelected())
+                    .cleanData(cleanDataCB.isSelected()).build();
+            ProjectionCache.I.setProjection(projection);
             try {
-                destinationSubFolder = destinationFolder
-                        + ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
-                        .toLocalDateTime()
-                        .format(DateTimeFormatter.ofPattern(FOLDER_DATE_FORMATTER));
                 actionController.generate(files);
             } finally {
                 resumeUi();

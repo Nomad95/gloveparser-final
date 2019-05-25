@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static org.politechnika.commons.Constants.LEFT_HAND;
 import static org.politechnika.commons.Constants.RIGHT_HAND;
 import static org.politechnika.frontend.MainController.getTimeIntervalMillis;
-import static org.politechnika.report.functions.GloveFunctions.sensorToFinger;
+import static org.politechnika.report.functions.Functions.sensorToFinger;
 
 @Slf4j
 @Builder

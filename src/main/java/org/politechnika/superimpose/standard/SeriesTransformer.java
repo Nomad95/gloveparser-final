@@ -5,6 +5,7 @@ import org.politechnika.data_parser.model.TimeSequential;
 import org.politechnika.model.glove.GloveValueDto;
 import org.politechnika.model.kinect.PointDistanceValueDto;
 import org.politechnika.model.pulsometer.PulsometerValueDto;
+import org.politechnika.report.functions.Functions;
 
 import java.time.Instant;
 import java.util.EnumSet;
@@ -13,6 +14,7 @@ import java.util.ListIterator;
 import java.util.function.DoublePredicate;
 import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toCollection;
 import static org.politechnika.superimpose.standard.SeriesType.*;
 
@@ -83,11 +85,77 @@ class SeriesTransformer {
                 .collect(toCollection(LinkedList::new));
     }
 
-    void cutPulsometerValues(StandardSuperimposedChart stdSuper, DoublePredicate where) {
-        stdSuper.pulsometerValues = stdSuper.pulsometerStream()
-                .filter(v -> !where.test(v.getValue()))
+    void transformSeriesToEndAtSameTimeAs(StandardSuperimposedChart stdSuper, SeriesType seriesType) {
+        TimeSequential valueToAlignTo = getEndPointInTimeToAlignTo(stdSuper, seriesType);
+        EnumSet<SeriesType> otherSeries = getNotEmptySeriesOtherThan(stdSuper, seriesType);
+        for (SeriesType series : otherSeries) {
+            if (KINECT.equals(series)) {
+                alignLastPointDistanceValueAndAdjustRest(stdSuper, valueToAlignTo);
+            } else if (PULS.equals(series)) {
+                alignLastPulsValueAndAdjustRest(stdSuper, valueToAlignTo);
+            } else if (LEFT_HAND.equals(series)) {
+                alignLastLeftGloveValueAndAdjustRest(stdSuper, valueToAlignTo);
+            } else if (RIGHT_HAND.equals(series)) {
+                alignLastRightGloveValueAndAdjustRest(stdSuper, valueToAlignTo);
+            }
+        }
+    }
+
+    private TimeSequential getEndPointInTimeToAlignTo(StandardSuperimposedChart stdSuper, SeriesType seriesType) {
+        return seriesType.getSeries(stdSuper).get(seriesType.getSeries(stdSuper).size() - 1);
+    }
+
+    private void alignLastPointDistanceValueAndAdjustRest(StandardSuperimposedChart stdSuper, TimeSequential valueToAlignTo) {
+        PointDistanceValueDto last = requireNonNull(stdSuper.kinectValues.get(stdSuper.kinectValues.size() - 1));
+        long millisDiff = valueToAlignTo.getTime().toEpochMilli() - last.getTime().toEpochMilli();
+        stdSuper.kinectValues = stdSuper.kinectStream()
+                .map(e -> e.moveInTime(e.getTime().plusMillis(millisDiff)))
                 .collect(toCollection(LinkedList::new));
-        //TODO: a co jak utniemy w srodku??
+    }
+
+    private void alignLastPulsValueAndAdjustRest(StandardSuperimposedChart stdSuper, TimeSequential valueToAlignTo) {
+        PulsometerValueDto last = requireNonNull(stdSuper.pulsometerValues.get(stdSuper.pulsometerValues.size() - 1));
+        long millisDiff = valueToAlignTo.getTime().toEpochMilli() - last.getTime().toEpochMilli();
+        stdSuper.pulsometerValues = stdSuper.pulsometerStream()
+                .map(e -> e.moveInTime(e.getTime().plusMillis(millisDiff)))
+                .collect(toCollection(LinkedList::new));
+    }
+
+    private void alignLastLeftGloveValueAndAdjustRest(StandardSuperimposedChart stdSuper, TimeSequential valueToAlignTo) {
+        GloveValueDto last = requireNonNull(stdSuper.leftGloveValues.get(stdSuper.leftGloveValues.size() - 1));
+        long millisDiff = valueToAlignTo.getTime().toEpochMilli() - last.getTime().toEpochMilli();
+        stdSuper.leftGloveValues = stdSuper.leftGloveStream()
+                .map(e -> e.moveInTime(e.getTime().plusMillis(millisDiff)))
+                .collect(toCollection(LinkedList::new));
+    }
+
+    private void alignLastRightGloveValueAndAdjustRest(StandardSuperimposedChart stdSuper, TimeSequential valueToAlignTo) {
+        GloveValueDto last = requireNonNull(stdSuper.rightGloveValues.get(stdSuper.rightGloveValues.size() - 1));
+        long millisDiff = valueToAlignTo.getTime().toEpochMilli() - last.getTime().toEpochMilli();
+        stdSuper.rightGloveValues = stdSuper.rightGloveStream()
+                .map(e -> e.moveInTime(e.getTime().plusMillis(millisDiff)))
+                .collect(toCollection(LinkedList::new));
+    }
+
+    void cutPulsometerValues(StandardSuperimposedChart stdSuper, DoublePredicate where) {
+        ListIterator<PulsometerValueDto> li = stdSuper.pulsometerValues.listIterator();
+        while (li.hasNext()) {
+            PulsometerValueDto nextVal = li.next();
+            if (where.test(nextVal.getValue()))
+                li.remove();
+            else break;
+        }
+
+        ListIterator<PulsometerValueDto> fromLastItemIterator = stdSuper.pulsometerValues.listIterator(stdSuper.pulsometerValues.size() - 1);
+        while (fromLastItemIterator.hasPrevious()) {
+            PulsometerValueDto prevVal = fromLastItemIterator.previous();
+            if (where.test(prevVal.getValue()))
+                fromLastItemIterator.remove();
+            else {
+                fromLastItemIterator.remove();
+                break;
+            }
+        }
     }
 
     void cutTimeOfOtherSeriesToAlignToSeriesOfType(StandardSuperimposedChart stdSuper, SeriesType type) {
@@ -170,6 +238,87 @@ class SeriesTransformer {
         }
     }
 
+    @SuppressWarnings("Duplicates")
+    void cleanData(StandardSuperimposedChart stdSuper) {
+        double avg = stdSuper.pulsometerStream()
+                .filter(p -> p.getValue() != 0)
+                .mapToDouble(p -> p.getValue())
+                .average()
+                .orElseThrow(NO_VALUES_EXISTS);
+        avg = 2 * avg;
+        ListIterator<PulsometerValueDto> pulsLi = stdSuper.pulsometerValues.listIterator();
+        while (pulsLi.hasNext()) {
+            PulsometerValueDto former = pulsLi.next();
+            PulsometerValueDto later;
+            if (pulsLi.hasNext())
+                later = pulsLi.next();
+            else
+                break;
+            if (later.getValue() > former.getValue() + avg) {
+                pulsLi.remove();
+                pulsLi.previous();
+            }
+        }
 
+        avg = stdSuper.kinectStream()
+                .mapToDouble(Functions.kinectToAllAvg())
+                .filter(p -> p != 0)
+                .average()
+                .orElseThrow(NO_VALUES_EXISTS);
+        avg = 10 * avg;
+        ListIterator<PointDistanceValueDto> kinectLi = stdSuper.kinectValues.listIterator();
+        while (kinectLi.hasNext()) {
+            PointDistanceValueDto former = kinectLi.next();
+            PointDistanceValueDto later;
+            if (kinectLi.hasNext())
+                later = kinectLi.next();
+            else
+                break;
+            if (Functions.kinectToAllAvg().applyAsDouble(later) > Functions.kinectToAllAvg().applyAsDouble(former) + avg) {
+                kinectLi.remove();
+                kinectLi.previous();
+            }
+        }
+
+        avg = stdSuper.leftGloveStream()
+                .mapToDouble(Functions.gloveToAllAvg())
+                .filter(p -> p != 0)
+                .average()
+                .orElseThrow(NO_VALUES_EXISTS);
+        avg = 2 * avg;
+        ListIterator<GloveValueDto> lGloveLi = stdSuper.leftGloveValues.listIterator();
+        while (lGloveLi.hasNext()) {
+            GloveValueDto former = lGloveLi.next();
+            GloveValueDto later;
+            if (lGloveLi.hasNext())
+                later = lGloveLi.next();
+            else
+                break;
+            if (Functions.gloveToAllAvg().applyAsDouble(later) > Functions.gloveToAllAvg().applyAsDouble(former) + avg) {
+                lGloveLi.remove();
+                lGloveLi.previous();
+            }
+        }
+
+        avg = stdSuper.rightGloveStream()
+                .mapToDouble(Functions.gloveToAllAvg())
+                .filter(p -> p != 0)
+                .average()
+                .orElseThrow(NO_VALUES_EXISTS);        avg = 2 * avg;
+        ListIterator<GloveValueDto> rGloveLi = stdSuper.rightGloveValues.listIterator();
+        while (rGloveLi.hasNext()) {
+            GloveValueDto former = rGloveLi.next();
+            GloveValueDto later;
+            if (rGloveLi.hasNext())
+                later = rGloveLi.next();
+            else
+                break;
+            if (Functions.gloveToAllAvg().applyAsDouble(later) > Functions.gloveToAllAvg().applyAsDouble(former) + avg) {
+                rGloveLi.remove();
+                rGloveLi.previous();
+            }
+        }
+
+    }
 
 }

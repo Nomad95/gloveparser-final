@@ -24,7 +24,8 @@ public class ChartSample extends Application {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         Instant now = Instant.now();
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))

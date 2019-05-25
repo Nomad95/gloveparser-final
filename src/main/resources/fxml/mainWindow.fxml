@@ -56,6 +56,23 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <GridPane alignment="CENTER" gridLinesVisible="false" prefHeight="14.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
+              <children>
+                <CheckBox fx:id="cutPulsometerCB" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="155.0" text="Przytnij pulsometr" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <CheckBox fx:id="startAtSameTimeCB" alignment="CENTER" mnemonicParsing="false" prefWidth="155.0" text="Wyrównaj do początku" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <CheckBox fx:id="endAtSameTimeCB" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="155.0" text="Wyrównaj do końca" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <CheckBox id="cutOtherToAlignToPulsometerCB" fx:id="cleanDataCB" alignment="CENTER" mnemonicParsing="false" prefWidth="155.0" text="Wyczyść dane" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
             <GridPane prefHeight="16.0" prefWidth="620.0">
               <children>
                 <Button fx:id="optionsButton" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
@@ -65,7 +82,7 @@
                 </Button>
                 <Button fx:id="generateReport" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Generuj raport" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                   <effect>
-                    <DropShadow blurType="GAUSSIAN" color="#ecff44" height="31.933125" radius="15.69828125" width="32.86" />
+                    <DropShadow blurType="GAUSSIAN" color="#ecff44" height="32.3965625" radius="15.814140625" width="32.86" />
                   </effect>
                   <GridPane.margin>
                     <Insets right="20.0" />

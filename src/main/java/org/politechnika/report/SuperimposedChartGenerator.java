@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.politechnika.cache.EntryType;
 import org.politechnika.cache.LoadingDataCache;
+import org.politechnika.cache.ProjectionCache;
 import org.politechnika.commons.Constants;
 import org.politechnika.file.AbstractDataFile;
 import org.politechnika.report.superimposed_functions.DrawSuperimposedChart;
@@ -39,16 +40,10 @@ public class SuperimposedChartGenerator implements CollectiveReportGenerator {
                     break;
             }
         }
+        superimposed.setProjection(ProjectionCache.I.getProjection());
         superimposed.adjustSeries();
         SuperimposedChartBundle chartBundle = superimposed.getChartBundle();
         new DrawSuperimposedChart().drawSuperimposedChart(chartBundle);
-//        LineChart<Number, Number> chart = superimposed.getChartBundle();
-//        Scene scene  = new Scene(chart,800,600);
-//        Stage stage = new Stage();
-//        stage.setResizable(true);
-//        stage.setTitle("Nałożony wykres");
-//        stage.setScene(scene);
-//        stage.show();
         log.debug("Superimposed chart created successfully");
     }
 

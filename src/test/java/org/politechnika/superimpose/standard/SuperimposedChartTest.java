@@ -3,6 +3,7 @@ package org.politechnika.superimpose.standard;
 import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -16,6 +17,7 @@ import org.politechnika.file.AbstractDataFile;
 import org.politechnika.model.glove.GloveValueDto;
 import org.politechnika.model.kinect.PointDistanceValueDto;
 import org.politechnika.model.pulsometer.PulsometerValueDto;
+import org.politechnika.superimpose.Projection;
 
 import java.io.FileNotFoundException;
 import java.io.StringReader;
@@ -74,7 +76,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(5))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
@@ -112,7 +115,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(5))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
@@ -150,7 +154,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left = new LinkedList<>();
         LinkedList<GloveValueDto> right =
                 IntStream.generate(new IncrementalIntSupplier(3))
@@ -184,7 +189,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left = new LinkedList<>();
         LinkedList<GloveValueDto> right =
                 IntStream.generate(new IncrementalIntSupplier(4))
@@ -218,7 +224,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(10))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
@@ -250,7 +257,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(0))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
@@ -282,7 +290,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
 
         //when
         transformer.findSeriesWithMostFrequentChanges(stdSuper);
@@ -293,7 +302,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i + 10000)))
@@ -326,7 +336,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
@@ -355,14 +366,47 @@ public class SuperimposedChartTest {
     }
 
     @Test
+    public void shouldAlignTimeOfTheRestOfTheSeriesToEndOfThePulsWhenSeriesAreAfterPuls() {
+        //given
+        TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
+        SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
+        LinkedList<GloveValueDto> left =
+                IntStream.generate(new IncrementalIntSupplier(400))
+                        .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
+                        .limit(20)
+                        .collect(toCollection(LinkedList::new));
+        LinkedList<PointDistanceValueDto> kinect =
+                IntStream.generate(new IncrementalIntSupplier(100))
+                        .mapToObj(i -> newKinectValueOfTime(Instant.now().plusMillis(i)))
+                        .limit(21)
+                        .collect(toCollection(LinkedList::new));
+        LinkedList<PulsometerValueDto> puls =
+                IntStream.generate(new IncrementalIntSupplier(1000))
+                        .mapToObj(i -> newPulsValueOfTime(Instant.now().plusMillis(i)))
+                        .limit(22)
+                        .collect(toCollection(LinkedList::new));
+        stdSuper.loadLeftGloveValues(left);
+        stdSuper.loadKinectValues(kinect);
+        stdSuper.loadPulsometerValues(puls);
+
+        //when
+        seriesTransformer.transformSeriesToEndAtSameTimeAs(stdSuper, SeriesType.PULS);
+
+        //then
+        Assert.assertEquals(stdSuper.kinectValues.get(stdSuper.kinectValues.size() -1 ).getTime(), stdSuper.pulsometerValues.get(stdSuper.pulsometerValues.size() - 1 ).getTime());
+        Assert.assertEquals(stdSuper.kinectValues.get(stdSuper.kinectValues.size() -1 ).getTime(), stdSuper.leftGloveValues.get(stdSuper.leftGloveValues.size() - 1 ).getTime());
+    }
+
+    @Test
     public void shouldCutProvidedSeries() throws FileNotFoundException {
         //given
         Mockito.doReturn(new StringReader(StaticTestResources.PULSOMETER_TEST_DATA)).when(file).getReader();
         CsvToBeanParser csvToBeanParser = new CsvToBeanParser();
-
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, new AllProjection());
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
@@ -381,7 +425,7 @@ public class SuperimposedChartTest {
         stdSuper.loadPulsometerValues(puls);
 
         //when
-        seriesTransformer.cutPulsometerValues(stdSuper, val -> val == 0);
+        seriesTransformer.cutPulsometerValues(stdSuper, val -> val < 0);
 
         //then
         Assert.assertFalse(
@@ -397,7 +441,8 @@ public class SuperimposedChartTest {
 
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))
                         .mapToObj(i -> newGloveValueOfTime(Instant.now().plusMillis(i)))
@@ -438,7 +483,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         Instant now = Instant.now();
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))
@@ -476,7 +522,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         Instant now = Instant.now();
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))
@@ -522,7 +569,8 @@ public class SuperimposedChartTest {
         //given
         TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
         SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
-        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer);
+        StandardProjection standardProjection = new StandardProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, standardProjection);
         Instant now = Instant.now();
         LinkedList<GloveValueDto> left =
                 IntStream.generate(new IncrementalIntSupplier(400))
@@ -561,6 +609,48 @@ public class SuperimposedChartTest {
         Assert.assertTrue(interpolatedRightHand.isPresent());
         Assert.assertTrue(interpolatedKinect.isPresent());
         Assert.assertTrue(interpolatedPuls.isPresent());
+    }
+
+    @Test
+    @Ignore
+    public void shouldNotRemoveProperData() {
+        //given
+        TimeFrequencyAnalyzer transformer = new TimeFrequencyAnalyzer();
+        SeriesTransformer seriesTransformer = new SeriesTransformer(new SeriesInterpolator(new DirectLinearInterpolation()));
+        Projection allProjection = new AllProjection();
+        StandardSuperimposedChart stdSuper = new StandardSuperimposedChart(transformer, seriesTransformer, allProjection);
+        Instant now = Instant.now();
+        LinkedList<GloveValueDto> left =
+                IntStream.generate(new IncrementalIntSupplier(400))
+                        .mapToObj(i -> newGloveValueOfTime(now.plusMillis(i)))
+                        .limit(60)
+                        .collect(toCollection(LinkedList::new));
+        LinkedList<GloveValueDto> right =
+                IntStream.generate(new IncrementalIntSupplier(400))
+                        .mapToObj(i -> newGloveValueOfTime(now.plusMillis(i)))
+                        .limit(60)
+                        .collect(toCollection(LinkedList::new));
+        LinkedList<PointDistanceValueDto> kinect =
+                IntStream.generate(new IncrementalIntSupplier(100))
+                        .mapToObj(i -> newKinectValueOfTime(now.plusMillis(i)))
+                        .limit(210)
+                        .collect(toCollection(LinkedList::new));
+        LinkedList<PulsometerValueDto> puls =
+                IntStream.generate(new IncrementalIntSupplier(1000))
+                        .mapToObj(i -> newPulsValueOfTime(now.plusMillis(i)))
+                        .limit(22)
+                        .collect(toCollection(LinkedList::new));
+        stdSuper.loadLeftGloveValues(left);
+        stdSuper.loadRightGloveValues(right);
+        stdSuper.loadKinectValues(kinect);
+        stdSuper.loadPulsometerValues(puls);
+
+        seriesTransformer.cleanData(stdSuper);
+
+        Assert.assertEquals(60, stdSuper.leftGloveValues.size());
+        Assert.assertEquals(60, stdSuper.rightGloveValues.size());
+        Assert.assertEquals(210, stdSuper.kinectValues.size());
+        Assert.assertEquals(22, stdSuper.pulsometerValues.size());
     }
 
     private GloveValueDto newGloveValueOfTime(Instant time) {
@@ -608,5 +698,33 @@ public class SuperimposedChartTest {
     private PulsometerValueDto newPulsValueOfTime(Instant time) {
         ThreadLocalRandom rand = ThreadLocalRandom.current();
         return new PulsometerValueDto(time, rand.nextInt(-100, 100));
+    }
+}
+
+class AllProjection implements Projection {
+
+    @Override
+    public boolean cutPulsometer() {
+        return true;
+    }
+
+    @Override
+    public boolean startAtSameTime() {
+        return true;
+    }
+
+    @Override
+    public boolean endAtSameTime() {
+        return false;
+    }
+
+    @Override
+    public boolean cutOtherToAlignToPulsometer() {
+        return true;
+    }
+
+    @Override
+    public boolean cleanData() {
+        return true;
     }
 }
