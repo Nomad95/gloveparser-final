@@ -8,9 +8,7 @@ import org.politechnika.report.kinect_functions.*;
 @Slf4j
 public class KinectReportGenerator implements ReportGenerator {
 
-    @Override //TODO: ekstrapolacja - puls - srednia pomiedzyjedna a druga - rozpoznawanie. przeszukanie ignorowanie zera, czyscimy jesli pulsometr jeszcze nie zacza naliczac pulsu, definicje kolorów dla wartosci, np glowa-szyj-costam jeden kolor,  wskaza maksymalny puls w np pomiedzy 13 - a 15 sekundą, albo np co sie dzeje pomiedzy 1-10 sekundą, mail wszystkie pulsy,
-    //TODO: wszystkie JPG wyslac
-    //TODO: wykres -  nałożone
+    @Override
     public void generate(AbstractDataFile dataFile) {
         GenerateKinectReport generator = GenerateKinectReport.builder()
                 .fromFile(dataFile)

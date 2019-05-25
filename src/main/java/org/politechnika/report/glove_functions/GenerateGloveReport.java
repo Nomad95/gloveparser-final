@@ -51,7 +51,6 @@ public class GenerateGloveReport {
         log.debug("Operating on right hand time intervals");
         doOnRightHandWithTimeInterval.apply(partitionHandWithTimeSeries(rawDataPartitionedByHand, RIGHT_HAND));
 
-        //TODO add to correlation report
         //TODO add to inference report
     }
 

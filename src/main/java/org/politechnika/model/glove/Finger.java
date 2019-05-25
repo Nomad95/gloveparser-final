@@ -49,7 +49,6 @@ public enum Finger {
         if (sensorNumber == 12 || sensorNumber == 13)
             return LITTLE;
 
-        //todo: sie okazało ze gdzies była wartość z sensora 2 - co robimy w takim wypadku?
         throw new InvalidParameterException(sensorNumber + " is not a valid finger sensor");
     }
 }
