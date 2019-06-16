@@ -1,20 +1,19 @@
 package org.politechnika.frontend;
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
+import org.politechnika.ProgressDialog;
 import org.politechnika.cache.LoadingDataCache;
 import org.politechnika.cache.LoadingStringCache;
 import org.politechnika.cache.ProjectionCache;
@@ -206,24 +205,56 @@ public class MainController implements Initializable {
         });
 
         generateReport.setOnAction(event -> {
+            ProgressDialog.showProgressAlert();
+            ProgressDialog.alert.setHeaderText("Trwa generowanie raportów");
             stopUi();
-            List<AbstractDataFile> files = unmodifiableList(newArrayList(filesMap.values()));
-            destinationSubFolder = destinationFolder
-                    + ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
-                    .toLocalDateTime()
-                    .format(DateTimeFormatter.ofPattern(FOLDER_DATE_FORMATTER));
-            UserProjection projection = UserProjection.builder()
-                    .cutPulsometer(cutPulsometerCB.isSelected())
-                    .startAtSameTime(startAtSameTimeCB.isSelected())
-                    .endAtSameTime(endAtSameTimeCB.isSelected())
-                    .cleanData(cleanDataCB.isSelected()).build();
-            ProjectionCache.I.setProjection(projection);
-            try {
-                actionController.generate(files);
-            } finally {
-                resumeUi();
-                progresLabel.setText("Raporty zostały wygenerowane");
-            }
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    List<AbstractDataFile> files = unmodifiableList(newArrayList(filesMap.values()));
+                    destinationSubFolder = destinationFolder
+                            + ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
+                            .toLocalDateTime()
+                            .format(DateTimeFormatter.ofPattern(FOLDER_DATE_FORMATTER));
+                    UserProjection projection = UserProjection.builder()
+                            .cutPulsometer(cutPulsometerCB.isSelected())
+                            .startAtSameTime(startAtSameTimeCB.isSelected())
+                            .endAtSameTime(endAtSameTimeCB.isSelected())
+                            .cleanData(cleanDataCB.isSelected()).build();
+                    ProjectionCache.I.setProjection(projection);
+                    try {
+                        actionController.generate(files);
+                    } catch (Throwable e) {
+                        cancel();
+                        throw e;
+                    } finally {
+                        resumeUi();
+                        succeeded();
+                    }
+                    return null;
+                }
+            };
+            task.setOnCancelled(event1 -> {
+                ProgressDialog.alert.close();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Wystąpił błąd podczas generowania,\naplikacja zostanie zamknięta.", ButtonType.OK);
+                alert.showAndWait();
+                progresLabel.setText("Wystąpił błąd podczas generowania");
+                System.exit(0);
+            });
+            task.setOnSucceeded(event1 -> {
+                ProgressDialog.alert.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Generowanie w usłudze Matlab");
+                alert.setHeaderText("Generowanie zakończone powodzeniem");
+//                alert.setContentText("");
+                alert.showAndWait();
+                progresLabel.setText("Generowanie zakończone powodzeniem");
+            });
+            Thread taskThread = new Thread(
+                    task,
+                    "task-thread"
+            );
+            taskThread.start();
         });
     }
 

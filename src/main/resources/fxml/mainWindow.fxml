@@ -21,7 +21,7 @@
       <center>
         <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
           <children>
-            <GridPane alignment="TOP_CENTER" hgap="15.0" prefHeight="202.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
+            <GridPane alignment="TOP_CENTER" hgap="15.0" prefHeight="153.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
               <children>
                 <Button id="PulsometerSearchButton" fx:id="pulsometerSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" />
                 <Button id="KinectSearchButton" fx:id="kinectSearchButton" mnemonicParsing="false" text="Przeglądaj..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -44,10 +44,10 @@
                 <RowConstraints maxHeight="80.0" minHeight="30.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
               <VBox.margin>
-                <Insets top="30.0" />
+                <Insets top="20.0" />
               </VBox.margin>
             </GridPane>
-            <Separator prefWidth="566.0" />
+            <Separator prefHeight="0.0" prefWidth="620.0" />
             <GridPane hgap="15.0" vgap="10.0" VBox.vgrow="SOMETIMES">
               <children>
                 <Button fx:id="destinationPathButton" mnemonicParsing="false" prefHeight="25.0" text="Przeglądaj..." GridPane.columnIndex="2" />
@@ -83,7 +83,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                      <padding>
                         <Insets left="20.0" right="20.0" />
