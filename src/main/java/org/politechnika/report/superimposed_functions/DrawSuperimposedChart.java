@@ -18,8 +18,8 @@ public class DrawSuperimposedChart {
         SuperimposedChart.Builder builder = new SuperimposedChart.Builder()
                 .withTitle("Nałożony wykres")
                 .withFileName("superimposed_chart")
-                .withXAxisName("Wartości")
-                .withYAxisName("Czas [s]")
+                .withXAxisName("Czas [s]")
+                .withYAxisName("Wartości")
                 .leftYaxis()
                 .holdOn();
 

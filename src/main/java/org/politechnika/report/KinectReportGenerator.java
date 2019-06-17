@@ -13,7 +13,7 @@ public class KinectReportGenerator implements ReportGenerator {
         GenerateKinectReport generator = GenerateKinectReport.builder()
                 .fromFile(dataFile)
                 .parseData(new ParseToBeans())
-                .doCalculations(new CalculateKinectStatistics())//todo: Tomek to chyba zbędne
+                .doCalculations(new CalculateKinectStatistics())
                 .doCalculationsWithTimeInterval(new CalculateTimeIntervalKinectStatistics()) //invoke charts
                 .doPointsCalculations(new CalculatePointDistances()
                         .andThen(new GenerateKinectPointDistanceReportCsv())
