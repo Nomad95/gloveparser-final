@@ -212,7 +212,7 @@ public class MainController implements Initializable {
                 @Override
                 protected Void call() throws Exception {
                     List<AbstractDataFile> files = unmodifiableList(newArrayList(filesMap.values()));
-                    destinationSubFolder = destinationFolder
+                    destinationSubFolder = destinationFolder + "/"
                             + ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
                             .toLocalDateTime()
                             .format(DateTimeFormatter.ofPattern(FOLDER_DATE_FORMATTER));

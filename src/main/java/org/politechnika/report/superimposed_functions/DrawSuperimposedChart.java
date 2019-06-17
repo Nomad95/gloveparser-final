@@ -39,6 +39,8 @@ public class DrawSuperimposedChart {
             builder = builder.addPulsometerPlot(pulso.getDataArrays(), pulso.getTimeArray());
         }
 
+        builder.withLegend("{'Rękawica Lewa', 'Rękawica Prawa', 'Pulsometr', 'Kinect'}");
+
         SuperimposedChart build = builder.build(MainController.getDestinationSubFolder());
         try {
             generator.drawChart(build);
